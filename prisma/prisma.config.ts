@@ -6,7 +6,6 @@ import { defineConfig } from 'prisma/config'
 config({ path: path.join(__dirname, '..', '.env.local') })
 
 export default defineConfig({
-    earlyAccess: true,
     schema: path.join(__dirname, 'schema.prisma'),
     migrate: {
         adapter: async () => {
