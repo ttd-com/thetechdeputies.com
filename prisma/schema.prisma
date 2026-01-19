@@ -1,0 +1,151 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  passwordHash    String    @map("password_hash")
+  name            String?
+  role            Role      @default(USER)
+  emailVerified   Boolean   @default(false) @map("email_verified")
+  acuityClientId  String?   @map("acuity_client_id")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  sessions                  Session[]
+  passwordResetTokens       PasswordResetToken[]
+  emailVerificationTokens   EmailVerificationToken[]
+  coursePurchases           CoursePurchase[]
+
+  @@map("users")
+}
+
+enum Role {
+  USER  @map("user")
+  ADMIN @map("admin")
+}
+
+model Session {
+  id        String   @id
+  userId    Int      @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model PasswordResetToken {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("password_reset_tokens")
+}
+
+model EmailVerificationToken {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("email_verification_tokens")
+}
+
+model RateLimit {
+  id          Int      @id @default(autoincrement())
+  ipAddress   String   @map("ip_address")
+  endpoint    String
+  attempts    Int      @default(1)
+  windowStart DateTime @default(now()) @map("window_start")
+
+  @@unique([ipAddress, endpoint])
+  @@map("rate_limits")
+}
+
+model Setting {
+  key       String   @id
+  value     String?
+  encrypted Boolean  @default(false)
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("settings")
+}
+
+model GiftCard {
+  id              Int       @id @default(autoincrement())
+  code            String    @unique
+  originalAmount  Int       @map("original_amount")
+  remainingAmount Int       @map("remaining_amount")
+  purchaserEmail  String    @map("purchaser_email")
+  purchaserName   String?   @map("purchaser_name")
+  recipientEmail  String?   @map("recipient_email")
+  recipientName   String?   @map("recipient_name")
+  message         String?
+  status          GiftCardStatus @default(ACTIVE)
+  purchasedAt     DateTime  @default(now()) @map("purchased_at")
+  expiresAt       DateTime? @map("expires_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  transactions GiftCardTransaction[]
+
+  @@map("gift_cards")
+}
+
+enum GiftCardStatus {
+  ACTIVE    @map("active")
+  REDEEMED  @map("redeemed")
+  EXPIRED   @map("expired")
+  CANCELLED @map("cancelled")
+}
+
+model GiftCardTransaction {
+  id          Int      @id @default(autoincrement())
+  giftCardId  Int      @map("gift_card_id")
+  amount      Int
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  giftCard GiftCard @relation(fields: [giftCardId], references: [id], onDelete: Cascade)
+
+  @@map("gift_card_transactions")
+}
+
+model CoursePurchase {
+  id           Int       @id @default(autoincrement())
+  userId       Int       @map("user_id")
+  courseSlug   String    @map("course_slug")
+  amountPaid   Int       @map("amount_paid")
+  giftCardCode String?   @map("gift_card_code")
+  status       CoursePurchaseStatus @default(ACTIVE)
+  purchasedAt  DateTime  @default(now()) @map("purchased_at")
+  expiresAt    DateTime? @map("expires_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseSlug])
+  @@map("course_purchases")
+}
+
+enum CoursePurchaseStatus {
+  ACTIVE   @map("active")
+  REFUNDED @map("refunded")
+  EXPIRED  @map("expired")
+}

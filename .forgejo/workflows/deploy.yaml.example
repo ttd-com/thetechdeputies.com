@@ -1,0 +1,116 @@
+# Legacy Self-Hosted Deployment Workflow
+#
+# This is an EXAMPLE workflow for deploying to a self-hosted server.
+# It was used with Forgejo Actions but can be adapted for GitHub Actions
+# or other CI/CD platforms.
+#
+# USAGE:
+# 1. Copy this file to your CI/CD workflow directory
+# 2. Configure the required secrets in your CI/CD platform
+# 3. Update the deployment paths and settings for your server
+#
+# REQUIRED SECRETS:
+# - SSH_PRIVATE_KEY: Private key for SSH access to your server
+# - REMOTE_USER: SSH username (e.g., "deploy")
+# - REMOTE_HOST: Server IP or hostname (e.g., "your-server.example.com")
+# - NEXTAUTH_SECRET: Generate with `openssl rand -base64 32`
+# - NEXTAUTH_URL: Your production URL (e.g., "https://example.com")
+# - REDIS_URL: Upstash Redis URL
+# - REDIS_TOKEN: Upstash Redis token
+# - MAILGUN_API_KEY: Mailgun API key
+# - MAILGUN_DOMAIN: Mailgun sending domain
+
+name: Deploy to Production Server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "StrictHostKeyChecking no" >> ~/.ssh/config
+
+      - name: Deploy Code
+        run: |
+          # Install rsync if not available
+          if ! command -v rsync &> /dev/null; then
+            sudo apt-get update && sudo apt-get install -y rsync openssh-client
+          fi
+
+          # Deploy using rsync (exclude sensitive/generated folders)
+          rsync -avz \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.forgejo' \
+            --exclude='node_modules' \
+            --exclude='.next' \
+            --exclude='.env.local' \
+            ./ ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:~/your-app-directory
+
+      - name: Build and Start
+        run: |
+          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "
+            # Load NVM (install if missing)
+            export NVM_DIR=\"\$HOME/.nvm\"
+            if [ ! -d \"\$NVM_DIR\" ]; then
+                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+                export NVM_DIR=\"\$HOME/.nvm\"
+                [ -s \"\$NVM_DIR/nvm.sh\" ] && \. \"\$NVM_DIR/nvm.sh\"
+                nvm install 20
+                nvm use 20
+                nvm alias default 20
+            else
+                [ -s \"\$NVM_DIR/nvm.sh\" ] && \. \"\$NVM_DIR/nvm.sh\"
+            fi
+
+            # Install PM2 if not available
+            if ! command -v pm2 &> /dev/null; then
+                npm install -g pm2
+            fi
+
+            cd ~/your-app-directory
+
+            # Write environment variables from CI/CD secrets
+            echo 'NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}' > .env.local
+            echo 'AUTH_TRUST_HOST=true' >> .env.local
+            echo 'NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}' >> .env.local
+            echo 'REDIS_URL=${{ secrets.REDIS_URL }}' >> .env.local
+            echo 'REDIS_TOKEN=${{ secrets.REDIS_TOKEN }}' >> .env.local
+            echo 'MAILGUN_API_KEY=${{ secrets.MAILGUN_API_KEY }}' >> .env.local
+            echo 'MAILGUN_DOMAIN=${{ secrets.MAILGUN_DOMAIN }}' >> .env.local
+            # Add DATABASE_URL if using PostgreSQL:
+            # echo 'DATABASE_URL=${{ secrets.DATABASE_URL }}' >> .env.local
+
+            # Install dependencies and build
+            npm install --production=false
+            npm run build
+
+            # PM2 - Stop existing process, start fresh
+            # This pattern avoids duplicate process issues
+            npx pm2 stop your-app-name 2>/dev/null || true
+            npx pm2 delete your-app-name 2>/dev/null || true
+            npx pm2 start npm --name 'your-app-name' -- start
+            npx pm2 save
+
+            # Optional: Configure reverse proxy (Caddy example)
+            # Uncomment and modify if using Caddy:
+            # echo 'Configuring Caddy (Requires Sudo)...'
+            # if sudo -n true 2>/dev/null; then
+            #     if ! grep -q 'your-domain.com' /etc/caddy/Caddyfile; then
+            #         echo 'your-domain.com {
+            #             reverse_proxy localhost:3000
+            #         }' | sudo tee -a /etc/caddy/Caddyfile
+            #         sudo systemctl reload caddy
+            #     fi
+            # fi
+          "

@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand Colors - The Tech Deputies */
+  --color-primary: #39918C;
+  --color-primary-hover: #2d7571;
+  --color-primary-light: #4aa8a2;
+
+  --color-secondary: #2F435A;
+  --color-secondary-hover: #243548;
+  --color-secondary-light: #3d5673;
+
+  --color-accent-tan: #D0B49F;
+  --color-accent-tan-hover: #c4a48c;
+  --color-accent-tan-light: #e0c9b8;
+
+  --color-accent-terracotta: #AB6B51;
+  --color-accent-terracotta-hover: #955c45;
+  --color-accent-terracotta-light: #c07d62;
+
+  /* Semantic Colors */
+  --color-background: #ffffff;
+  --color-foreground: var(--color-secondary);
+  --color-muted: #f5f5f5;
+  --color-muted-foreground: #737373;
+  --color-border: #e5e5e5;
+
+  /* Focus ring for accessibility */
+  --color-focus-ring: var(--color-primary);
+}
+
+@theme inline {
+  /* Tailwind 4 theme configuration */
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-light: var(--color-primary-light);
+
+  --color-secondary: var(--color-secondary);
+  --color-secondary-hover: var(--color-secondary-hover);
+  --color-secondary-light: var(--color-secondary-light);
+
+  --color-accent-tan: var(--color-accent-tan);
+  --color-accent-tan-hover: var(--color-accent-tan-hover);
+  --color-accent-tan-light: var(--color-accent-tan-light);
+
+  --color-accent-terracotta: var(--color-accent-terracotta);
+  --color-accent-terracotta-hover: var(--color-accent-terracotta-hover);
+  --color-accent-terracotta-light: var(--color-accent-terracotta-light);
+
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-border: var(--color-border);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #0f172a;
+    --color-foreground: #f1f5f9;
+    --color-muted: #1e293b;
+    --color-muted-foreground: #94a3b8;
+    --color-border: #334155;
+  }
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Accessibility: Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Skip to main content link for screen readers */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-primary);
+  color: white;
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Form inputs - ensure visible text */
+input, textarea, select {
+  color: #1f2937;
+  background-color: #ffffff;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* Ensure inputs stay light in dark mode context */
+.bg-white input,
+.bg-white\/95 input,
+[class*="bg-white"] input {
+  color: #1f2937 !important;
+  background-color: #ffffff !important;
+}
+
