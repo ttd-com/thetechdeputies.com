@@ -1,329 +1,316 @@
-import Database from 'better-sqlite3';
-import path from 'path';
-import fs from 'fs';
+/**
+ * @file db.ts
+ * @description Database operations using Prisma ORM with PostgreSQL.
+ * Replaces better-sqlite3 for serverless compatibility (Vercel, etc).
+ */
 
-// Use a persistent location for the database
-const dbPath = process.env.NODE_ENV === 'production'
-    ? path.join(process.cwd(), 'thetechdeputies.db')
-    : path.join(process.cwd(), 'data', 'database.sqlite');
+import { PrismaClient } from '@prisma/client';
+import { logger } from './logger';
 
-// Ensure directory exists
-const dbDir = path.dirname(dbPath);
-if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir, { recursive: true });
-}
+// Singleton pattern for Prisma Client
+let prisma: PrismaClient;
 
-const db = new Database(dbPath);
-
-// Enable WAL mode for better concurrent access
-db.pragma('journal_mode = WAL');
-
-// Initialize tables
-db.exec(`
-  -- Users table
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
-    name TEXT,
-    role TEXT DEFAULT 'user' CHECK(role IN ('user', 'admin')),
-    email_verified INTEGER DEFAULT 0,
-    acuity_client_id TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  -- Email verification tokens
-  CREATE TABLE IF NOT EXISTS email_verification_tokens (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    token TEXT UNIQUE NOT NULL,
-    expires_at DATETIME NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-  );
-
-  -- Password reset tokens
-  CREATE TABLE IF NOT EXISTS password_reset_tokens (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    token TEXT UNIQUE NOT NULL,
-    expires_at DATETIME NOT NULL,
-    used INTEGER DEFAULT 0,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-  );
-
-  -- Rate limiting for password reset
-  CREATE TABLE IF NOT EXISTS rate_limits (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    ip_address TEXT NOT NULL,
-    endpoint TEXT NOT NULL,
-    attempts INTEGER DEFAULT 1,
-    window_start DATETIME DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE(ip_address, endpoint)
-  );
-
-  -- Site settings (API keys stored here, encrypted)
-  CREATE TABLE IF NOT EXISTS settings (
-    key TEXT PRIMARY KEY,
-    value TEXT,
-    encrypted INTEGER DEFAULT 0,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  -- Sessions table for auth
-  CREATE TABLE IF NOT EXISTS sessions (
-    id TEXT PRIMARY KEY,
-    user_id INTEGER NOT NULL,
-    expires_at DATETIME NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-  );
-
-  -- Gift cards table
-  CREATE TABLE IF NOT EXISTS gift_cards (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    code TEXT UNIQUE NOT NULL,
-    original_amount INTEGER NOT NULL,
-    remaining_amount INTEGER NOT NULL,
-    purchaser_email TEXT NOT NULL,
-    purchaser_name TEXT,
-    recipient_email TEXT,
-    recipient_name TEXT,
-    message TEXT,
-    status TEXT DEFAULT 'active' CHECK(status IN ('active', 'redeemed', 'expired', 'cancelled')),
-    purchased_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    expires_at DATETIME,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  );
-
-  -- Gift card transactions
-  CREATE TABLE IF NOT EXISTS gift_card_transactions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    gift_card_id INTEGER NOT NULL,
-    amount INTEGER NOT NULL,
-    description TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (gift_card_id) REFERENCES gift_cards(id) ON DELETE CASCADE
-  );
-
-  -- Course purchases
-  CREATE TABLE IF NOT EXISTS course_purchases (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    course_slug TEXT NOT NULL,
-    amount_paid INTEGER NOT NULL,
-    gift_card_code TEXT,
-    status TEXT DEFAULT 'active' CHECK(status IN ('active', 'refunded', 'expired')),
-    purchased_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    expires_at DATETIME,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    UNIQUE(user_id, course_slug)
-  );
-
-  -- Create indexes
-  CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
-  CREATE INDEX IF NOT EXISTS idx_sessions_user_id ON sessions(user_id);
-  CREATE INDEX IF NOT EXISTS idx_password_reset_tokens_token ON password_reset_tokens(token);
-  CREATE INDEX IF NOT EXISTS idx_rate_limits_ip_endpoint ON rate_limits(ip_address, endpoint);
-  CREATE INDEX IF NOT EXISTS idx_gift_cards_code ON gift_cards(code);
-  CREATE INDEX IF NOT EXISTS idx_gift_cards_purchaser ON gift_cards(purchaser_email);
-  CREATE INDEX IF NOT EXISTS idx_gift_cards_recipient ON gift_cards(recipient_email);
-  CREATE INDEX IF NOT EXISTS idx_course_purchases_user ON course_purchases(user_id);
-  CREATE INDEX IF NOT EXISTS idx_course_purchases_slug ON course_purchases(course_slug);
-`);
-
-export default db;
-
-// User operations
-export interface User {
-    id: number;
-    email: string;
-    password_hash: string;
-    name: string | null;
-    role: 'user' | 'admin';
-    email_verified: number;
-    acuity_client_id: string | null;
-    created_at: string;
-    updated_at: string;
-}
-
-export function getUserByEmail(email: string): User | undefined {
-    return db.prepare('SELECT * FROM users WHERE email = ?').get(email) as User | undefined;
-}
-
-export function getUserById(id: number): User | undefined {
-    return db.prepare('SELECT * FROM users WHERE id = ?').get(id) as User | undefined;
-}
-
-export function createUser(email: string, passwordHash: string, name?: string): User {
-    // First user becomes admin
-    const userCount = db.prepare('SELECT COUNT(*) as count FROM users').get() as { count: number };
-    const role = userCount.count === 0 ? 'admin' : 'user';
-
-    const result = db.prepare(
-        'INSERT INTO users (email, password_hash, name, role) VALUES (?, ?, ?, ?)'
-    ).run(email, passwordHash, name || null, role);
-
-    return getUserById(result.lastInsertRowid as number)!;
-}
-
-export function updateUserPassword(userId: number, passwordHash: string): void {
-    db.prepare('UPDATE users SET password_hash = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
-        .run(passwordHash, userId);
-}
-
-export function getAllUsers(): User[] {
-    return db.prepare('SELECT * FROM users ORDER BY created_at DESC').all() as User[];
-}
-
-// Password reset token operations
-export function createPasswordResetToken(userId: number, token: string, expiresAt: Date): void {
-    // Invalidate existing tokens for this user
-    db.prepare('DELETE FROM password_reset_tokens WHERE user_id = ?').run(userId);
-
-    db.prepare(
-        'INSERT INTO password_reset_tokens (user_id, token, expires_at) VALUES (?, ?, ?)'
-    ).run(userId, token, expiresAt.toISOString());
-}
-
-export function getPasswordResetToken(token: string): { user_id: number; expires_at: string; used: number } | undefined {
-    return db.prepare(
-        'SELECT user_id, expires_at, used FROM password_reset_tokens WHERE token = ?'
-    ).get(token) as { user_id: number; expires_at: string; used: number } | undefined;
-}
-
-export function markTokenAsUsed(token: string): void {
-    db.prepare('UPDATE password_reset_tokens SET used = 1 WHERE token = ?').run(token);
-}
-
-// Rate limiting
-export function checkRateLimit(ipAddress: string, endpoint: string, maxAttempts: number, windowMinutes: number): boolean {
-    const now = new Date();
-    const windowStart = new Date(now.getTime() - windowMinutes * 60 * 1000);
-
-    const existing = db.prepare(
-        'SELECT attempts, window_start FROM rate_limits WHERE ip_address = ? AND endpoint = ?'
-    ).get(ipAddress, endpoint) as { attempts: number; window_start: string } | undefined;
-
-    if (!existing) {
-        db.prepare(
-            'INSERT INTO rate_limits (ip_address, endpoint, attempts, window_start) VALUES (?, ?, 1, ?)'
-        ).run(ipAddress, endpoint, now.toISOString());
-        return true;
+if (process.env.NODE_ENV === 'production') {
+    prisma = new PrismaClient();
+} else {
+    // Prevent multiple instances in development
+    const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
+    if (!globalForPrisma.prisma) {
+        globalForPrisma.prisma = new PrismaClient({
+            log: ['error', 'warn'],
+        });
     }
+    prisma = globalForPrisma.prisma;
+}
 
-    const existingWindowStart = new Date(existing.window_start);
+export const db = prisma;
 
-    if (existingWindowStart < windowStart) {
-        // Reset the window
-        db.prepare(
-            'UPDATE rate_limits SET attempts = 1, window_start = ? WHERE ip_address = ? AND endpoint = ?'
-        ).run(now.toISOString(), ipAddress, endpoint);
-        return true;
+// Re-export Prisma types
+export type { User, GiftCard, GiftCardTransaction, CoursePurchase } from '@prisma/client';
+
+// Note: Tables are defined in prisma/schema.prisma
+// Run 'npx prisma migrate deploy' in production or 'npx prisma migrate dev' in development
+// to apply schema changes to the database.
+
+// ============================================================================
+// User Operations
+// ============================================================================
+
+export async function getUserByEmail(email: string) {
+    try {
+        return await prisma.user.findUnique({
+            where: { email },
+        });
+    } catch (error) {
+        logger.error('Error fetching user by email', error, { email });
+        return null;
     }
+}
 
-    if (existing.attempts >= maxAttempts) {
+export async function getUserById(id: number) {
+    try {
+        return await prisma.user.findUnique({
+            where: { id },
+        });
+    } catch (error) {
+        logger.error('Error fetching user by id', error, { userId: id });
+        return null;
+    }
+}
+
+export async function createUser(email: string, passwordHash: string, name?: string) {
+    try {
+        const userCount = await prisma.user.count();
+        const role = userCount === 0 ? 'ADMIN' : 'USER';
+
+        return await prisma.user.create({
+            data: {
+                email,
+                passwordHash,
+                name: name || null,
+                role,
+            },
+        });
+    } catch (error) {
+        logger.error('Error creating user', error, { email });
+        throw error;
+    }
+}
+
+export async function updateUserPassword(userId: number, passwordHash: string) {
+    try {
+        return await prisma.user.update({
+            where: { id: userId },
+            data: { passwordHash },
+        });
+    } catch (error) {
+        logger.error('Error updating user password', error, { userId });
+        throw error;
+    }
+}
+
+export async function getAllUsers() {
+    try {
+        return await prisma.user.findMany({
+            orderBy: { createdAt: 'desc' },
+        });
+    } catch (error) {
+        logger.error('Error fetching all users', error);
+        return [];
+    }
+}
+
+// ============================================================================
+// Password Reset Token Operations
+// ============================================================================
+
+export async function createPasswordResetToken(userId: number, token: string, expiresAt: Date) {
+    try {
+        // Delete existing tokens for this user
+        await prisma.passwordResetToken.deleteMany({
+            where: { userId },
+        });
+
+        return await prisma.passwordResetToken.create({
+            data: {
+                userId,
+                token,
+                expiresAt,
+                used: false,
+            },
+        });
+    } catch (error) {
+        logger.error('Error creating password reset token', error, { userId });
+        throw error;
+    }
+}
+
+export async function getPasswordResetToken(token: string) {
+    try {
+        return await prisma.passwordResetToken.findUnique({
+            where: { token },
+        });
+    } catch (error) {
+        logger.error('Error fetching password reset token', error);
+        return null;
+    }
+}
+
+export async function markTokenAsUsed(token: string) {
+    try {
+        return await prisma.passwordResetToken.update({
+            where: { token },
+            data: { used: true },
+        });
+    } catch (error) {
+        logger.error('Error marking token as used', error, { token });
+        throw error;
+    }
+}
+
+
+// ============================================================================
+// Rate Limiting Operations
+// ============================================================================
+
+export async function checkRateLimit(
+    ipAddress: string,
+    endpoint: string,
+    maxAttempts: number,
+    windowMinutes: number
+): Promise<boolean> {
+    try {
+        const now = new Date();
+        const windowStart = new Date(now.getTime() - windowMinutes * 60 * 1000);
+
+        const existing = await prisma.rateLimit.findUnique({
+            where: {
+                ipAddress_endpoint: { ipAddress, endpoint },
+            },
+        });
+
+        if (!existing) {
+            await prisma.rateLimit.create({
+                data: {
+                    ipAddress,
+                    endpoint,
+                    attempts: 1,
+                    windowStart: now,
+                },
+            });
+            return true;
+        }
+
+        if (existing.windowStart < windowStart) {
+            // Reset the window
+            await prisma.rateLimit.update({
+                where: {
+                    ipAddress_endpoint: { ipAddress, endpoint },
+                },
+                data: {
+                    attempts: 1,
+                    windowStart: now,
+                },
+            });
+            return true;
+        }
+
+        if (existing.attempts >= maxAttempts) {
+            return false;
+        }
+
+        await prisma.rateLimit.update({
+            where: {
+                ipAddress_endpoint: { ipAddress, endpoint },
+            },
+            data: {
+                attempts: existing.attempts + 1,
+            },
+        });
+
+        return true;
+    } catch (error) {
+        logger.error('Error checking rate limit', error, { ipAddress, endpoint });
         return false;
     }
-
-    db.prepare(
-        'UPDATE rate_limits SET attempts = attempts + 1 WHERE ip_address = ? AND endpoint = ?'
-    ).run(ipAddress, endpoint);
-    return true;
 }
 
-// Settings operations
-export function getSetting(key: string): string | null {
-    const result = db.prepare('SELECT value FROM settings WHERE key = ?').get(key) as { value: string } | undefined;
-    return result?.value || null;
+// ============================================================================
+// Settings Operations
+// ============================================================================
+
+export async function getSetting(key: string) {
+    try {
+        const setting = await prisma.setting.findUnique({
+            where: { key },
+        });
+        return setting?.value || null;
+    } catch (error) {
+        logger.error('Error fetching setting', error, { key });
+        return null;
+    }
 }
 
-export function setSetting(key: string, value: string, encrypted: boolean = false): void {
-    db.prepare(
-        'INSERT OR REPLACE INTO settings (key, value, encrypted, updated_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)'
-    ).run(key, value, encrypted ? 1 : 0);
+export async function setSetting(key: string, value: string, encrypted = false) {
+    try {
+        return await prisma.setting.upsert({
+            where: { key },
+            update: { value, encrypted },
+            create: { key, value, encrypted },
+        });
+    } catch (error) {
+        logger.error('Error setting value', error, { key });
+        throw error;
+    }
 }
 
-export function getAllSettings(): { key: string; value: string; encrypted: number }[] {
-    return db.prepare('SELECT key, value, encrypted FROM settings').all() as { key: string; value: string; encrypted: number }[];
+export async function getAllSettings() {
+    try {
+        return await prisma.setting.findMany();
+    } catch (error) {
+        logger.error('Error fetching all settings', error);
+        return [];
+    }
 }
 
-// Session operations (for custom session store)
-export function createSession(id: string, userId: number, expiresAt: Date): void {
-    db.prepare(
-        'INSERT INTO sessions (id, user_id, expires_at) VALUES (?, ?, ?)'
-    ).run(id, userId, expiresAt.toISOString());
+
+// ============================================================================
+// Email Verification Token Operations
+// ============================================================================
+
+export async function createEmailVerificationToken(userId: number, token: string, expiresAt: Date) {
+    try {
+        // Delete existing tokens for this user
+        await prisma.emailVerificationToken.deleteMany({
+            where: { userId },
+        });
+
+        return await prisma.emailVerificationToken.create({
+            data: {
+                userId,
+                token,
+                expiresAt,
+            },
+        });
+    } catch (error) {
+        logger.error('Error creating email verification token', error, { userId });
+        throw error;
+    }
 }
 
-export function getSession(id: string): { user_id: number; expires_at: string } | undefined {
-    return db.prepare(
-        'SELECT user_id, expires_at FROM sessions WHERE id = ?'
-    ).get(id) as { user_id: number; expires_at: string } | undefined;
+export async function getEmailVerificationToken(token: string) {
+    try {
+        return await prisma.emailVerificationToken.findUnique({
+            where: { token },
+        });
+    } catch (error) {
+        logger.error('Error fetching email verification token', error);
+        return null;
+    }
 }
 
-export function deleteSession(id: string): void {
-    db.prepare('DELETE FROM sessions WHERE id = ?').run(id);
+export async function verifyUserEmail(userId: number) {
+    try {
+        await prisma.user.update({
+            where: { id: userId },
+            data: { emailVerified: true },
+        });
+
+        await prisma.emailVerificationToken.deleteMany({
+            where: { userId },
+        });
+    } catch (error) {
+        logger.error('Error verifying user email', error, { userId });
+        throw error;
+    }
 }
 
-export function deleteUserSessions(userId: number): void {
-    db.prepare('DELETE FROM sessions WHERE user_id = ?').run(userId);
-}
-
-export function cleanExpiredSessions(): void {
-    db.prepare('DELETE FROM sessions WHERE expires_at < CURRENT_TIMESTAMP').run();
-}
-
-// Email verification operations
-export function createEmailVerificationToken(userId: number, token: string, expiresAt: Date): void {
-    // Invalidate existing tokens for this user
-    db.prepare('DELETE FROM email_verification_tokens WHERE user_id = ?').run(userId);
-
-    db.prepare(
-        'INSERT INTO email_verification_tokens (user_id, token, expires_at) VALUES (?, ?, ?)'
-    ).run(userId, token, expiresAt.toISOString());
-}
-
-export function getEmailVerificationToken(token: string): { user_id: number; expires_at: string } | undefined {
-    return db.prepare(
-        'SELECT user_id, expires_at FROM email_verification_tokens WHERE token = ?'
-    ).get(token) as { user_id: number; expires_at: string } | undefined;
-}
-
-export function verifyUserEmail(userId: number): void {
-    db.prepare('UPDATE users SET email_verified = 1, updated_at = CURRENT_TIMESTAMP WHERE id = ?')
-        .run(userId);
-    db.prepare('DELETE FROM email_verification_tokens WHERE user_id = ?').run(userId);
-}
-
-// Gift card operations
-export interface GiftCard {
-    id: number;
-    code: string;
-    original_amount: number;
-    remaining_amount: number;
-    purchaser_email: string;
-    purchaser_name: string | null;
-    recipient_email: string | null;
-    recipient_name: string | null;
-    message: string | null;
-    status: 'active' | 'redeemed' | 'expired' | 'cancelled';
-    purchased_at: string;
-    expires_at: string | null;
-    created_at: string;
-}
-
-export interface GiftCardTransaction {
-    id: number;
-    gift_card_id: number;
-    amount: number;
-    description: string | null;
-    created_at: string;
-}
+// ============================================================================
+// Gift Card Operations
+// ============================================================================
 
 export function generateGiftCardCode(): string {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Removed confusing chars like 0, O, 1, I
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
     let code = '';
     for (let i = 0; i < 16; i++) {
         if (i > 0 && i % 4 === 0) code += '-';
@@ -332,7 +319,7 @@ export function generateGiftCardCode(): string {
     return code;
 }
 
-export function createGiftCard(data: {
+export async function createGiftCard(data: {
     amountCents: number;
     purchaserEmail: string;
     purchaserName?: string;
@@ -340,185 +327,296 @@ export function createGiftCard(data: {
     recipientName?: string;
     message?: string;
     expiresAt?: Date;
-}): GiftCard {
-    const code = generateGiftCardCode();
+}) {
+    try {
+        const code = generateGiftCardCode();
 
-    const result = db.prepare(`
-        INSERT INTO gift_cards (code, original_amount, remaining_amount, purchaser_email, purchaser_name, recipient_email, recipient_name, message, expires_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `).run(
-        code,
-        data.amountCents,
-        data.amountCents,
-        data.purchaserEmail,
-        data.purchaserName || null,
-        data.recipientEmail || null,
-        data.recipientName || null,
-        data.message || null,
-        data.expiresAt?.toISOString() || null
-    );
+        const giftCard = await prisma.giftCard.create({
+            data: {
+                code,
+                originalAmount: data.amountCents,
+                remainingAmount: data.amountCents,
+                purchaserEmail: data.purchaserEmail,
+                purchaserName: data.purchaserName || null,
+                recipientEmail: data.recipientEmail || null,
+                recipientName: data.recipientName || null,
+                message: data.message || null,
+                expiresAt: data.expiresAt || null,
+            },
+        });
 
-    // Log the initial transaction
-    db.prepare(`
-        INSERT INTO gift_card_transactions (gift_card_id, amount, description)
-        VALUES (?, ?, ?)
-    `).run(result.lastInsertRowid, data.amountCents, 'Gift card purchased');
+        // Log initial transaction
+        await prisma.giftCardTransaction.create({
+            data: {
+                giftCardId: giftCard.id,
+                amount: data.amountCents,
+                description: 'Gift card purchased',
+            },
+        });
 
-    return getGiftCardById(result.lastInsertRowid as number)!;
-}
-
-export function getGiftCardById(id: number): GiftCard | undefined {
-    return db.prepare('SELECT * FROM gift_cards WHERE id = ?').get(id) as GiftCard | undefined;
-}
-
-export function getGiftCardByCode(code: string): GiftCard | undefined {
-    return db.prepare('SELECT * FROM gift_cards WHERE code = ?').get(code.toUpperCase().replace(/[^A-Z0-9]/g, '')) as GiftCard | undefined;
-}
-
-export function getGiftCardsByEmail(email: string): GiftCard[] {
-    return db.prepare(`
-        SELECT * FROM gift_cards 
-        WHERE purchaser_email = ? OR recipient_email = ?
-        ORDER BY created_at DESC
-    `).all(email, email) as GiftCard[];
-}
-
-export function getAllGiftCards(): GiftCard[] {
-    return db.prepare('SELECT * FROM gift_cards ORDER BY created_at DESC').all() as GiftCard[];
-}
-
-export function redeemGiftCard(code: string, amountCents: number, description: string): { success: boolean; error?: string; remainingBalance?: number } {
-    const card = getGiftCardByCode(code);
-
-    if (!card) {
-        return { success: false, error: 'Gift card not found' };
+        return giftCard;
+    } catch (error) {
+        logger.error('Error creating gift card', error);
+        throw error;
     }
+}
 
-    if (card.status !== 'active') {
-        return { success: false, error: `Gift card is ${card.status}` };
+export async function getGiftCardById(id: number) {
+    try {
+        return await prisma.giftCard.findUnique({
+            where: { id },
+        });
+    } catch (error) {
+        logger.error('Error fetching gift card by id', error, { giftCardId: id });
+        return null;
     }
+}
 
-    if (card.expires_at && new Date(card.expires_at) < new Date()) {
-        db.prepare("UPDATE gift_cards SET status = 'expired' WHERE id = ?").run(card.id);
-        return { success: false, error: 'Gift card has expired' };
+export async function getGiftCardByCode(code: string) {
+    try {
+        const cleanCode = code.toUpperCase().replace(/[^A-Z0-9]/g, '');
+        return await prisma.giftCard.findUnique({
+            where: { code: cleanCode },
+        });
+    } catch (error) {
+        logger.error('Error fetching gift card by code', error);
+        return null;
     }
+}
 
-    if (amountCents > card.remaining_amount) {
-        return { success: false, error: 'Insufficient balance', remainingBalance: card.remaining_amount };
+export async function getGiftCardsByEmail(email: string) {
+    try {
+        return await prisma.giftCard.findMany({
+            where: {
+                OR: [
+                    { purchaserEmail: email },
+                    { recipientEmail: email },
+                ],
+            },
+            orderBy: { createdAt: 'desc' },
+        });
+    } catch (error) {
+        logger.error('Error fetching gift cards by email', error, { email });
+        return [];
     }
-
-    const newBalance = card.remaining_amount - amountCents;
-    const newStatus = newBalance === 0 ? 'redeemed' : 'active';
-
-    db.prepare(`
-        UPDATE gift_cards SET remaining_amount = ?, status = ? WHERE id = ?
-    `).run(newBalance, newStatus, card.id);
-
-    db.prepare(`
-        INSERT INTO gift_card_transactions (gift_card_id, amount, description)
-        VALUES (?, ?, ?)
-    `).run(card.id, -amountCents, description);
-
-    return { success: true, remainingBalance: newBalance };
 }
 
-export function updateGiftCardStatus(id: number, status: 'active' | 'redeemed' | 'expired' | 'cancelled'): void {
-    db.prepare('UPDATE gift_cards SET status = ? WHERE id = ?').run(status, id);
+export async function getAllGiftCards() {
+    try {
+        return await prisma.giftCard.findMany({
+            orderBy: { createdAt: 'desc' },
+        });
+    } catch (error) {
+        logger.error('Error fetching all gift cards', error);
+        return [];
+    }
 }
 
-export function getGiftCardTransactions(giftCardId: number): GiftCardTransaction[] {
-    return db.prepare('SELECT * FROM gift_card_transactions WHERE gift_card_id = ? ORDER BY created_at DESC').all(giftCardId) as GiftCardTransaction[];
+export async function redeemGiftCard(code: string, amountCents: number, description: string) {
+    try {
+        const card = await getGiftCardByCode(code);
+
+        if (!card) {
+            return { success: false, error: 'Gift card not found' };
+        }
+
+        if (card.status !== 'ACTIVE') {
+            return { success: false, error: `Gift card is ${card.status}` };
+        }
+
+        if (card.expiresAt && card.expiresAt < new Date()) {
+            await prisma.giftCard.update({
+                where: { id: card.id },
+                data: { status: 'EXPIRED' },
+            });
+            return { success: false, error: 'Gift card has expired' };
+        }
+
+        if (amountCents > card.remainingAmount) {
+            return { success: false, error: 'Insufficient balance', remainingBalance: card.remainingAmount };
+        }
+
+        const newBalance = card.remainingAmount - amountCents;
+        const newStatus = newBalance === 0 ? 'REDEEMED' : 'ACTIVE';
+
+        await prisma.giftCard.update({
+            where: { id: card.id },
+            data: {
+                remainingAmount: newBalance,
+                status: newStatus,
+            },
+        });
+
+        await prisma.giftCardTransaction.create({
+            data: {
+                giftCardId: card.id,
+                amount: -amountCents,
+                description,
+            },
+        });
+
+        return { success: true, remainingBalance: newBalance };
+    } catch (error) {
+        logger.error('Error redeeming gift card', error, { code });
+        throw error;
+    }
 }
 
-export function getGiftCardStats(): { total: number; active: number; redeemed: number; totalValue: number; redeemedValue: number } {
-    const stats = db.prepare(`
-        SELECT 
-            COUNT(*) as total,
-            SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active,
-            SUM(CASE WHEN status = 'redeemed' THEN 1 ELSE 0 END) as redeemed,
-            SUM(original_amount) as totalValue,
-            SUM(original_amount - remaining_amount) as redeemedValue
-        FROM gift_cards
-    `).get() as { total: number; active: number; redeemed: number; totalValue: number; redeemedValue: number };
-
-    return stats;
+export async function updateGiftCardStatus(id: number, status: 'ACTIVE' | 'REDEEMED' | 'EXPIRED' | 'CANCELLED') {
+    try {
+        return await prisma.giftCard.update({
+            where: { id },
+            data: { status },
+        });
+    } catch (error) {
+        logger.error('Error updating gift card status', error, { giftCardId: id });
+        throw error;
+    }
 }
 
-// Course purchase operations
-export interface CoursePurchase {
-    id: number;
-    user_id: number;
-    course_slug: string;
-    amount_paid: number;
-    gift_card_code: string | null;
-    status: 'active' | 'refunded' | 'expired';
-    purchased_at: string;
-    expires_at: string | null;
+export async function getGiftCardTransactions(giftCardId: number) {
+    try {
+        return await prisma.giftCardTransaction.findMany({
+            where: { giftCardId },
+            orderBy: { createdAt: 'desc' },
+        });
+    } catch (error) {
+        logger.error('Error fetching gift card transactions', error, { giftCardId });
+        return [];
+    }
 }
 
-export function purchaseCourse(data: {
+export async function getGiftCardStats() {
+    try {
+        const giftCards = await prisma.giftCard.findMany();
+        const activeCards = giftCards.filter((card) => card.status === 'ACTIVE').length;
+        const redeemedCards = giftCards.filter((card) => card.status === 'REDEEMED').length;
+        const totalValue = giftCards.reduce((sum, card) => sum + card.originalAmount, 0);
+        const redeemedValue = giftCards.reduce((sum, card) => sum + (card.originalAmount - card.remainingAmount), 0);
+
+        return {
+            total: giftCards.length,
+            active: activeCards,
+            redeemed: redeemedCards,
+            totalValue,
+            redeemedValue,
+        };
+    } catch (error) {
+        logger.error('Error fetching gift card stats', error);
+        return { total: 0, active: 0, redeemed: 0, totalValue: 0, redeemedValue: 0 };
+    }
+}
+
+// ============================================================================
+// Course Purchase Operations
+// ============================================================================
+
+export async function purchaseCourse(data: {
     userId: number;
     courseSlug: string;
     amountPaid: number;
     giftCardCode?: string;
     expiresAt?: Date;
-}): CoursePurchase {
-    const result = db.prepare(`
-        INSERT INTO course_purchases (user_id, course_slug, amount_paid, gift_card_code, expires_at)
-        VALUES (?, ?, ?, ?, ?)
-    `).run(
-        data.userId,
-        data.courseSlug,
-        data.amountPaid,
-        data.giftCardCode || null,
-        data.expiresAt?.toISOString() || null
-    );
-
-    return getCoursePurchaseById(result.lastInsertRowid as number)!;
+}) {
+    try {
+        return await prisma.coursePurchase.create({
+            data: {
+                userId: data.userId,
+                courseSlug: data.courseSlug,
+                amountPaid: data.amountPaid,
+                giftCardCode: data.giftCardCode || null,
+                expiresAt: data.expiresAt || null,
+            },
+        });
+    } catch (error) {
+        logger.error('Error creating course purchase', error, { userId: data.userId });
+        throw error;
+    }
 }
 
-export function getCoursePurchaseById(id: number): CoursePurchase | undefined {
-    return db.prepare('SELECT * FROM course_purchases WHERE id = ?').get(id) as CoursePurchase | undefined;
+export async function getCoursePurchaseById(id: number) {
+    try {
+        return await prisma.coursePurchase.findUnique({
+            where: { id },
+        });
+    } catch (error) {
+        logger.error('Error fetching course purchase by id', error, { purchaseId: id });
+        return null;
+    }
 }
 
-export function getUserCourses(userId: number): CoursePurchase[] {
-    return db.prepare(`
-        SELECT * FROM course_purchases 
-        WHERE user_id = ? AND status = 'active'
-        ORDER BY purchased_at DESC
-    `).all(userId) as CoursePurchase[];
+export async function getUserCourses(userId: number) {
+    try {
+        return await prisma.coursePurchase.findMany({
+            where: {
+                userId,
+                status: 'ACTIVE',
+            },
+            orderBy: { purchasedAt: 'desc' },
+        });
+    } catch (error) {
+        logger.error('Error fetching user courses', error, { userId });
+        return [];
+    }
 }
 
-export function hasUserPurchasedCourse(userId: number, courseSlug: string): boolean {
-    const purchase = db.prepare(`
-        SELECT id FROM course_purchases 
-        WHERE user_id = ? AND course_slug = ? AND status = 'active'
-    `).get(userId, courseSlug);
-    return !!purchase;
+export async function hasUserPurchasedCourse(userId: number, courseSlug: string): Promise<boolean> {
+    try {
+        const purchase = await prisma.coursePurchase.findFirst({
+            where: {
+                userId,
+                courseSlug,
+                status: 'ACTIVE',
+            },
+        });
+        return !!purchase;
+    } catch (error) {
+        logger.error('Error checking course purchase', error, { userId, courseSlug });
+        return false;
+    }
 }
 
-export function getCoursePurchase(userId: number, courseSlug: string): CoursePurchase | undefined {
-    return db.prepare(`
-        SELECT * FROM course_purchases 
-        WHERE user_id = ? AND course_slug = ?
-    `).get(userId, courseSlug) as CoursePurchase | undefined;
+export async function getCoursePurchase(userId: number, courseSlug: string) {
+    try {
+        return await prisma.coursePurchase.findFirst({
+            where: { userId, courseSlug },
+        });
+    } catch (error) {
+        logger.error('Error fetching course purchase', error, { userId, courseSlug });
+        return null;
+    }
 }
 
-export function getAllCoursePurchases(): CoursePurchase[] {
-    return db.prepare('SELECT * FROM course_purchases ORDER BY purchased_at DESC').all() as CoursePurchase[];
+export async function getAllCoursePurchases() {
+    try {
+        return await prisma.coursePurchase.findMany({
+            orderBy: { purchasedAt: 'desc' },
+        });
+    } catch (error) {
+        logger.error('Error fetching all course purchases', error);
+        return [];
+    }
 }
 
-export function getCoursePurchaseStats(): { totalPurchases: number; totalRevenue: number; uniqueCourses: number } {
-    const stats = db.prepare(`
-        SELECT 
-            COUNT(*) as totalPurchases,
-            SUM(amount_paid) as totalRevenue,
-            COUNT(DISTINCT course_slug) as uniqueCourses
-        FROM course_purchases
-        WHERE status = 'active'
-    `).get() as { totalPurchases: number; totalRevenue: number; uniqueCourses: number };
+export async function getCoursePurchaseStats() {
+    try {
+        const purchases = await prisma.coursePurchase.findMany({
+            where: { status: 'ACTIVE' },
+        });
 
-    return stats;
+        const totalPurchases = purchases.length;
+        const totalRevenue = purchases.reduce((sum, p) => sum + p.amountPaid, 0);
+        const uniqueCourses = new Set(purchases.map((p) => p.courseSlug)).size;
+
+        return {
+            totalPurchases,
+            totalRevenue,
+            uniqueCourses,
+        };
+    } catch (error) {
+        logger.error('Error fetching course purchase stats', error);
+        return { totalPurchases: 0, totalRevenue: 0, uniqueCourses: 0 };
+    }
 }
 
 

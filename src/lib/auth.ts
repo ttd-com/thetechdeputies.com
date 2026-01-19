@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import { getUserByEmail } from '@/lib/db';
 import { authConfig } from './auth.config';
 
-export type UserRole = 'user' | 'admin';
+export type UserRole = 'USER' | 'ADMIN';
 
 declare module 'next-auth' {
     interface Session {
@@ -41,12 +41,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                 const email = credentials.email as string;
                 const password = credentials.password as string;
 
-                const user = getUserByEmail(email);
+                const user = await getUserByEmail(email);
                 if (!user) {
                     return null;
                 }
 
-                const isValidPassword = await bcrypt.compare(password, user.password_hash);
+                const isValidPassword = await bcrypt.compare(password, user.passwordHash);
                 if (!isValidPassword) {
                     return null;
                 }
@@ -55,7 +55,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                     id: user.id.toString(),
                     email: user.email,
                     name: user.name,
-                    role: user.role,
+                    role: user.role as UserRole,
                 };
             },
         }),
