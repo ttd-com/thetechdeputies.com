@@ -35,8 +35,8 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const email = 'r.foraker@thetechdeputies.com';
-  const password = 'admin';
+  const email = 'test@thetechdeputies.com';
+  const password = 'password';
 
   try {
     // Check if user already exists
