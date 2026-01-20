@@ -4,7 +4,7 @@
  * Replaces better-sqlite3 for serverless compatibility (Vercel, etc).
  */
 
-import { PrismaClient, Role } from '@prisma/client';
+import { PrismaClient, Role, GiftCardStatus } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 import { logger } from './logger';
@@ -429,14 +429,14 @@ export async function redeemGiftCard(code: string, amountCents: number, descript
             return { success: false, error: 'Gift card not found' };
         }
 
-        if (card.status !== 'ACTIVE') {
+        if (card.status !== GiftCardStatus.ACTIVE) {
             return { success: false, error: `Gift card is ${card.status}` };
         }
 
         if (card.expiresAt && card.expiresAt < new Date()) {
             await prisma.giftCard.update({
                 where: { id: card.id },
-                data: { status: 'EXPIRED' },
+                data: { status: GiftCardStatus.EXPIRED },
             });
             return { success: false, error: 'Gift card has expired' };
         }
@@ -446,7 +446,7 @@ export async function redeemGiftCard(code: string, amountCents: number, descript
         }
 
         const newBalance = card.remainingAmount - amountCents;
-        const newStatus = newBalance === 0 ? 'REDEEMED' : 'ACTIVE';
+        const newStatus = newBalance === 0 ? GiftCardStatus.REDEEMED : GiftCardStatus.ACTIVE;
 
         await prisma.giftCard.update({
             where: { id: card.id },
@@ -471,7 +471,7 @@ export async function redeemGiftCard(code: string, amountCents: number, descript
     }
 }
 
-export async function updateGiftCardStatus(id: number, status: 'ACTIVE' | 'REDEEMED' | 'EXPIRED' | 'CANCELLED') {
+export async function updateGiftCardStatus(id: number, status: GiftCardStatus) {
     try {
         return await prisma.giftCard.update({
             where: { id },
@@ -498,8 +498,8 @@ export async function getGiftCardTransactions(giftCardId: number) {
 export async function getGiftCardStats() {
     try {
         const giftCards = await prisma.giftCard.findMany();
-        const activeCards = giftCards.filter((card) => card.status === 'ACTIVE').length;
-        const redeemedCards = giftCards.filter((card) => card.status === 'REDEEMED').length;
+        const activeCards = giftCards.filter((card) => card.status === GiftCardStatus.ACTIVE).length;
+        const redeemedCards = giftCards.filter((card) => card.status === GiftCardStatus.REDEEMED).length;
         const totalValue = giftCards.reduce((sum, card) => sum + card.originalAmount, 0);
         const redeemedValue = giftCards.reduce((sum, card) => sum + (card.originalAmount - card.remainingAmount), 0);
 
