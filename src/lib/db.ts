@@ -4,7 +4,7 @@
  * Replaces better-sqlite3 for serverless compatibility (Vercel, etc).
  */
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Role } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 import { logger } from './logger';
@@ -70,7 +70,7 @@ export async function getUserById(id: number) {
 export async function createUser(email: string, passwordHash: string, name?: string) {
     try {
         const userCount = await prisma.user.count();
-        const role = userCount === 0 ? 'ADMIN' : 'USER';
+        const role = userCount === 0 ? Role.ADMIN : Role.USER;
 
         return await prisma.user.create({
             data: {
