@@ -205,10 +205,10 @@ export default function AdminGiftCardsPage() {
                             filteredCards.map((card) => (
                                 <tr key={card.id} className="hover:bg-gray-50">
                                     <td className="px-6 py-4 whitespace-nowrap font-mono text-sm">{card.code}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{formatCurrency(card.original_amount)}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap font-semibold">{formatCurrency(card.remaining_amount)}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{card.purchaser_email}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{card.recipient_email || '-'}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{formatCurrency(card.originalAmount)}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap font-semibold">{formatCurrency(card.remainingAmount)}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{card.purchaserEmail}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{card.recipientEmail || '-'}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span className={`px-2 py-1 text-xs rounded-full ${getStatusColor(card.status)}`}>
                                             {card.status}

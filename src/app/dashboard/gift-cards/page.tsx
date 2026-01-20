@@ -202,12 +202,12 @@ export default function GiftCardsPage() {
                                                     {card.status}
                                                 </span>
                                                 <span className="text-2xl font-bold text-[var(--color-primary)]">
-                                                    {formatCurrency(card.remaining_amount)}
+                                                    {formatCurrency(card.remainingAmount)}
                                                 </span>
                                             </div>
                                             <p className="font-mono text-sm text-gray-600">{card.code}</p>
                                             <p className="text-xs text-gray-500 mt-2">
-                                                From: {card.purchaser_name || card.purchaser_email}
+                                                From: {card.purchaserName || card.purchaserEmail}
                                             </p>
                                         </div>
                                     ))}
@@ -227,13 +227,13 @@ export default function GiftCardsPage() {
                                                     {card.status}
                                                 </span>
                                                 <span className="text-2xl font-bold text-[var(--color-secondary)]">
-                                                    {formatCurrency(card.original_amount)}
+                                                    {formatCurrency(card.originalAmount)}
                                                 </span>
                                             </div>
                                             <p className="font-mono text-sm text-gray-600">{card.code}</p>
-                                            {card.recipient_email && (
+                                            {card.recipientEmail && (
                                                 <p className="text-xs text-gray-500 mt-2">
-                                                    To: {card.recipient_name || card.recipient_email}
+                                                    To: {card.recipientName || card.recipientEmail}
                                                 </p>
                                             )}
                                         </div>

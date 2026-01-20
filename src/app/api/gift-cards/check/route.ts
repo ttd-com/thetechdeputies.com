@@ -55,8 +55,8 @@ export async function POST(request: Request) {
         return NextResponse.json({
             found: true,
             status: giftCard.status,
-            balance: giftCard.remaining_amount,
-            originalAmount: giftCard.original_amount,
+            balance: giftCard.remainingAmount,
+            originalAmount: giftCard.originalAmount,
         });
     } catch (error) {
         console.error('Error checking gift card:', error);
