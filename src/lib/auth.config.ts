@@ -37,11 +37,6 @@ export const authConfig: NextAuthConfig = {
                 }
             }
 
-            // Redirect logged-in users away from auth pages
-            if (isLoggedIn && (pathname === '/login' || pathname === '/register')) {
-                return Response.redirect(new URL('/dashboard', nextUrl.origin));
-            }
-
             return true;
         },
         jwt({ token, user }) {
