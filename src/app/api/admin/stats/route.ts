@@ -12,7 +12,7 @@ export async function GET() {
 
         const users = await getAllUsers();
         const totalUsers = users.length;
-        const adminUsers = users.filter(u => u.role === 'ADMIN').length;
+        const adminUsers = users.filter(u => (u.role as string) === 'ADMIN').length;
 
         // Count users registered in last 30 days
         const thirtyDaysAgo = new Date();
