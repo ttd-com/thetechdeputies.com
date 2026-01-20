@@ -4,7 +4,7 @@
  * Replaces better-sqlite3 for serverless compatibility (Vercel, etc).
  */
 
-import { PrismaClient, Role, GiftCardStatus } from '@prisma/client';
+import { PrismaClient, Role, GiftCardStatus, CoursePurchaseStatus } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 import { logger } from './logger';
@@ -559,7 +559,7 @@ export async function getUserCourses(userId: number) {
         return await prisma.coursePurchase.findMany({
             where: {
                 userId,
-                status: 'ACTIVE',
+                status: CoursePurchaseStatus.ACTIVE,
             },
             orderBy: { purchasedAt: 'desc' },
         });
@@ -575,7 +575,7 @@ export async function hasUserPurchasedCourse(userId: number, courseSlug: string)
             where: {
                 userId,
                 courseSlug,
-                status: 'ACTIVE',
+                status: CoursePurchaseStatus.ACTIVE,
             },
         });
         return !!purchase;
@@ -610,7 +610,7 @@ export async function getAllCoursePurchases() {
 export async function getCoursePurchaseStats() {
     try {
         const purchases = await prisma.coursePurchase.findMany({
-            where: { status: 'ACTIVE' },
+            where: { status: CoursePurchaseStatus.ACTIVE },
         });
 
         const totalPurchases = purchases.length;
