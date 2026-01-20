@@ -6,18 +6,18 @@ export async function GET() {
     try {
         const session = await auth();
 
-        if (!session || session.user.role !== 'admin') {
+        if (!session || (session.user as { role?: string })?.role !== 'ADMIN') {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
         }
 
-        const users = getAllUsers();
+        const users = await getAllUsers();
         const totalUsers = users.length;
-        const adminUsers = users.filter(u => u.role === 'admin').length;
+        const adminUsers = users.filter(u => u.role === 'ADMIN').length;
 
         // Count users registered in last 30 days
         const thirtyDaysAgo = new Date();
         thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        const recentUsers = users.filter(u => new Date(u.created_at) > thirtyDaysAgo).length;
+        const recentUsers = users.filter(u => new Date(u.createdAt) > thirtyDaysAgo).length;
 
         return NextResponse.json({
             totalUsers,

@@ -5,7 +5,8 @@ import {
     hasUserPurchasedCourse,
     getUserByEmail,
     getGiftCardByCode,
-    redeemGiftCard
+    redeemGiftCard,
+    type GiftCard
 } from '@/lib/db';
 import { getCourseBySlug } from '@/lib/courses';
 
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
             );
         }
 
-        const user = getUserByEmail(session.user.email);
+        const user = await getUserByEmail(session.user.email);
         if (!user) {
             return NextResponse.json(
                 { error: 'User not found' },
@@ -42,7 +43,7 @@ export async function POST(request: Request) {
         }
 
         // Check if already purchased
-        if (hasUserPurchasedCourse(user.id, courseSlug)) {
+        if (await hasUserPurchasedCourse(user.id, courseSlug)) {
             return NextResponse.json(
                 { error: 'You already own this course' },
                 { status: 400 }
@@ -54,7 +55,7 @@ export async function POST(request: Request) {
 
         // If gift card provided, try to redeem it
         if (giftCardCode) {
-            const giftCard = getGiftCardByCode(giftCardCode);
+            const giftCard = await getGiftCardByCode(giftCardCode);
 
             if (!giftCard) {
                 return NextResponse.json(
@@ -63,7 +64,7 @@ export async function POST(request: Request) {
                 );
             }
 
-            if (giftCard.status !== 'active') {
+            if ((giftCard.status) !== ('ACTIVE' as any)) {
                 return NextResponse.json(
                     { error: `Gift card is ${giftCard.status}` },
                     { status: 400 }
@@ -71,10 +72,10 @@ export async function POST(request: Request) {
             }
 
             // Calculate how much to redeem
-            const redeemAmount = Math.min(giftCard.remaining_amount, course.priceInCents);
+            const redeemAmount = Math.min(giftCard.remainingAmount, course.priceInCents);
 
             // Redeem the gift card
-            const redeemResult = redeemGiftCard(
+            const redeemResult = await redeemGiftCard(
                 giftCardCode,
                 redeemAmount,
                 `Course purchase: ${course.title}`
@@ -100,7 +101,7 @@ export async function POST(request: Request) {
         }
 
         // Create the purchase
-        const purchase = purchaseCourse({
+        const purchase = await purchaseCourse({
             userId: user.id,
             courseSlug,
             amountPaid: course.priceInCents, // Store full price for records
@@ -111,9 +112,9 @@ export async function POST(request: Request) {
             success: true,
             purchase: {
                 id: purchase.id,
-                courseSlug: purchase.course_slug,
-                amountPaid: purchase.amount_paid,
-                purchasedAt: purchase.purchased_at,
+                courseSlug: purchase.courseSlug,
+                amountPaid: purchase.amountPaid,
+                purchasedAt: purchase.purchasedAt,
             },
             message: `Successfully enrolled in ${course.title}!`,
         });

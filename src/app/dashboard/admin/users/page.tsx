@@ -105,7 +105,7 @@ export default function AdminUsersPage() {
                                             <span
                                                 className={`
                           inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                          ${user.role === 'admin'
+                          ${user.role === 'ADMIN'
                                                         ? 'bg-[var(--color-accent-terracotta)]/10 text-[var(--color-accent-terracotta)]'
                                                         : 'bg-gray-100 text-gray-600'
                                                     }

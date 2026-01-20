@@ -31,7 +31,7 @@ export async function POST(request: Request) {
             );
         }
 
-        const result = redeemGiftCard(
+        const result = await redeemGiftCard(
             code,
             amountCents,
             description || `Redeemed by ${session.user.email}`

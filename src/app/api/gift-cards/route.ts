@@ -14,11 +14,11 @@ export async function GET() {
             );
         }
 
-        const giftCards = getGiftCardsByEmail(session.user.email);
+        const giftCards = await getGiftCardsByEmail(session.user.email);
 
         // Separate into purchased and received
-        const purchased = giftCards.filter(gc => gc.purchaser_email === session.user.email);
-        const received = giftCards.filter(gc => gc.recipient_email === session.user.email);
+        const purchased = giftCards.filter(gc => gc.purchaserEmail === session.user.email);
+        const received = giftCards.filter(gc => gc.recipientEmail === session.user.email);
 
         return NextResponse.json({
             purchased,
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
         }
 
         // Create the gift card
-        const giftCard = createGiftCard({
+        const giftCard = await createGiftCard({
             amountCents,
             purchaserEmail: session.user.email,
             purchaserName: session.user.name || undefined,
@@ -81,8 +81,8 @@ export async function POST(request: Request) {
             giftCard: {
                 id: giftCard.id,
                 code: giftCard.code,
-                amount: giftCard.original_amount,
-                recipientEmail: giftCard.recipient_email,
+                amount: giftCard.originalAmount,
+                recipientEmail: giftCard.recipientEmail,
             },
         });
     } catch (error) {

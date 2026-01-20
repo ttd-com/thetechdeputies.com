@@ -17,7 +17,7 @@ export async function POST(request: Request) {
         const signature = request.headers.get('X-Acuity-Signature');
 
         // Get the API key for signature verification
-        const acuityApiKey = getSetting('acuity_api_key');
+        const acuityApiKey = await getSetting('acuity_api_key');
 
         // Verify webhook signature (if API key is configured)
         if (acuityApiKey && signature) {

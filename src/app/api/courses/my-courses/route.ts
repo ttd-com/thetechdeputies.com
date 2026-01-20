@@ -15,7 +15,7 @@ export async function GET() {
             );
         }
 
-        const user = getUserByEmail(session.user.email);
+        const user = await getUserByEmail(session.user.email);
         if (!user) {
             return NextResponse.json(
                 { error: 'User not found' },
@@ -23,16 +23,16 @@ export async function GET() {
             );
         }
 
-        const purchases = getUserCourses(user.id);
+        const purchases = await getUserCourses(user.id);
 
         // Enrich with course details
         const courses = purchases.map(purchase => {
-            const course = getCourseBySlug(purchase.course_slug);
+            const course = getCourseBySlug(purchase.courseSlug);
             return {
                 purchase: {
                     id: purchase.id,
-                    purchasedAt: purchase.purchased_at,
-                    amountPaid: purchase.amount_paid,
+                    purchasedAt: purchase.purchasedAt,
+                    amountPaid: purchase.amountPaid,
                 },
                 course: course ? {
                     slug: course.slug,

@@ -17,7 +17,7 @@ export async function POST(request: Request) {
         // Clean up the code (remove dashes, spaces, etc.)
         const cleanCode = code.toUpperCase().replace(/[^A-Z0-9]/g, '');
 
-        const giftCard = getGiftCardByCode(cleanCode);
+        const giftCard = await getGiftCardByCode(cleanCode);
 
         if (!giftCard) {
             return NextResponse.json(
@@ -27,7 +27,7 @@ export async function POST(request: Request) {
         }
 
         // Check if expired
-        if (giftCard.expires_at && new Date(giftCard.expires_at) < new Date()) {
+        if (giftCard.expiresAt && new Date(giftCard.expiresAt) < new Date()) {
             return NextResponse.json({
                 found: true,
                 status: 'expired',
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
             });
         }
 
-        if (giftCard.status === 'cancelled') {
+        if ((giftCard.status as any) === 'CANCELLED') {
             return NextResponse.json({
                 found: true,
                 status: 'cancelled',
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
             });
         }
 
-        if (giftCard.status === 'redeemed') {
+        if ((giftCard.status as any) === 'REDEEMED') {
             return NextResponse.json({
                 found: true,
                 status: 'redeemed',

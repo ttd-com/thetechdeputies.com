@@ -7,15 +7,15 @@ export async function GET() {
     try {
         const session = await auth();
 
-        if (!session?.user?.email || session.user.role !== 'admin') {
+        if (!session?.user?.email || (session.user as { role?: string })?.role !== 'ADMIN') {
             return NextResponse.json(
                 { error: 'Admin access required' },
                 { status: 403 }
             );
         }
 
-        const giftCards = getAllGiftCards();
-        const stats = getGiftCardStats();
+        const giftCards = await getAllGiftCards();
+        const stats = await getGiftCardStats();
 
         return NextResponse.json({
             giftCards,
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     try {
         const session = await auth();
 
-        if (!session?.user?.email || session.user.role !== 'admin') {
+        if (!session?.user?.email || (session.user as { role?: string })?.role !== 'ADMIN') {
             return NextResponse.json(
                 { error: 'Admin access required' },
                 { status: 403 }
@@ -79,7 +79,7 @@ export async function PATCH(request: Request) {
     try {
         const session = await auth();
 
-        if (!session?.user?.email || session.user.role !== 'admin') {
+        if (!session?.user?.email || (session.user as { role?: string })?.role !== 'ADMIN') {
             return NextResponse.json(
                 { error: 'Admin access required' },
                 { status: 403 }

@@ -14,7 +14,7 @@ export async function GET(request: Request) {
         }
 
         // Get token from database
-        const verificationToken = getEmailVerificationToken(token);
+        const verificationToken = await getEmailVerificationToken(token);
 
         if (!verificationToken) {
             return NextResponse.json(
@@ -24,7 +24,7 @@ export async function GET(request: Request) {
         }
 
         // Check if token has expired
-        const expiresAt = new Date(verificationToken.expires_at);
+        const expiresAt = new Date(verificationToken.expiresAt);
         if (expiresAt < new Date()) {
             return NextResponse.json(
                 { error: 'Verification token has expired. Please register again.' },
@@ -33,10 +33,10 @@ export async function GET(request: Request) {
         }
 
         // Verify the user's email
-        verifyUserEmail(verificationToken.user_id);
+        await verifyUserEmail(verificationToken.userId);
 
         // Get user info for response
-        const user = getUserById(verificationToken.user_id);
+        const user = await getUserById(verificationToken.userId);
 
         return NextResponse.json({
             success: true,

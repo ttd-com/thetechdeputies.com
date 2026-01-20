@@ -33,6 +33,70 @@ For the complete planning context, see:
 | Mailgun | Transactional emails (password reset) |
 | Acuity Scheduling | Bookings, subscriptions, gift certificates |
 
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** 18+ ([Download](https://nodejs.org/))
+- **Docker** ([Download](https://www.docker.com/products/docker-desktop/)) - for PostgreSQL database
+
+### Local Development Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ttd-com/thetechdeputies.com.git
+   cd thetechdeputies.com
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Start PostgreSQL via Docker Compose:**
+   ```bash
+   docker compose up -d
+   ```
+   This starts a PostgreSQL container with credentials: `dev` / `devpass`
+
+4. **Set up environment variables:**
+   ```bash
+   # .env.local is already created with defaults
+   # For production features (email, Acuity), add your API keys:
+   # MAILGUN_API_KEY=your-key
+   # NEXT_PUBLIC_ACUITY_OWNER_ID=your-id
+   ```
+
+5. **Run database migrations:**
+   ```bash
+   npx prisma migrate deploy
+   ```
+
+6. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000)
+
+### Useful Commands
+
+```bash
+# View database in browser UI
+npx prisma studio
+
+# Create a new database migration (after schema.prisma changes)
+npx prisma migrate dev --name your_migration_name
+
+# Reset database (dev only - destructive!)
+npx prisma migrate reset
+
+# Stop PostgreSQL
+docker compose down
+
+# Clear all data and restart
+docker compose down -v && docker compose up -d
+```
+
 ## Brand Identity
 
 ### Color Palette

@@ -35,11 +35,11 @@ This handbook documents the complete deployment, maintenance, and troubleshootin
 |-------|------------|---------|---------|
 | Frontend | Next.js | 16.1.3 | React framework with SSR/SSG |
 | Styling | TailwindCSS | 4.x | Utility-first CSS |
-| Authentication | NextAuth.js | 5.x | Credentials-based auth |
+| Authentication | NextAuth.js | 5.x | Credentials-based auth with Redis sessions |
 | Database | PostgreSQL | via Prisma | User data, sessions, settings |
 | Session Store | Upstash Redis | - | Redis-based session caching |
 | Email | Mailgun | - | Transactional emails |
-| Hosting | Vercel | - | Serverless deployment |
+| Hosting | Vercel | - | Serverless deployment, auto-deploy from git |
 
 ### Application Structure
 

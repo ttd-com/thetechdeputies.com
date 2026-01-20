@@ -6,16 +6,16 @@ export async function GET() {
     try {
         const session = await auth();
 
-        if (!session || session.user.role !== 'admin') {
+        if (!session || (session.user as { role?: string })?.role !== 'ADMIN') {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
         }
 
-        const mailgunApiKey = getSetting('mailgun_api_key');
-        const mailgunDomain = getSetting('mailgun_domain');
-        const acuityUserId = getSetting('acuity_user_id');
-        const acuityApiKey = getSetting('acuity_api_key');
+        const mailgunApiKey = await getSetting('mailgun_api_key');
+        const mailgunDomain = await getSetting('mailgun_domain');
+        const acuityUserId = await getSetting('acuity_user_id');
+        const acuityApiKey = await getSetting('acuity_api_key');
 
-        const users = getAllUsers();
+        const users = await getAllUsers();
 
         return NextResponse.json({
             mailgun: {

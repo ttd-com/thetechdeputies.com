@@ -7,15 +7,15 @@ export async function GET() {
     try {
         const session = await auth();
 
-        if (!session || session.user.role !== 'admin') {
+        if (!session || (session.user as { role?: string })?.role !== 'ADMIN') {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
         }
 
         // Get settings and mask sensitive values
-        const mailgunApiKey = getSetting('mailgun_api_key');
-        const mailgunDomain = getSetting('mailgun_domain');
-        const acuityUserId = getSetting('acuity_user_id');
-        const acuityApiKey = getSetting('acuity_api_key');
+        const mailgunApiKey = await getSetting('mailgun_api_key');
+        const mailgunDomain = await getSetting('mailgun_domain');
+        const acuityUserId = await getSetting('acuity_user_id');
+        const acuityApiKey = await getSetting('acuity_api_key');
 
         return NextResponse.json({
             mailgun_api_key: mailgunApiKey ? maskSecret(mailgunApiKey) : '',
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     try {
         const session = await auth();
 
-        if (!session || session.user.role !== 'admin') {
+        if (!session || (session.user as { role?: string })?.role !== 'ADMIN') {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
         }
 
@@ -47,19 +47,19 @@ export async function POST(request: Request) {
 
         // Only update if value is provided and not masked
         if (mailgun_api_key && !mailgun_api_key.includes('•')) {
-            setSetting('mailgun_api_key', mailgun_api_key, true);
+            await setSetting('mailgun_api_key', mailgun_api_key, true);
         }
 
         if (mailgun_domain !== undefined) {
-            setSetting('mailgun_domain', mailgun_domain);
+            await setSetting('mailgun_domain', mailgun_domain);
         }
 
         if (acuity_user_id !== undefined) {
-            setSetting('acuity_user_id', acuity_user_id);
+            await setSetting('acuity_user_id', acuity_user_id);
         }
 
         if (acuity_api_key && !acuity_api_key.includes('•')) {
-            setSetting('acuity_api_key', acuity_api_key, true);
+            await setSetting('acuity_api_key', acuity_api_key, true);
         }
 
         return NextResponse.json({ success: true });

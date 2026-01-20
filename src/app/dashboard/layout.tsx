@@ -27,7 +27,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     const pathname = usePathname();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const isAdmin = session?.user?.role === 'admin';
+    const isAdmin = session?.user?.role === 'ADMIN';
 
     return (
         <div className="min-h-screen bg-gray-50">

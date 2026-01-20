@@ -17,7 +17,7 @@ export async function POST(request: Request) {
             'unknown';
 
         // Rate limiting: 5 attempts per hour
-        const allowed = checkRateLimit(ip, 'password-reset', 5, 60);
+        const allowed = await checkRateLimit(ip, 'password-reset', 5, 60);
         if (!allowed) {
             return NextResponse.json(
                 { error: 'Too many reset attempts. Please try again in an hour.' },
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
             message: 'If an account exists with this email, you will receive a password reset link.',
         };
 
-        const user = getUserByEmail(email);
+        const user = await getUserByEmail(email);
         if (!user) {
             // Return success even if user doesn't exist (prevents enumeration)
             return NextResponse.json(successResponse);
@@ -50,11 +50,11 @@ export async function POST(request: Request) {
         const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
         // Save token to database
-        createPasswordResetToken(user.id, token, expiresAt);
+        await createPasswordResetToken(user.id, token, expiresAt);
 
         // Check if Mailgun is configured
-        const mailgunApiKey = getSetting('mailgun_api_key') || process.env.MAILGUN_API_KEY;
-        const mailgunDomain = getSetting('mailgun_domain') || process.env.MAILGUN_DOMAIN;
+        const mailgunApiKey = await getSetting('mailgun_api_key') || process.env.MAILGUN_API_KEY;
+        const mailgunDomain = await getSetting('mailgun_domain') || process.env.MAILGUN_DOMAIN;
 
         if (mailgunApiKey && mailgunDomain) {
             // Send email via Mailgun

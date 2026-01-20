@@ -1,6 +1,6 @@
-import { authMiddleware } from '@/lib/auth.config';
+import { auth } from '@/lib/auth';
 
-export default authMiddleware;
+export default auth;
 
 export const config = {
     matcher: [

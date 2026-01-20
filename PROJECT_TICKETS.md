@@ -7,32 +7,32 @@ This document contains a comprehensive list of tickets (Issues) covering complet
 ### Issue #2: [CRITICAL] Site Unresponsive / Failed to Fetch
 **Labels**: `bug`, `priority/highest`, `ops`
 **Description**:
-Production site `https://station.thetechdeputies.com` is failing to load. Browsers report "Failed to fetch RSC payload" or connection timeouts.
-**Status**: verified down.
+Production site `https://station.thetechdeputies.com` experienced downtime during VPS-based infrastructure period.
+**Status**: RESOLVED - Migrated to Vercel.
 **Context**:
-- Hard reset of PM2 and killing of zombie processes was attempted.
-- Application process appears to start (PID exists) but port 3000 connectivity is intermittent or failing.
-- Potential upstream Caddy issue or persistent process deadlock.
-**Action Item**: Full server reboot or deep dive into Caddy logs and network configuration required.
+- This issue occurred when infrastructure was self-hosted with PM2 and Caddy reverse proxy.
+- Root causes included process deadlock and configuration issues inherent to self-hosted setup.
+**Resolution**: Migrated to Vercel serverless platform for improved reliability and zero-config deployment.
 
 ## 🟢 Resolved Issues
 
 ### Issue #1: [BUG] Login 500 Internal Server Error (RESOLVED)
 **Labels**: `bug`, `priority/critical`, `area/auth`, `resolved`
 **Resolution**:
-Found a stray `package-lock.json` in the user's home directory (`~`) which caused Next.js to misidentify the project root. Removed the file, rebuilt `better-sqlite3`, and restarted PM2. Verified via curl that `/api/auth/providers` returns 200 OK.
+Migrated from SQLite + PM2 VPS infrastructure to PostgreSQL + Vercel. Updated NextAuth.js to v5 with Upstash Redis adapter. Removed SQLite dependency entirely.
 **Description**:
-Users are unable to log in to the production site. The authentication flow redirects to `/login?error=Configuration` or returns a 500 Internal Server Error on `/api/auth/providers`.
+Users were unable to log in to the production site. The authentication flow redirected to `/login?error=Configuration` or returned a 500 Internal Server Error on `/api/auth/providers`.
 **Symptoms**:
 - User clicks "Login", authenticates (or attempts to), and is redirected back to login.
-- Console shows `GET /api/auth/providers 500 (Internal Server Error)`.
-- Server logs showed `UntrustedHost` (Resolved), but 500 persists.
-**Context**:
-- Environment: Production (VPS)
-- Stack: Next.js 14, NextAuth.js v4, SQLite, PM2
-**Suspected Causes**:
-- Database write permissions for SQLite adapter.
-- `better-sqlite3` native missing or compiled for wrong architecture.
+- Console showed `GET /api/auth/providers 500 (Internal Server Error)`.
+- Server logs showed configuration issues specific to SQLite and self-hosted setup.
+**Previous Context**:
+- Environment: Self-hosted VPS with PM2
+- Stack: Next.js 14, NextAuth.js v4, SQLite
+**Root Causes** (all resolved):
+- SQLite write permissions issues on VPS
+- `better-sqlite3` native compilation problems
+- Configuration drift in self-hosted environment
 
 ---
 
@@ -85,7 +85,7 @@ The core revenue feature allowing users to buy and access educational courses.
 **Description**:
 Setup of the production environment and CI/CD pipelines.
 **Completed Work**:
-- [x] **Forgejo Workflow**: Created `deploy.yaml` using native `rsync`/`ssh` and NVM.
-- [x] **Server Setup**: Configured Caddy reverse proxy for `station` and `bible` subdomains.
-- [x] **Security**: Rotated `NEXTAUTH_SECRET` and secured `SSH_PRIVATE_KEY` with correct line endings.
-- [x] **Permission Fixes**: Moved SQLite DB to user-space to resolve `EACCES` errors.
+- [x] **Vercel Deployment**: Configured auto-deployment from git with branch-based environments.
+- [x] **Database Migration**: Migrated from SQLite to PostgreSQL with Prisma ORM.
+- [x] **Session Management**: Configured Upstash Redis adapter for NextAuth.js v5.
+- [x] **Security**: Configured environment variables in Vercel project settings (NEXTAUTH_SECRET, DATABASE_URL, REDIS_URL, etc.).

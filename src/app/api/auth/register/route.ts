@@ -33,7 +33,7 @@ export async function POST(request: Request) {
         }
 
         // Check if user already exists
-        const existingUser = getUserByEmail(email);
+        const existingUser = await getUserByEmail(email);
         if (existingUser) {
             return NextResponse.json(
                 { error: 'An account with this email already exists' },
@@ -45,16 +45,16 @@ export async function POST(request: Request) {
         const passwordHash = await bcrypt.hash(password, 12);
 
         // Create user (first user becomes admin automatically)
-        const user = createUser(email, passwordHash, name);
+        const user = await createUser(email, passwordHash, name);
 
         // Generate verification token
         const verificationToken = crypto.randomBytes(32).toString('hex');
         const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-        createEmailVerificationToken(user.id, verificationToken, expiresAt);
+        await createEmailVerificationToken(user.id, verificationToken, expiresAt);
 
         // Send verification email
-        const mailgunApiKey = getSetting('mailgun_api_key') || process.env.MAILGUN_API_KEY;
-        const mailgunDomain = getSetting('mailgun_domain') || process.env.MAILGUN_DOMAIN;
+        const mailgunApiKey = await getSetting('mailgun_api_key') || process.env.MAILGUN_API_KEY;
+        const mailgunDomain = await getSetting('mailgun_domain') || process.env.MAILGUN_DOMAIN;
         const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
         const verifyUrl = `${baseUrl}/verify-email?token=${verificationToken}`;
 

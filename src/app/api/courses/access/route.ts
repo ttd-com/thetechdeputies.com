@@ -14,7 +14,7 @@ export async function POST(request: Request) {
             });
         }
 
-        const user = getUserByEmail(session.user.email);
+        const user = await getUserByEmail(session.user.email);
         if (!user) {
             return NextResponse.json({
                 hasAccess: false,
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
             );
         }
 
-        const hasAccess = hasUserPurchasedCourse(user.id, courseSlug);
+        const hasAccess = await hasUserPurchasedCourse(user.id, courseSlug);
 
         return NextResponse.json({
             hasAccess,

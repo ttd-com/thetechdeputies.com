@@ -16,8 +16,14 @@ export const authConfig: NextAuthConfig = {
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
-            const isAdmin = (auth?.user as { role?: string })?.role === 'admin';
             const pathname = nextUrl.pathname;
+            
+            // In middleware, auth is the decoded JWT token
+            // Check role from both user object and direct token
+            const userRole = (auth?.user as any)?.role;
+            const tokenRole = (auth as any)?.role;
+            const role = userRole || tokenRole;
+            const isAdmin = role === 'ADMIN';
 
             // Protected dashboard routes
             if (pathname.startsWith('/dashboard')) {
@@ -26,6 +32,7 @@ export const authConfig: NextAuthConfig = {
                 }
                 // Admin-only routes
                 if (pathname.startsWith('/dashboard/admin') && !isAdmin) {
+                    // Not admin, redirect to dashboard
                     return Response.redirect(new URL('/dashboard', nextUrl.origin));
                 }
             }

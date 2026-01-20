@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         }
 
         // Get token from database
-        const resetToken = getPasswordResetToken(token);
+        const resetToken = await getPasswordResetToken(token);
 
         if (!resetToken) {
             return NextResponse.json(
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
         }
 
         // Check if token is expired
-        const expiresAt = new Date(resetToken.expires_at);
+        const expiresAt = new Date(resetToken.expiresAt);
         if (expiresAt < new Date()) {
             return NextResponse.json(
                 { error: 'This reset link has expired. Please request a new one.' },
@@ -55,10 +55,10 @@ export async function POST(request: Request) {
         const passwordHash = await bcrypt.hash(password, 12);
 
         // Update user's password
-        updateUserPassword(resetToken.user_id, passwordHash);
+        await updateUserPassword(resetToken.userId, passwordHash);
 
         // Mark token as used
-        markTokenAsUsed(token);
+        await markTokenAsUsed(token);
 
         return NextResponse.json({
             success: true,

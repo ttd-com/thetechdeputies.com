@@ -33,7 +33,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     }
 
     // Check admin access (middleware also handles this)
-    if (session?.user?.role !== 'admin') {
+    if (session?.user?.role !== 'ADMIN') {
         redirect('/dashboard');
     }
 
