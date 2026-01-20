@@ -6,14 +6,14 @@ import Link from 'next/link';
 interface GiftCard {
     id: number;
     code: string;
-    original_amount: number;
-    remaining_amount: number;
-    purchaser_email: string;
-    purchaser_name: string | null;
-    recipient_email: string | null;
-    recipient_name: string | null;
+    originalAmount: number;
+    remainingAmount: number;
+    purchaserEmail: string;
+    purchaserName: string | null;
+    recipientEmail: string | null;
+    recipientName: string | null;
     status: 'active' | 'redeemed' | 'expired' | 'cancelled';
-    purchased_at: string;
+    purchasedAt: string;
 }
 
 export default function GiftCardsPage() {
