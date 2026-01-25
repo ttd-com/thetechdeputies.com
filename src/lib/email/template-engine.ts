@@ -3,7 +3,7 @@
  * @description Dynamic template engine for email content rendering with HTML/text support and variable substitution
  */
 
-import { logger } from '../../logger'
+import { logger } from '@/lib/logger'
 
 export interface TemplateData {
   [key: string]: any
@@ -32,20 +32,20 @@ export interface ValidationResult {
 }
 
 export interface Template {
-  id: number
+  id: string
   name: string
   subject: string
   htmlContent: string
-  textContent: string
-  variables: Record<string, {
+  textContent?: string
+  variables?: Record<string, {
     type: 'string' | 'number' | 'boolean' | 'object'
     required: boolean
     description: string
   }>
-  isActive: boolean
-  version: number
-  createdAt: Date
-  updatedAt: Date
+  isActive?: boolean
+  version?: number
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 export class TemplateEngine {
@@ -491,7 +491,7 @@ export class TemplateEngine {
               <div class="course-info">
                 <h3>Course Details</h3>
                 <p><strong>Course:</strong> {{courseName}}</p>
-                <p><strong>Price:</strong> ${{price}}</p>
+                <p><strong>Price:</strong> \${{price}}</p>
                 <p><strong>Payment Method:</strong> {{paymentMethod}}</p>
                 {{#if giftCardCode}}
                 <p><strong>Gift Card:</strong> {{giftCardCode}}</p>
@@ -502,9 +502,9 @@ export class TemplateEngine {
               <div class="purchase-details">
                 <h3>Transaction Details</h3>
                 <p><strong>Transaction ID:</strong> {{transactionId}}</p>
-                <p><strong>Amount Paid:</strong> ${{amountPaid}}</p>
+                <p><strong>Amount Paid:</strong> \${{amountPaid}}</p>
                 {{#if giftCardCode}}
-                <p><strong>Gift Card Applied:</strong> ${{giftCardAmount}}</p>
+                <p><strong>Gift Card Applied:</strong> \${{giftCardAmount}}</p>
                 {{/if}}
               </div>
               
@@ -531,7 +531,7 @@ export class TemplateEngine {
         
         Course Details:
         Course: {{courseName}}
-        Price: ${{price}}
+        Price: \${{price}}
         Payment Method: {{paymentMethod}}
         {{#if giftCardCode}}
         Gift Card: {{giftCardCode}}
@@ -540,9 +540,9 @@ export class TemplateEngine {
         
         Transaction Details:
         Transaction ID: {{transactionId}}
-        Amount Paid: ${{amountPaid}}
+        Amount Paid: \${{amountPaid}}
         {{#if giftCardCode}}
-        Gift Card Applied: ${{giftCardAmount}}
+        Gift Card Applied: \${{giftCardAmount}}
         {{/if}}
         
         You can access your course immediately by visiting your dashboard:
@@ -634,8 +634,8 @@ export class TemplateEngine {
               
               <div class="gift-card">
                 <p><strong>Gift Card Code:</strong> {{code}}</p>
-                <p><strong>Gift Card Amount:</strong> ${{amount}}</p>
-                <p><strong>Original Amount:</strong> ${{originalAmount}}</p>
+                <p><strong>Gift Card Amount:</strong> \${{amount}}</p>
+                <p><strong>Original Amount:</strong> \${{originalAmount}}</p>
                 <p><strong>Purchaser Name:</strong> {{purchaserName}}</p>
                 <p><strong>Recipient Name:</strong> {{recipientName}}</p>
                 <p><strong>Purchase Date:</strong> {{purchaseDate}}</p>
@@ -672,8 +672,8 @@ export class TemplateEngine {
         Thank you for purchasing a The Tech Deputies gift card!
         
         Gift Card Code: {{code}}
-        Gift Card Amount: ${{amount}}
-        Original Amount: ${{originalAmount}}
+        Gift Card Amount: \${{amount}}
+        Original Amount: \${{originalAmount}}
         Purchaser Name: {{purchaserName}}
         Recipient Name: {{recipientName}}
         Purchase Date: {{purchaseDate}}
@@ -700,7 +700,7 @@ export class TemplateEngine {
   /**
    * Render template with variable substitution
    */
-  async renderTemplate(templateName: string, data: Record<string, any>, options: TemplateOptions = {}): Promise<TemplateRenderResult> {
+  async renderTemplate(templateName: string, data: Record<string, any>, options?: Partial<TemplateOptions>): Promise<TemplateRenderResult> {
     const startTime = Date.now()
     
     try {
@@ -716,8 +716,8 @@ export class TemplateEngine {
           html: '',
           text: '',
           metadata: {
-            errors: validation.errors,
-            warnings: validation.warnings
+            variables: Object.keys(data),
+            renderingTime: Date.now() - startTime
           }
         }
       }
@@ -745,6 +745,7 @@ export class TemplateEngine {
         }
       }
     } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
       logger.error('Template rendering failed', error, {
         template: templateName,
         data: Object.keys(data)
@@ -754,8 +755,8 @@ export class TemplateEngine {
         html: '',
         text: '',
         metadata: {
-          errors: [`Rendering failed: ${error.message}`],
-          warnings: []
+          variables: Object.keys(data),
+          renderingTime: Date.now() - startTime
         }
       }
     }
@@ -802,18 +803,18 @@ export class TemplateEngine {
 
     // Check required variables
     if (template.variables) {
-      template.variables.forEach(variable => {
-        if (variable.required && !data[variable.key]) {
-          errors.push(`Required variable '${variable.key}' is missing`)
+      Object.entries(template.variables).forEach(([key, variable]) => {
+        if (variable.required && !data[key]) {
+          errors.push(`Required variable '${key}' is missing`)
         }
         
         // Validate variable type
-        if (data[variable.key] && variable.type) {
-          const actualType = typeof data[variable.key]
+        if (data[key] && variable.type) {
+          const actualType = typeof data[key]
           const expectedType = variable.type
           
           if (actualType !== expectedType) {
-            errors.push(`Variable '${variable.key}' should be of type '${expectedType}' but is '${actualType}'`)
+            warnings.push(`Variable '${key}' should be of type '${expectedType}' but is '${actualType}'`)
           }
         }
       })

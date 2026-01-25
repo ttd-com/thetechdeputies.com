@@ -4,7 +4,7 @@
  */
 
 import { logger } from '../logger'
-import { QueueManager } from './queue-manager'
+import { QueueManager, EmailStatus, Priority, type EmailJob } from './queue-manager'
 
 export interface EmailSendOptions {
   to: string | string[]
@@ -13,7 +13,7 @@ export interface EmailSendOptions {
   text?: string
   from?: string
   replyTo?: string
-  priority?: 'LOW' | 'NORMAL' | 'HIGH' | 'CRITICAL'
+  priority?: Priority
   scheduledAt?: Date
   maxRetries?: number
 }
@@ -25,36 +25,7 @@ export interface DeliveryTrackingOptions {
   metadata?: Record<string, any>
 }
 
-export interface EmailJob {
-  id: string
-  messageId?: string
-  templateType: string
-  recipientEmail: string
-  recipientName?: string
-  subject: string
-  content: {
-    templateType: string
-    html?: string
-    text?: string
-    metadata?: Record<string, any>
-  }
-  status: 'QUEUED' | 'SENDING' | 'SENT' | 'DELIVERED' | 'OPENED' | 'CLICKED' | 'BOUNCED' | 'COMPLAINED' | 'FAILED' | 'CANCELLED'
-  priority: 'LOW' | 'NORMAL' | 'HIGH' | 'CRITICAL'
-  scheduledAt?: Date
-  sentAt?: Date
-  deliveredAt?: Date
-  openedAt?: Date
-  clickedAt?: Date
-  bouncedAt?: Date
-  complainedAt?: Date
-  bounceReason?: string
-  complaintType?: string
-  retryCount: number
-  maxRetries: number
-  lastError?: string
-  createdAt: Date
-  updatedAt: Date
-}
+export type { EmailJob }
 
 export interface QueueStats {
   total: number
@@ -86,8 +57,8 @@ export class EnhancedEmailService {
         priority: options.priority || 'NORMAL'
       })
 
-      const job: EmailJob = {
-        id: Date.now().toString(),
+      const job: Omit<EmailJob, 'id' | 'createdAt' | 'updatedAt'> = {
+        templateType: 'custom',
         recipientEmail: Array.isArray(options.to) ? options.to[0] : options.to,
         recipientName: this.extractNameFromEmail(Array.isArray(options.to) ? options.to[0] : options.to),
         subject: options.subject,
@@ -97,13 +68,11 @@ export class EnhancedEmailService {
           text: options.text,
           metadata: trackingOptions?.metadata || {}
         },
-        status: 'QUEUED',
-        priority: options.priority || 'NORMAL',
+        status: EmailStatus.QUEUED,
+        priority: (options.priority as Priority) || Priority.NORMAL,
         scheduledAt: options.scheduledAt,
         maxRetries: options.maxRetries || 3,
-        retryCount: 0,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        retryCount: 0
       }
 
       return await this.queueManager.enqueue(job)
@@ -119,40 +88,39 @@ export class EnhancedEmailService {
   /**
    * Send template-based email
    */
-  async sendTemplate(templateName: string, data: any, options: EmailSendOptions = {}, trackingOptions?: DeliveryTrackingOptions): Promise<EmailJob> {
+  async sendTemplate(templateName: string, data: any, options?: Omit<EmailSendOptions, 'html' | 'text'>, trackingOptions?: DeliveryTrackingOptions): Promise<EmailJob> {
     try {
+      const opts = options || { to: '', subject: '' }
       logger.info('Sending template email', {
         template: templateName,
-        recipientEmail: options.to as string,
-        dataKeys: Object.keys(data)
+        recipientEmail: opts.to as string,
+        dataKeys: Object.keys(data || {})
       })
 
-      const job: EmailJob = {
-        id: Date.now().toString(),
-        recipientEmail: options.to as string,
-        recipientName: data.name || this.extractNameFromEmail(options.to as string),
-        subject: options.subject || this.generateSubjectFromTemplate(templateName, data),
+      const job: Omit<EmailJob, 'id' | 'createdAt' | 'updatedAt'> = {
+        templateType: templateName,
+        recipientEmail: opts.to as string,
+        recipientName: data.name || this.extractNameFromEmail(opts.to as string),
+        subject: opts.subject || this.generateSubjectFromTemplate(templateName, data),
         content: {
           templateType: templateName,
           html: undefined, // Will be rendered by template engine
           text: undefined,
           metadata: { ...data, templateName }
         },
-        status: 'QUEUED',
-        priority: options.priority || 'NORMAL',
-        scheduledAt: options.scheduledAt,
-        maxRetries: options.maxRetries || 3,
-        retryCount: 0,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        status: EmailStatus.QUEUED,
+        priority: (opts.priority as Priority) || Priority.NORMAL,
+        scheduledAt: opts.scheduledAt,
+        maxRetries: opts.maxRetries || 3,
+        retryCount: 0
       }
 
       return await this.queueManager.enqueue(job)
     } catch (error) {
       logger.error('Failed to enqueue template email', error, {
         template: templateName,
-        data: dataKeys || [],
-        to: options.to
+        data: Object.keys(data || {}),
+        to: options?.to
       })
       throw error
     }
@@ -169,8 +137,8 @@ export class EnhancedEmailService {
         scheduledAt: sendAt
       })
 
-      const job: EmailJob = {
-        id: Date.now().toString(),
+      const job: Omit<EmailJob, 'id' | 'createdAt' | 'updatedAt'> = {
+        templateType: 'custom',
         recipientEmail: Array.isArray(options.to) ? options.to[0] : options.to,
         recipientName: this.extractNameFromEmail(Array.isArray(options.to) ? options.to[0] : options.to),
         subject: options.subject,
@@ -180,13 +148,11 @@ export class EnhancedEmailService {
           text: options.text,
           metadata: { scheduledFor: sendAt.toISOString() }
         },
-        status: 'QUEUED',
-        priority: options.priority || 'NORMAL',
+        status: EmailStatus.QUEUED,
+        priority: (options.priority as Priority) || Priority.NORMAL,
         scheduledAt: sendAt,
         maxRetries: options.maxRetries || 3,
-        retryCount: 0,
-        createdAt: new Date(),
-        updatedAt: new Date()
+        retryCount: 0
       }
 
       return await this.queueManager.enqueue(job)
@@ -252,8 +218,6 @@ export class EnhancedEmailService {
     total: number
     sent: number
     delivered: number
-    opened: number
-    clicked: number
     failed: number
   }> {
     try {
@@ -264,8 +228,6 @@ export class EnhancedEmailService {
         total: stats.total,
         sent: stats.sent,
         delivered: stats.delivered,
-        opened: stats.opened,
-        clicked: stats.clicked,
         failed: stats.failed
       }
     } catch (error) {
@@ -293,7 +255,7 @@ export class EnhancedEmailService {
   async getQueueStats(): Promise<{
     total: number
     queued: number
-    processing: number
+    sending: number
     sent: number
     delivered: number
     failed: number
@@ -305,7 +267,7 @@ export class EnhancedEmailService {
       return {
         total: stats.total,
         queued: stats.queued,
-        processing: stats.processing,
+        sending: stats.sending,
         sent: stats.sent,
         delivered: stats.delivered,
         failed: stats.failed
@@ -355,3 +317,12 @@ export class EnhancedEmailService {
 }
 
 export const enhancedEmailService = new EnhancedEmailService()
+
+// Convenience exports used by API endpoints
+export async function getAllEmailJobs() {
+  return enhancedEmailService.getQueueManager().getAllJobs()
+}
+
+export async function getQueueMetrics() {
+  return enhancedEmailService.getQueueStats()
+}

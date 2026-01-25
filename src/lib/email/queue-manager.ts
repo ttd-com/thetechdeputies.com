@@ -6,7 +6,7 @@
 import { logger } from '../logger'
 
 export interface EmailJob {
-  id: number
+  id: string
   messageId?: string
   templateType: string
   recipientEmail: string
@@ -72,9 +72,9 @@ export class QueueManager {
   private processing: Set<string> = new Set()
   private isProcessing: boolean = false
 
-  async enqueue(job: Omit<EmailJob, 'id' | 'createdAt' | 'updatedAt'>, options: QueueOptions = {}): Promise<EmailJob> {
+  async enqueue(inputJob: Omit<EmailJob, 'id' | 'createdAt' | 'updatedAt'>, options: QueueOptions = {}): Promise<EmailJob> {
     const job: EmailJob = {
-      ...job,
+      ...inputJob,
       id: Date.now().toString(),
       status: EmailStatus.QUEUED,
       priority: options.priority || Priority.NORMAL,
@@ -94,8 +94,20 @@ export class QueueManager {
     })
 
     await this.persistJob(job)
-    await this.startProcessing()
+    void this.processQueue().catch((error) => {
+      logger.error('Queue processing error', error)
+    })
     return job
+  }
+
+  private async startProcessing(): Promise<void> {
+    void this.processQueue().catch((error) => {
+      logger.error('Queue processing error', error)
+    })
+  }
+
+  getAllJobs(): EmailJob[] {
+    return Array.from(this.jobs.values())
   }
 
   async dequeue(priority?: Priority): Promise<EmailJob | null> {

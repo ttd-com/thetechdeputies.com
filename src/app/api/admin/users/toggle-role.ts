@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { logger } from '@/lib/logger';
+import { Role } from '@prisma/client';
 
 // Toggle user role (ADMIN <-> USER)
 export async function POST(req: Request) {
@@ -32,9 +33,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // Toggle role
-    const newRole = currentUser.role === 'USER' ? 'ADMIN' : 'USER';
-    
+    // Toggle role using Prisma Role enum to satisfy TypeScript
+    const newRole: Role = currentUser.role === Role.USER ? Role.ADMIN : Role.USER;
+
     const updatedUser = await db.user.update({
       where: { id: userId },
       data: { role: newRole, updatedAt: new Date() }
