@@ -160,7 +160,7 @@ All components must meet WCAG 2.1 Level AA:
 
 ## Deployment & Environment
 
-**Branch strategy**: `main` deploys to staging (station.thetechdeputies.com); `production` branch for production (future).
+**Branch strategy**: `main` deploys to staging (thetechdeputies.com); `production` branch for production (future).
 
 **Environment variables** (set in Vercel project settings or `.env.local`):
 - `NEXTAUTH_SECRET`: Session encryption key (generate: `openssl rand -base64 32`)

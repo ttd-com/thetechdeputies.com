@@ -1,8 +1,8 @@
 # The Tech Deputies - Project Handbook
 
 > **Last Updated**: 2026-01-18
-> **Project**: station.thetechdeputies.com (Beta/Staging)
-> **Production URL**: https://station.thetechdeputies.com
+> **Project**: thetechdeputies.com (Beta/Staging)
+> **Production URL**: https://thetechdeputies.com
 > **Repository**: GitHub (private)
 
 ---
@@ -66,7 +66,7 @@ src/
 
 | Branch | Domain | Purpose |
 |--------|--------|---------|
-| `main` | station.thetechdeputies.com | Beta/Staging - test new features |
+| `main` | thetechdeputies.com | Beta/Staging - test new features |
 | `production` | thetechdeputies.com | Production - stable release (future) |
 
 ### Promotion Workflow
@@ -159,11 +159,11 @@ openssl rand -base64 32
 4. **Vercel Automatically**
    - Detects the push
    - Runs `npm install` and `npm run build`
-   - Deploys to staging (station.thetechdeputies.com)
+   - Deploys to staging (thetechdeputies.com)
 
 5. **Verify Deployment**
    - Check Vercel dashboard for build status
-   - Visit https://station.thetechdeputies.com
+   - Visit https://thetechdeputies.com
 
 ---
 

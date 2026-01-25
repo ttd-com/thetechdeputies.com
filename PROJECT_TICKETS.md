@@ -1,13 +1,13 @@
 # Project Tickets & Issues
 
-This document contains a comprehensive list of tickets (Issues) covering completed Epics and outstanding items for `station.thetechdeputies.com`.
+This document contains a comprehensive list of tickets (Issues) covering completed Epics and outstanding items for `thetechdeputies.com`.
 
 ## 🔴 Outstanding Issues (High Priority)
 
 ### Issue #2: [CRITICAL] Site Unresponsive / Failed to Fetch
 **Labels**: `bug`, `priority/highest`, `ops`
 **Description**:
-Production site `https://station.thetechdeputies.com` experienced downtime during VPS-based infrastructure period.
+Production site `https://thetechdeputies.com` experienced downtime during VPS-based infrastructure period.
 **Status**: RESOLVED - Migrated to Vercel.
 **Context**:
 - This issue occurred when infrastructure was self-hosted with PM2 and Caddy reverse proxy.
