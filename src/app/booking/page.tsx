@@ -197,10 +197,16 @@ export default function BookingPage() {
                   <p>
                     <strong>Email:</strong>{" "}
                     <a
-                      href="mailto:support@thetechdeputies.com"
+                      href="mailto:hello@thetechdeputies.com"
                       className="text-primary hover:text-primary-hover"
                     >
-                      support@thetechdeputies.com
+                      hello@thetechdeputies.com
+                    </a>
+                  </p>
+                  <p>
+                    <strong>Call or Text:</strong>{" "}
+                    <a href="tel:+19169999576" className="text-primary hover:text-primary-hover">
+                      (916) 999-9576
                     </a>
                   </p>
                 </div>

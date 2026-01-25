@@ -96,10 +96,19 @@ export function AcuityEmbed({
             <p>
               <strong>Email:</strong>{" "}
               <a
-                href="mailto:support@thetechdeputies.com"
+                href="mailto:hello@thetechdeputies.com"
                 className="text-primary hover:text-primary-hover"
               >
-                support@thetechdeputies.com
+                hello@thetechdeputies.com
+              </a>
+            </p>
+            <p>
+              <strong>Call or Text:</strong>{" "}
+              <a
+                href="tel:+19169999576"
+                className="text-primary hover:text-primary-hover"
+              >
+                (916) 999-9576
               </a>
             </p>
             <p className="text-muted-foreground">
@@ -188,12 +197,14 @@ export function AcuityEmbed({
 
       {/* Accessibility Note */}
       <p className="mt-2 text-xs text-muted-foreground text-center">
-        Having trouble with the scheduler?{" "}
-        <a
-          href="mailto:support@thetechdeputies.com"
-          className="text-primary hover:text-primary-hover"
-        >
-          Contact us directly
+        Having trouble with the scheduler? Reach us at{' '}
+        <a href="mailto:hello@thetechdeputies.com" className="text-primary hover:text-primary-hover">
+          hello@thetechdeputies.com
+        </a>{' '}
+        or
+        {' '}
+        <a href="tel:+19169999576" className="text-primary hover:text-primary-hover">
+          Call or Text: (916) 999-9576
         </a>
         .
       </p>

@@ -105,10 +105,15 @@ export default function ContactPage() {
                                             </svg>
                                         </div>
                                         <div>
-                                            <h3 className="font-semibold text-[var(--color-secondary)]">Email</h3>
-                                            <a href="mailto:support@thetechdeputies.com" className="text-[var(--color-primary)] hover:underline">
-                                                support@thetechdeputies.com
-                                            </a>
+                                                    <h3 className="font-semibold text-[var(--color-secondary)]">Contact</h3>
+                                                    <div className="flex flex-col">
+                                                        <a href="mailto:hello@thetechdeputies.com" className="text-[var(--color-primary)] hover:underline">
+                                                            hello@thetechdeputies.com
+                                                        </a>
+                                                        <a href="tel:+19169999576" className="text-[var(--color-primary)] hover:underline mt-1">
+                                                            Call or Text: (916) 999-9576
+                                                        </a>
+                                                    </div>
                                         </div>
                                     </div>
                                     <div className="flex items-start gap-4">

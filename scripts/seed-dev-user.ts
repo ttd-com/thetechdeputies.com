@@ -36,7 +36,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const email = 'test@thetechdeputies.com';
+  const email = 'hello@thetechdeputies.com';
   const password = 'password';
 
   try {

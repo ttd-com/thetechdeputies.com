@@ -82,7 +82,7 @@ export function EmailDashboard() {
             queue: [
               {
                 id: '1',
-                recipientEmail: 'admin@thetechdeputies.com',
+                recipientEmail: 'hello@thetechdeputies.com',
                 recipientName: 'Admin User',
                 subject: 'Email Dashboard Test',
                 status: 'SENT',

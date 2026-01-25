@@ -585,7 +585,8 @@ export async function getUserCourses(userId: number) {
         return await prisma.coursePurchase.findMany({
             where: {
                 userId,
-                status: CoursePurchaseStatus.ACTIVE,
+                // Prisma client expects the client enum name (uppercase)
+                status: 'ACTIVE' as any,
             },
             orderBy: { purchasedAt: 'desc' },
         });
@@ -601,7 +602,7 @@ export async function hasUserPurchasedCourse(userId: number, courseSlug: string)
             where: {
                 userId,
                 courseSlug,
-                status: CoursePurchaseStatus.ACTIVE,
+                status: 'ACTIVE' as any,
             },
         });
         return !!purchase;
@@ -636,7 +637,7 @@ export async function getAllCoursePurchases() {
 export async function getCoursePurchaseStats() {
     try {
         const purchases = await prisma.coursePurchase.findMany({
-            where: { status: CoursePurchaseStatus.ACTIVE },
+            where: { status: 'ACTIVE' as any },
         });
 
         const totalPurchases = purchases.length;

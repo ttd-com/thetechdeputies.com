@@ -20,6 +20,8 @@ export default function AdminSettingsPage() {
     const [saving, setSaving] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
     const [showSecrets, setShowSecrets] = useState<Record<string, boolean>>({});
+    const [editing, setEditing] = useState<Record<string, boolean>>({});
+    const [emptyWarning, setEmptyWarning] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
         async function loadSettings() {
@@ -143,21 +145,65 @@ export default function AdminSettingsPage() {
                                 Mailgun API Key
                             </label>
                             <div className="relative">
-                                <input
-                                    id="mailgun_api_key"
-                                    type={showSecrets['mailgun_api_key'] ? 'text' : 'password'}
-                                    value={settings.mailgun_api_key}
-                                    onChange={(e) => setSettings(prev => ({ ...prev, mailgun_api_key: e.target.value }))}
-                                    placeholder="key-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-                                    className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => toggleSecret('mailgun_api_key')}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                >
-                                    {showSecrets['mailgun_api_key'] ? <EyeOffIcon /> : <EyeIcon />}
-                                </button>
+                                <div className="relative">
+                                    <input
+                                        id="mailgun_api_key"
+                                        type={showSecrets['mailgun_api_key'] ? 'text' : 'password'}
+                                        value={settings.mailgun_api_key}
+                                        onChange={(e) => setSettings(prev => ({ ...prev, mailgun_api_key: e.target.value }))}
+                                        placeholder="key-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                                        readOnly={!editing['mailgun_api_key']}
+                                        className="w-full px-4 py-3 pr-28 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+                                    />
+
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                        {/* Check indicator */}
+                                        {settings.mailgun_api_key ? (
+                                            <span title="Configured" className="text-green-500" aria-hidden>
+                                                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </span>
+                                        ) : (
+                                            <span title="Not configured" className="text-gray-300" aria-hidden>
+                                                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <circle cx="12" cy="12" r="10" strokeWidth={2} />
+                                                </svg>
+                                            </span>
+                                        )}
+
+                                        <button
+                                            type="button"
+                                            onClick={() => toggleSecret('mailgun_api_key')}
+                                            className="text-gray-400 hover:text-gray-600"
+                                            aria-label="Toggle visibility"
+                                        >
+                                            {showSecrets['mailgun_api_key'] ? <EyeOffIcon /> : <EyeIcon />}
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setEditing(prev => ({ ...prev, mailgun_api_key: !prev['mailgun_api_key'] }));
+                                                // warn if empty and toggling off editing
+                                                if (!settings.mailgun_api_key) {
+                                                    setEmptyWarning(prev => ({ ...prev, mailgun_api_key: true }));
+                                                } else {
+                                                    setEmptyWarning(prev => ({ ...prev, mailgun_api_key: false }));
+                                                }
+                                            }}
+                                            className="text-gray-400 hover:text-gray-600"
+                                            aria-label="Edit API key"
+                                        >
+                                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                {emptyWarning['mailgun_api_key'] && (
+                                    <p className="text-sm text-yellow-600 mt-2">Warning: API key is empty.</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -200,21 +246,63 @@ export default function AdminSettingsPage() {
                                 Acuity API Key
                             </label>
                             <div className="relative">
-                                <input
-                                    id="acuity_api_key"
-                                    type={showSecrets['acuity_api_key'] ? 'text' : 'password'}
-                                    value={settings.acuity_api_key}
-                                    onChange={(e) => setSettings(prev => ({ ...prev, acuity_api_key: e.target.value }))}
-                                    placeholder="Your Acuity API Key"
-                                    className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => toggleSecret('acuity_api_key')}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                >
-                                    {showSecrets['acuity_api_key'] ? <EyeOffIcon /> : <EyeIcon />}
-                                </button>
+                                <div className="relative">
+                                    <input
+                                        id="acuity_api_key"
+                                        type={showSecrets['acuity_api_key'] ? 'text' : 'password'}
+                                        value={settings.acuity_api_key}
+                                        onChange={(e) => setSettings(prev => ({ ...prev, acuity_api_key: e.target.value }))}
+                                        placeholder="Your Acuity API Key"
+                                        readOnly={!editing['acuity_api_key']}
+                                        className="w-full px-4 py-3 pr-28 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+                                    />
+
+                                    <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                        {settings.acuity_api_key ? (
+                                            <span title="Configured" className="text-green-500" aria-hidden>
+                                                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                            </span>
+                                        ) : (
+                                            <span title="Not configured" className="text-gray-300" aria-hidden>
+                                                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <circle cx="12" cy="12" r="10" strokeWidth={2} />
+                                                </svg>
+                                            </span>
+                                        )}
+
+                                        <button
+                                            type="button"
+                                            onClick={() => toggleSecret('acuity_api_key')}
+                                            className="text-gray-400 hover:text-gray-600"
+                                            aria-label="Toggle visibility"
+                                        >
+                                            {showSecrets['acuity_api_key'] ? <EyeOffIcon /> : <EyeIcon />}
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setEditing(prev => ({ ...prev, acuity_api_key: !prev['acuity_api_key'] }));
+                                                if (!settings.acuity_api_key) {
+                                                    setEmptyWarning(prev => ({ ...prev, acuity_api_key: true }));
+                                                } else {
+                                                    setEmptyWarning(prev => ({ ...prev, acuity_api_key: false }));
+                                                }
+                                            }}
+                                            className="text-gray-400 hover:text-gray-600"
+                                            aria-label="Edit API key"
+                                        >
+                                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                {emptyWarning['acuity_api_key'] && (
+                                    <p className="text-sm text-yellow-600 mt-2">Warning: API key is empty.</p>
+                                )}
                             </div>
                         </div>
                     </div>

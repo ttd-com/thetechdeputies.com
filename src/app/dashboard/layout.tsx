@@ -119,14 +119,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                             <div className="w-10 h-10 rounded-full bg-[var(--color-primary)] flex items-center justify-center text-white font-semibold">
                                 {session?.user?.name?.[0]?.toUpperCase() || session?.user?.email?.[0]?.toUpperCase() || '?'}
                             </div>
-                            <div className="flex-1 min-w-0">
-                                <p className="text-white font-medium truncate">
-                                    {session?.user?.name || 'User'}
-                                </p>
-                                <p className="text-gray-400 text-sm truncate">
-                                    {session?.user?.email}
-                                </p>
-                            </div>
+                            <Link href="/dashboard/settings" className="flex-1 min-w-0 group">
+                                    <p className="text-white font-medium truncate group-hover:underline">
+                                        {session?.user?.name || 'User'}
+                                    </p>
+                                    <p className="text-gray-400 text-sm truncate">
+                                        {session?.user?.email}
+                                    </p>
+                            </Link>
                         </div>
                         <button
                             onClick={() => signOut({ callbackUrl: '/' })}
