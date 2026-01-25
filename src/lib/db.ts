@@ -13,8 +13,26 @@ import { getDatabaseUrl } from './env';
 // Singleton pattern for Prisma Client
 let prisma: PrismaClient;
 
+function maskDbUrl(conn?: string) {
+    if (!conn) return 'undefined';
+    try {
+        const u = new URL(conn);
+        const user = u.username ? u.username + ':****@' : '';
+        const port = u.port ? `:${u.port}` : '';
+        return `${u.protocol}//${user}${u.hostname}${port}${u.pathname}`;
+    } catch {
+        return 'masked';
+    }
+}
+
+const connectionString = getDatabaseUrl();
+logger.info('Database connection string selected (masked)', { db: maskDbUrl(connectionString), dbHostLocal: process.env.DB_HOST_LOCAL });
+
 if (process.env.NODE_ENV === 'production') {
-    const connectionString = getDatabaseUrl();
+    if (!connectionString) {
+        logger.error('No database connection string available in production. Check environment variables.');
+        throw new Error('Database connection string is not configured');
+    }
     const pool = new Pool({ connectionString });
     const adapter = new PrismaPg(pool);
     prisma = new PrismaClient({ adapter });
@@ -22,7 +40,10 @@ if (process.env.NODE_ENV === 'production') {
     // Prevent multiple instances in development
     const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
     if (!globalForPrisma.prisma) {
-        const connectionString = getDatabaseUrl();
+        if (!connectionString) {
+            logger.error('No database connection string available in development. Check .env.local or environment variables.');
+            throw new Error('Database connection string is not configured');
+        }
         const pool = new Pool({ connectionString });
         const adapter = new PrismaPg(pool);
         globalForPrisma.prisma = new PrismaClient({
