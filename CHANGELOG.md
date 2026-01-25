@@ -30,5 +30,12 @@
 - **Database**: Moved production SQLite file from `/var/lib` to application directory for better portability and permission management.
 - **Secrets**: Rotated `NEXTAUTH_SECRET` to a secure 64-char string.
 
+### Security
+- **Security Audit (2026-01-24)**: Performed a repository security audit. Findings and actions:
+    - Found developer secrets present in `.env.local` (local dev file). These values are sensitive and should be rotated immediately (Mailgun API key, `DATABASE_URL`, `REDIS_TOKEN`, `NEXTAUTH_SECRET`).
+    - Confirmed `.gitignore` already ignores `.env*` (except `.env.example`) so local env files are not tracked. `.env.local` was not committed.
+    - Patched a Prisma enum validation issue in `src/lib/db.ts` to ensure the `role` field is passed as the expected value.
+    - Recommendation: Rotate any exposed credentials and store production secrets in a secrets manager or CI/CD encrypted secrets.
+
 ### Known Issues
 - None currently tracked.

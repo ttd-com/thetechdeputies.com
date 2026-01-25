@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'production') {
 export const db = prisma;
 
 // Re-export Prisma types
-export type { User, GiftCard, GiftCardTransaction, CoursePurchase } from '@prisma/client';
+export type { User, GiftCard, GiftCardTransaction, CoursePurchase, Role } from '@prisma/client';
 
 // Note: Tables are defined in prisma/schema.prisma
 // Run 'npx prisma migrate deploy' in production or 'npx prisma migrate dev' in development
@@ -72,12 +72,16 @@ export async function createUser(email: string, passwordHash: string, name?: str
         const userCount = await prisma.user.count();
         const role = userCount === 0 ? Role.ADMIN : Role.USER;
 
+        // Prisma client expects the enum value as the client enum name
+        // (e.g. 'ADMIN' / 'USER'). Ensure we pass the correct string.
+        const roleValue = role === Role.ADMIN ? 'ADMIN' : 'USER';
+
         return await prisma.user.create({
             data: {
                 email,
                 passwordHash,
                 name: name || null,
-                role,
+                role: roleValue as any,
             },
         });
     } catch (error) {

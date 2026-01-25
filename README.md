@@ -136,6 +136,18 @@ the-tech-deputies/
 └── .env.local                  # Environment variables (Git-ignored)
 ```
 
+## Security Audit (2026-01-24)
+
+- Performed a quick repository security audit and documentation update.
+- Findings:
+   - Developer secrets were present in the local file `.env.local` (Mailgun API key, `DATABASE_URL`, `REDIS_TOKEN`, `NEXTAUTH_SECRET`). These are development credentials stored locally and must be rotated if they have been shared.
+   - Build artifacts (the `.next` directory) contain runtime references but are ignored by `.gitignore` and are not committed.
+   - `.gitignore` contains a rule to ignore `.env*` files while allowing `.env.example`; this prevents accidental commits of local env files like `.env.local`.
+- Actions taken:
+   - Added audit notes to the changelog and a small fix to `src/lib/db.ts` to address a Prisma enum validation error.
+   - Recommended next steps: rotate any exposed secrets immediately, add production secrets to a secret manager (Vercel/GitHub/Vault), and consider adding a pre-commit secret-scanning hook.
+
+
 ## Development Backlog
 
 ### Epic 1: Project Foundation & Static-to-Dynamic Migration
