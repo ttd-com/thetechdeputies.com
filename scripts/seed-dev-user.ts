@@ -20,14 +20,15 @@ if (fs.existsSync(envPath)) {
   });
 }
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Role } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
+import { getDatabaseUrl } from '../src/lib/env';
 import * as bcrypt from 'bcryptjs';
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = getDatabaseUrl();
 if (!connectionString) {
-  throw new Error('DATABASE_URL environment variable is not set in .env.local');
+  throw new Error('DATABASE_URL environment variable is not set. Check DB_HOST_LOCAL and DATABASE_URL_* in .env.local');
 }
 
 const pool = new Pool({ connectionString });
@@ -48,10 +49,10 @@ async function main() {
       console.log(`✓ User ${email} already exists with role: ${existingUser.role}`);
       
       // Update to admin if not already
-      if (existingUser.role !== 'ADMIN') {
+      if (existingUser.role !== Role.ADMIN) {
         await prisma.user.update({
           where: { email },
-          data: { role: 'ADMIN' },
+          data: { role: Role.ADMIN },
         });
         console.log(`✓ Updated user to ADMIN role`);
       }
@@ -64,7 +65,7 @@ async function main() {
           email,
           passwordHash,
           name: 'R. Foraker',
-          role: 'ADMIN',
+          role: Role.ADMIN,
           emailVerified: true,
         },
       });

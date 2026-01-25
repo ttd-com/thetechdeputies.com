@@ -8,12 +8,13 @@ import { PrismaClient, Role, GiftCardStatus, CoursePurchaseStatus } from '@prism
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 import { logger } from './logger';
+import { getDatabaseUrl } from './env';
 
 // Singleton pattern for Prisma Client
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === 'production') {
-    const connectionString = process.env.DATABASE_URL;
+    const connectionString = getDatabaseUrl();
     const pool = new Pool({ connectionString });
     const adapter = new PrismaPg(pool);
     prisma = new PrismaClient({ adapter });
@@ -21,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
     // Prevent multiple instances in development
     const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
     if (!globalForPrisma.prisma) {
-        const connectionString = process.env.DATABASE_URL;
+        const connectionString = getDatabaseUrl();
         const pool = new Pool({ connectionString });
         const adapter = new PrismaPg(pool);
         globalForPrisma.prisma = new PrismaClient({
