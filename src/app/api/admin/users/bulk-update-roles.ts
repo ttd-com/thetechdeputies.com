@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
     }
 
-    const { userIds, role }: { userIds: string[]; role: Role } = await req.json();
+    const { userIds, role }: { userIds: string[]; role: string } = await req.json();
 
     if (!userIds || userIds.length === 0) {
       return NextResponse.json({ error: 'No users specified' }, { status: 400 });
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       const idNum = Number(userId);
       return db.user.update({
         where: { id: idNum },
-        data: { role, updatedAt: new Date() }
+        data: { role: role as any, updatedAt: new Date() }
       });
     });
 
