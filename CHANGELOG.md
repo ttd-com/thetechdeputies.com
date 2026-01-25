@@ -14,6 +14,10 @@
     - Forgejo workflow `deploy.yaml`.
     - Production `setup_secrets.ps1` script (local).
     - Caddy configuration instructions.
+ - **Environment Toggle**:
+     - Added `DB_HOST_LOCAL` toggle to prefer local or remote database connections during development and deployment.
+     - Introduced `DATABASE_URL_LOCAL` and `DATABASE_URL_REMOTE` along with a `getDatabaseUrl()` helper (`src/lib/env.ts`) to select the active DB URL.
+     - Updated `prisma/prisma.config.ts`, `src/lib/db.ts`, and `scripts/seed-dev-user.ts` to respect the toggle.
 
 ### Fixed
 - **Login 500 Error**: Resolved authentication flow error caused by stray `package-lock.json` in user home directory.
@@ -36,6 +40,9 @@
     - Confirmed `.gitignore` already ignores `.env*` (except `.env.example`) so local env files are not tracked. `.env.local` was not committed.
     - Patched a Prisma enum validation issue in `src/lib/db.ts` to ensure the `role` field is passed as the expected value.
     - Recommendation: Rotate any exposed credentials and store production secrets in a secrets manager or CI/CD encrypted secrets.
+
+### Changed
+- **Environment handling**: Runtime and CLI now support `DB_HOST_LOCAL` (true/false) to switch between local and remote DB endpoints; falls back to `DATABASE_URL` when unset.
 
 ### Known Issues
 - None currently tracked.

@@ -147,6 +147,31 @@ the-tech-deputies/
    - Added audit notes to the changelog and a small fix to `src/lib/db.ts` to address a Prisma enum validation error.
    - Recommended next steps: rotate any exposed secrets immediately, add production secrets to a secret manager (Vercel/GitHub/Vault), and consider adding a pre-commit secret-scanning hook.
 
+## Developer Notes — DB Toggle (2026-01-25)
+
+- New environment toggle: `DB_HOST_LOCAL` (true/false).
+   - When `DB_HOST_LOCAL=true`, the application prefers `DATABASE_URL_LOCAL` (e.g., a `localhost` Postgres instance).
+   - When `DB_HOST_LOCAL=false`, the application prefers `DATABASE_URL_REMOTE` (e.g., production DB connection string).
+   - If neither local nor remote variables are set, the application falls back to `DATABASE_URL` for compatibility.
+
+- Files updated to support this behavior:
+   - `src/lib/env.ts` (new) — `getDatabaseUrl()` helper
+   - `src/lib/db.ts` — runtime DB client uses `getDatabaseUrl()`
+   - `prisma/prisma.config.ts` — Prisma CLI reads URL via helper
+   - `scripts/seed-dev-user.ts` — seed script uses helper
+
+- Quick example (`.env.local`):
+
+```dotenv
+DB_HOST_LOCAL=true
+DATABASE_URL_LOCAL=postgres://dev:devpass@127.0.0.1:5432/thetechdeputies
+DATABASE_URL_REMOTE=postgres://prod:secret@db.example.com:5432/thetechdeputies
+# DATABASE_URL used as fallback when others are not present
+DATABASE_URL=${DATABASE_URL_REMOTE}
+```
+
+Use `DB_HOST_LOCAL=false` in deployed environments and set `DATABASE_URL_REMOTE` (or `DATABASE_URL`) in your host's environment variable settings.
+
 
 ## Development Backlog
 
