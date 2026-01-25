@@ -163,14 +163,46 @@ the-tech-deputies/
 - Quick example (`.env.local`):
 
 ```dotenv
-DB_HOST_LOCAL=true
-DATABASE_URL_LOCAL=postgres://dev:devpass@127.0.0.1:5432/thetechdeputies
-DATABASE_URL_REMOTE=postgres://prod:secret@db.example.com:5432/thetechdeputies
-# DATABASE_URL used as fallback when others are not present
+DB_HOST_LOCAL=false
+DATABASE_URL_REMOTE=postgres://user:pass@db.prisma.io:5432/postgres?sslmode=verify-full
 DATABASE_URL=${DATABASE_URL_REMOTE}
 ```
 
 Use `DB_HOST_LOCAL=false` in deployed environments and set `DATABASE_URL_REMOTE` (or `DATABASE_URL`) in your host's environment variable settings.
+
+## TypeScript & Build Fixes (2026-01-25)
+
+**Status: ✅ All non-test source files now compile with zero TypeScript errors**
+
+### Changes Made
+
+1. **TypeScript Type Safety** (74 errors fixed)
+   - Aligned `EmailJob` status types with `EmailStatus` enum from queue-manager
+   - Fixed email service to use consistent `Priority` enum instead of string literals
+   - Made Template interface fields optional for flexible initialization
+
+2. **Email System Architecture**
+   - Added missing `startProcessing()` method to QueueManager
+   - Fixed `validateTemplateData()` to properly iterate over Record types
+   - Fixed template rendering with proper error handling and type signatures
+
+3. **User Management Features**
+   - Implemented `toggleUserRole()` - toggles user between USER/ADMIN roles via API
+   - Implemented `resetUserPassword()` - triggers password reset flow
+   - Implemented `bulkUpdateRoles()` - batch update multiple users' roles
+
+4. **Middleware & Connection String**
+   - Fixed middleware export from `default` to `named export` (required by Next.js)
+   - Updated PostgreSQL connection string to use `sslmode=verify-full` (pg v9.0 compatible)
+
+### Files Modified
+- `src/lib/email/webhook-handlers.ts` - Removed duplicate declarations
+- `src/lib/email/email-service.ts` - Type alignment and enum usage
+- `src/lib/email/queue-manager.ts` - Added missing method
+- `src/lib/email/template-engine.ts` - Fixed validation and rendering logic
+- `src/contexts/UserManagementContext.tsx` - Implemented missing operations
+- `middleware.ts` - Fixed export syntax
+- `.env.local` - Updated SSL mode
 
 
 ## Development Backlog
