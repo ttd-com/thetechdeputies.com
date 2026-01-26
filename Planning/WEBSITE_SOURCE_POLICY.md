@@ -77,10 +77,20 @@ Before committing code to `/src`, verify:
 
 ## Related Project Locations
 
+- **Multiple Website Projects**: `/Websites/` (each with own package.json)
+- **Workspace Management Scripts**: `/Scripts/` (dynamic project runner, workspace utilities)
 - **Internal Tools & Workflows**: `/_bmad/` (development configuration only)
 - **Admin Dashboard**: `/apps/admin/` (in future monorepo)
 - **Shared Libraries**: `/packages/` (in future monorepo)
-- **Development Scripts**: `/scripts/` (root level, not in src/)
+
+### Adding New Projects
+
+When adding a new website/project to `/Websites`:
+
+1. Create directory: `Websites/newproject/`
+2. Include `package.json` with scripts
+3. Run from root: `bun workspace newproject dev`
+4. Automatically discovered—no manual registration needed
 
 ## Violations & Cleanup
 
@@ -92,7 +102,17 @@ If unrelated code is discovered in `/src`:
 4. Remove from `/src`
 5. Verify website builds and deploys correctly
 
+## Workspace Scripts Location
+
+⚠️ **IMPORTANT**: All workspace management and utility scripts belong in `/Scripts/`, not at the project root or in `/src/`.
+
+**Examples**:
+- `Scripts/run-workspace.js` - Dynamic project runner for `/Websites`
+- Future scripts for bulk operations, deployment, etc.
+
+This keeps the root directory clean and `/src` exclusively for website code.
+
 ---
 
-**Last Updated**: January 25, 2026  
+**Last Updated**: January 26, 2026  
 **Status**: Active Policy

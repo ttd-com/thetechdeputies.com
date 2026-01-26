@@ -1,0 +1,18 @@
+{
+  "name": "thetechdeputies-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Tech Deputies - Multi-project workspace",
+  "scripts": {
+    "workspace": "node Scripts/run-workspace.js",
+    "dev": "node Scripts/run-workspace.js thetechdeputies.com dev",
+    "dev:website": "node Scripts/run-workspace.js thetechdeputies.com dev",
+    "build": "node Scripts/run-workspace.js thetechdeputies.com build",
+    "start": "node Scripts/run-workspace.js thetechdeputies.com start",
+    "test": "node Scripts/run-workspace.js thetechdeputies.com test",
+    "lint": "node Scripts/run-workspace.js thetechdeputies.com lint"
+  },
+  "workspaces": [
+    "Websites/*"
+  ]
+}

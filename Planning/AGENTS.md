@@ -4,7 +4,16 @@ This file contains essential information for AI agents working in this codebase.
 
 ## Quick Start Commands
 
-### Development
+### Workspace Management
+```bash
+# From project root, manage multiple websites in /Websites
+bun workspace --help                          # List all projects
+bun workspace <project> <command>             # Run command in specific project
+bun workspace thetechdeputies.com dev        # Start dev server
+bun dev                                        # Shorthand for thetechdeputies.com dev
+```
+
+### Development (within website directory)
 ```bash
 bun install             # Install dependencies (run once)
 bun run dev             # Start development server (http://localhost:3000)
@@ -39,7 +48,23 @@ bun run test:coverage   # Coverage report
 - Styling: Tailwind CSS 4 with custom brand colors
 - External: Acuity Scheduling, Mailgun emails
 
-### Source Code Organization
+### Workspace Structure
+
+```
+Projects/thetechdeputies.com/
+├── Websites/               # Multiple website projects
+│   └── thetechdeputies.com/
+│       ├── src/            # Website code only
+│       ├── prisma/         # Database schema
+│       └── package.json
+├── Scripts/                # Workspace management scripts
+│   └── run-workspace.js    # Dynamic project runner
+├── Planning/               # Documentation & guidelines
+│   ├── AGENTS.md
+│   ├── WEBSITE_SOURCE_POLICY.md
+│   └── ...
+└── package.json            # Root workspace config
+```
 
 ⚠️ **IMPORTANT**: The `/src` directory is **EXCLUSIVELY** for website code. No internal tools, experiments, or unrelated projects should be added here.
 
