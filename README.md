@@ -6,7 +6,7 @@ This is the root monorepo for The Tech Deputies company organization.
 
 ```
 thetechdeputies-monorepo/
-├── Websites/                          # Production websites
+├── Websites/                          # Production websites (auto-discovered)
 │   └── thetechdeputies.com/          # Main website (standalone, portable)
 │       ├── src/                      # React/Next.js source
 │       ├── prisma/                   # Database schema & migrations
@@ -15,6 +15,9 @@ thetechdeputies-monorepo/
 │       ├── package.json              # Dependencies
 │       ├── next.config.ts            # Next.js configuration
 │       └── [all website config]      # All website-specific files
+│
+├── Scripts/                           # Workspace management scripts
+│   └── run-workspace.js              # Dynamic project discovery & runner
 │
 ├── Planning/                          # Development & planning resources
 │   ├── HANDBOOK.md                   # Deployment & maintenance procedures
@@ -28,6 +31,7 @@ thetechdeputies-monorepo/
 │   └── [documentation & configs]     # Planning resources
 │
 └── [root config files]
+    ├── package.json                  # Root workspace config
     ├── .git/                         # Git repository
     ├── .gitignore                    # Global ignore rules
     └── README.md                     # This file
@@ -35,35 +39,41 @@ thetechdeputies-monorepo/
 
 ## 🚀 Getting Started
 
-### Monorepo with Bun Workspaces
+### Workspace Management with Dynamic Discovery
 
-This project uses **Bun workspaces** for fast, efficient multi-project management.
+This project uses a **dynamic workspace system** to manage multiple website projects in `/Websites/`.
 
 **First time setup:**
 ```bash
 bun install
 ```
 
-**Run the website:**
+**Run the website from project root:**
 ```bash
-bun run dev:website
+bun workspace thetechdeputies.com dev
 ```
 
-**Run all projects:**
+**Or use the shorthand:**
 ```bash
-bun run dev:all
+bun dev                    # Starts thetechdeputies.com in dev mode
+bun run dev:website        # Alternative shorthand
+```
+
+**List all available projects:**
+```bash
+bun workspace --help
 ```
 
 **Production build:**
 ```bash
-bun run build
+bun build
 ```
 
 The website will be available at `http://localhost:3000`
 
-### Alternative: Work in Website Folder
+### Alternative: Work Directly in Website Folder
 
-The website is completely self-contained and portable. To work directly in the website:
+The website is completely self-contained and portable. To work directly in the website folder:
 
 ```bash
 cd Websites/thetechdeputies.com
@@ -123,7 +133,7 @@ For documentation on specific systems:
 
 ---
 
-**Last Updated**: January 25, 2026  
+**Last Updated**: January 26, 2026  
 **Monorepo Version**: 1.0
 
 
