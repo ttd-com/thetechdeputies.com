@@ -1,52 +1,131 @@
-# The Tech Deputies
+# The Tech Deputies - Company Monorepo
 
-A dynamic tech education and support platform built with Next.js, featuring Acuity Scheduling integration for bookings, subscriptions, and gift certificates.
+This is the root monorepo for The Tech Deputies company organization.
 
-## Planning Documentation
+## 📁 Folder Structure
 
-For the complete planning context, see:
-- **[Planning Session Summary](docs/planning-session.md)** - Structured overview of all decisions, specs, and architecture
-- **[Original Planning Transcript](init_prompt.md)** - Raw BMad-Method session transcript for historical reference
+```
+thetechdeputies-monorepo/
+├── Websites/                          # Production websites
+│   └── thetechdeputies.com/          # Main website (standalone, portable)
+│       ├── src/                      # React/Next.js source
+│       ├── prisma/                   # Database schema & migrations
+│       ├── public/                   # Static assets
+│       ├── scripts/                  # Utility scripts
+│       ├── package.json              # Dependencies
+│       ├── next.config.ts            # Next.js configuration
+│       └── [all website config]      # All website-specific files
+│
+├── Planning/                          # Development & planning resources
+│   ├── HANDBOOK.md                   # Deployment & maintenance procedures
+│   ├── AGENTS.md                     # AI agent instructions
+│   ├── WEBSITE_SOURCE_POLICY.md      # Website source code policy
+│   ├── PROJECT_TICKETS.md            # Project tasks & tickets
+│   ├── CHANGELOG.md                  # Version history
+│   ├── brainstorming-session.md      # Session notes
+│   ├── .github/                      # GitHub workflows & CI/CD
+│   ├── .vscode/                      # VS Code settings
+│   └── [documentation & configs]     # Planning resources
+│
+└── [root config files]
+    ├── .git/                         # Git repository
+    ├── .gitignore                    # Global ignore rules
+    └── README.md                     # This file
+```
 
-## Project Overview
+## 🚀 Getting Started
 
-**Business Name:** The Tech Deputies
-**Purpose:** Tech education and support services platform
-**Status:** Active Development - Brownfield Migration (Static to Dynamic)
+### Monorepo with Bun Workspaces
 
-### Target Users
+This project uses **Bun workspaces** for fast, efficient multi-project management.
 
-- **The Lifelong Learner**: Tech-curious individuals seeking structured education
-- **The Support Seeker**: Users facing immediate tech hurdles who need quick scheduling
+**First time setup:**
+```bash
+bun install
+```
 
-## Tech Stack
+**Run the website:**
+```bash
+bun run dev:website
+```
 
-| Technology | Purpose |
-|------------|---------|
-| Next.js 16+ (App Router) | Framework with SSR for secure API operations |
-| React 19 | UI Library |
-| Tailwind CSS 4 | Styling with brand color variables |
-| TypeScript | Type safety |
-| NextAuth.js v5 Beta | Authentication with Redis session store |
-| Redis (Upstash) | Distributed session management |
-| PostgreSQL/Prisma | Database for user profiles |
-| Mailgun | Transactional emails (password reset) |
-| Acuity Scheduling | Bookings, subscriptions, gift certificates |
+**Run all projects:**
+```bash
+bun run dev:all
+```
 
-## Getting Started
+**Production build:**
+```bash
+bun run build
+```
 
-### Prerequisites
+The website will be available at `http://localhost:3000`
 
-- **Node.js** 18+ ([Download](https://nodejs.org/))
-- **Docker** ([Download](https://www.docker.com/products/docker-desktop/)) - for PostgreSQL database
+### Alternative: Work in Website Folder
 
-### Local Development Setup
+The website is completely self-contained and portable. To work directly in the website:
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/ttd-com/thetechdeputies.com.git
-   cd thetechdeputies.com
-   ```
+```bash
+cd Websites/thetechdeputies.com
+bun install
+bun run dev
+```
+
+### Documentation
+
+All development, planning, and operational documentation is in the `/Planning` folder:
+
+- **[HANDBOOK.md](Planning/HANDBOOK.md)** - Deployment, maintenance, troubleshooting
+- **[AGENTS.md](Planning/AGENTS.md)** - Instructions for AI agents working in this codebase
+- **[WEBSITE_SOURCE_POLICY.md](Planning/WEBSITE_SOURCE_POLICY.md)** - Guidelines for website source code
+- **[PROJECT_TICKETS.md](Planning/PROJECT_TICKETS.md)** - Current tasks and tickets
+
+## 📦 Website Technologies
+
+| Layer | Technology | Version |
+|-------|-----------|---------|
+| Framework | Next.js | 16.1.3 |
+| UI Library | React | 19.2.3 |
+| Styling | Tailwind CSS | 4.x |
+| Language | TypeScript | Latest |
+| Database | PostgreSQL (Prisma) | 7.2.0 |
+| Authentication | NextAuth.js | 5.x |
+| Session Store | Upstash Redis | - |
+| Email Service | Mailgun | - |
+| Hosting | Vercel | - |
+
+## 🔄 CI/CD & Deployment
+
+GitHub Actions workflows are configured in `/Planning/.github/workflows/`
+
+Deployments are automated via Vercel on git push to main branch.
+
+## 📝 Development Workflow
+
+1. **Planning**: Use `/Planning` folder for notes, discussions, tickets
+2. **Development**: Work in `/Websites/thetechdeputies.com/src`
+3. **Website Policy**: Follow guidelines in `Planning/WEBSITE_SOURCE_POLICY.md`
+4. **Testing**: Run tests within website folder
+5. **Deployment**: Push to git, automated deployment via Vercel
+
+## 🔐 Security
+
+- Environment variables for each environment are configured separately
+- Production secrets are managed via Vercel environment settings
+- Database migrations are tracked in `/Websites/thetechdeputies.com/prisma/migrations/`
+
+## 📞 Support
+
+For documentation on specific systems:
+- **Deployment Issues**: See `Planning/HANDBOOK.md`
+- **Code Guidelines**: See `Planning/AGENTS.md`
+- **Source Code Rules**: See `Planning/WEBSITE_SOURCE_POLICY.md`
+
+---
+
+**Last Updated**: January 25, 2026  
+**Monorepo Version**: 1.0
+
 
 2. **Install dependencies:**
    ```bash
