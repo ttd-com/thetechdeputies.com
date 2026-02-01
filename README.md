@@ -102,7 +102,24 @@ All development, planning, and operational documentation is in the `/Planning` f
 | Authentication | NextAuth.js | 5.x |
 | Session Store | Upstash Redis | - |
 | Email Service | Mailgun | - |
+| Payments | Stripe | 20.3.0 |
 | Hosting | Vercel | - |
+
+## ✨ Key Features
+
+### For Users
+- **Book Sessions**: Browse available time slots and book tech support sessions
+- **View Bookings**: See upcoming and past sessions with cancellation option
+- **Email Confirmations**: Automatic emails with calendar invite attachments (ICS)
+- **Registration**: Create account and verify email address
+- **Subscriptions**: View and manage active subscriptions
+
+### For Admins
+- **User Management**: View all users, reset passwords, verify emails, restore deleted users
+- **Calendar Management**: Create and manage available time slots
+- **Revenue Dashboard**: Real-time revenue metrics from Stripe
+- **Subscription Tracking**: Monitor active subscriptions and customer details
+- **Booking Analytics**: View total bookings by month
 
 ## 🔄 CI/CD & Deployment
 
@@ -133,8 +150,9 @@ For documentation on specific systems:
 
 ---
 
-**Last Updated**: January 26, 2026  
-**Monorepo Version**: 1.0
+**Last Updated**: February 1, 2026  
+**Version**: 2.0.0 - Calendar & Booking System
+**Current Maintainer**: Tech Deputies Team
 
 
 2. **Install dependencies:**
@@ -444,6 +462,50 @@ npm start
 - Keeps users on your domain (builds trust)
 - Consistent branding experience
 - More "finished" feel than linking to external Acuity portal
+
+## Phase 2 Roadmap
+
+### Upcoming Features (In Development)
+
+#### Ticket Management System
+- [ ] Full CRUD operations for user tickets
+- [ ] Ticket filtering and search by status, priority, date
+- [ ] Comment threads on tickets for team discussion
+- [ ] Project-ticket linking (integrate with course management)
+- [ ] Kanban board view (TODO → IN_PROGRESS → BLOCKED → DONE)
+
+#### Enhanced Calendar System
+- [ ] Recurring calendar slots (weekly templates for regular sessions)
+- [ ] Custom event duration support (30-minute and 90-minute bookings)
+- [ ] Booking waitlist when events are full
+- [ ] Email reminders (24-hour and 1-hour before bookings)
+- [ ] Admin calendar analytics (utilization rates, popular time slots)
+
+#### User Management Enhancements
+- [ ] Admin audit log UI (view all user deletions, password resets, bookings)
+- [ ] Bulk user import/export
+- [ ] User group management and permissions
+
+#### Booking System Enhancements
+- [ ] Recurring bookings (book same slot weekly/monthly)
+- [ ] Cancellation policies (minimum advance notice)
+- [ ] Booking notes visible to both user and admin
+- [ ] Payment integration for premium bookings
+
+---
+
+## Development Planning
+
+- **PRD**: [Planning/PRD_USER_MANAGEMENT_CALENDARING.md](Planning/PRD_USER_MANAGEMENT_CALENDARING.md) - Complete product requirements
+- **Implementation Plan**: [Planning/IMPLEMENTATION_PLAN_USER_MANAGEMENT_CALENDARING.md](Planning/IMPLEMENTATION_PLAN_USER_MANAGEMENT_CALENDARING.md) - Phase-by-phase checklist
+- **Tests**: Comprehensive test suite in `src/test/` (calendar utilities, API endpoints, E2E flows)
+
+### Current Phase Status
+- **Phase 1**: Database schema & setup (Ready)
+- **Phase 2**: Email templates & setup (Ready)
+- **Phase 3-12**: Full implementation roadmap in implementation plan
+
+---
 
 ## License
 

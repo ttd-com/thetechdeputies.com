@@ -69,8 +69,11 @@ export type { User, GiftCard, GiftCardTransaction, CoursePurchase, Role } from '
 
 export async function getUserByEmail(email: string) {
     try {
-        return await prisma.user.findUnique({
-            where: { email },
+        return await prisma.user.findFirst({
+            where: {
+                email,
+                deletedAt: null, // Exclude soft-deleted users
+            },
         });
     } catch (error) {
         logger.error('Error fetching user by email', error, { email });
@@ -127,11 +130,36 @@ export async function updateUserPassword(userId: number, passwordHash: string) {
 export async function getAllUsers() {
     try {
         return await prisma.user.findMany({
+            where: { deletedAt: null },
             orderBy: { createdAt: 'desc' },
         });
     } catch (error) {
         logger.error('Error fetching all users', error);
         return [];
+    }
+}
+
+export async function softDeleteUser(userId: number) {
+    try {
+        return await prisma.user.update({
+            where: { id: userId },
+            data: { deletedAt: new Date() },
+        });
+    } catch (error) {
+        logger.error('Error soft deleting user', error, { userId });
+        throw error;
+    }
+}
+
+export async function restoreUser(userId: number) {
+    try {
+        return await prisma.user.update({
+            where: { id: userId },
+            data: { deletedAt: null },
+        });
+    } catch (error) {
+        logger.error('Error restoring user', error, { userId });
+        throw error;
     }
 }
 
@@ -631,6 +659,225 @@ export async function getAllCoursePurchases() {
     } catch (error) {
         logger.error('Error fetching all course purchases', error);
         return [];
+    }
+}
+
+// ============================================================================
+// Calendar Event Operations
+// ============================================================================
+
+export async function createCalendarEvent(data: {
+    title: string;
+    description?: string;
+    startTime: Date;
+    endTime: Date;
+    capacity: number;
+    adminId: number;
+}) {
+    try {
+        return await prisma.calendarEvent.create({
+            data: {
+                ...data,
+                bookedCount: 0,
+            },
+        });
+    } catch (error) {
+        logger.error('Error creating calendar event', error, data);
+        throw error;
+    }
+}
+
+export async function getCalendarEvent(id: string) {
+    try {
+        return await prisma.calendarEvent.findUnique({
+            where: { id },
+            include: {
+                bookings: {
+                    where: { status: 'confirmed' as any },
+                    include: { user: true },
+                },
+            },
+        });
+    } catch (error) {
+        logger.error('Error fetching calendar event', error, { eventId: id });
+        return null;
+    }
+}
+
+export async function getCalendarEvents(startDate?: Date, endDate?: Date) {
+    try {
+        const where: any = {};
+        
+        if (startDate && endDate) {
+            where.startTime = {
+                gte: startDate,
+                lte: endDate,
+            };
+        }
+
+        return await prisma.calendarEvent.findMany({
+            where,
+            orderBy: { startTime: 'asc' },
+            include: {
+                bookings: {
+                    where: { status: 'confirmed' as any },
+                },
+            },
+        });
+    } catch (error) {
+        logger.error('Error fetching calendar events', error);
+        return [];
+    }
+}
+
+export async function updateCalendarEvent(id: string, data: {
+    title?: string;
+    description?: string;
+    startTime?: Date;
+    endTime?: Date;
+    capacity?: number;
+}) {
+    try {
+        return await prisma.calendarEvent.update({
+            where: { id },
+            data,
+        });
+    } catch (error) {
+        logger.error('Error updating calendar event', error, { eventId: id });
+        throw error;
+    }
+}
+
+export async function deleteCalendarEvent(id: string) {
+    try {
+        return await prisma.calendarEvent.delete({
+            where: { id },
+        });
+    } catch (error) {
+        logger.error('Error deleting calendar event', error, { eventId: id });
+        throw error;
+    }
+}
+
+// ============================================================================
+// Booking Operations
+// ============================================================================
+
+export async function createBooking(userId: number, eventId: string) {
+    try {
+        return await prisma.$transaction(async (tx) => {
+            // Check event capacity
+            const event = await tx.calendarEvent.findUnique({
+                where: { id: eventId },
+            });
+
+            if (!event) {
+                throw new Error('Event not found');
+            }
+
+            if (event.bookedCount >= event.capacity) {
+                throw new Error('Event is full');
+            }
+
+            // Check if user already has a booking
+            const existing = await tx.booking.findFirst({
+                where: {
+                    userId,
+                    eventId,
+                    status: 'confirmed' as any,
+                },
+            });
+
+            if (existing) {
+                throw new Error('User already has a booking for this event');
+            }
+
+            // Create booking
+            const booking = await tx.booking.create({
+                data: {
+                    userId,
+                    eventId,
+                    status: 'confirmed' as any,
+                },
+            });
+
+            // Increment booked count
+            await tx.calendarEvent.update({
+                where: { id: eventId },
+                data: { bookedCount: { increment: 1 } },
+            });
+
+            return booking;
+        });
+    } catch (error) {
+        logger.error('Error creating booking', error, { userId, eventId });
+        throw error;
+    }
+}
+
+export async function getBooking(id: string) {
+    try {
+        return await prisma.booking.findUnique({
+            where: { id },
+            include: {
+                user: true,
+                event: true,
+            },
+        });
+    } catch (error) {
+        logger.error('Error fetching booking', error, { bookingId: id });
+        return null;
+    }
+}
+
+export async function getUserBookings(userId: number) {
+    try {
+        return await prisma.booking.findMany({
+            where: { userId },
+            include: { event: true },
+            orderBy: { bookedAt: 'desc' },
+        });
+    } catch (error) {
+        logger.error('Error fetching user bookings', error, { userId });
+        return [];
+    }
+}
+
+export async function cancelBooking(id: string) {
+    try {
+        return await prisma.$transaction(async (tx) => {
+            const booking = await tx.booking.findUnique({
+                where: { id },
+            });
+
+            if (!booking) {
+                throw new Error('Booking not found');
+            }
+
+            if (booking.status === 'cancelled') {
+                throw new Error('Booking already cancelled');
+            }
+
+            // Cancel booking
+            const updated = await tx.booking.update({
+                where: { id },
+                data: {
+                    status: 'cancelled' as any,
+                    cancelledAt: new Date(),
+                },
+            });
+
+            // Decrement booked count
+            await tx.calendarEvent.update({
+                where: { id: booking.eventId },
+                data: { bookedCount: { decrement: 1 } },
+            });
+
+            return updated;
+        });
+    } catch (error) {
+        logger.error('Error cancelling booking', error, { bookingId: id });
+        throw error;
     }
 }
 

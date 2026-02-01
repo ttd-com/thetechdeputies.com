@@ -13,6 +13,26 @@ export interface EmailData {
     text?: string;
     from?: string;
     replyTo?: string;
+    attachments?: {
+        filename: string;
+        content: string | Buffer;
+        contentType: string;
+    }[];
+}
+
+export interface BookingEmailData {
+    userEmail: string;
+    userName?: string | null;
+    eventTitle: string;
+    startTime: Date;
+    endTime: Date;
+    icsContent?: string;
+}
+
+export interface TemporaryPasswordEmailData {
+    userEmail: string;
+    userName?: string | null;
+    temporaryPassword: string;
 }
 
 export interface PasswordResetEmailData {
@@ -77,6 +97,16 @@ class EmailService {
             }
             if (data.replyTo) {
                 formData.append('h:Reply-To', data.replyTo);
+            }
+
+            if (data.attachments) {
+                for (const attachment of data.attachments) {
+                    const content = typeof attachment.content === 'string' 
+                        ? attachment.content 
+                        : Buffer.from(attachment.content).toString('base64');
+                    const blob = new Blob([content], { type: attachment.contentType });
+                    formData.append('attachment', blob, attachment.filename);
+                }
             }
 
             const response = await fetch(
@@ -287,6 +317,146 @@ class EmailService {
             subject: `Admin Action: ${data.action} - The Tech Deputies`,
             html,
             text,
+        });
+    }
+
+    async sendBookingConfirmationEmail(data: BookingEmailData): Promise<boolean> {
+        const dateStr = data.startTime.toLocaleDateString();
+        const timeStr = `${data.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${data.endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        
+        const html = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <title>Booking Confirmation - The Tech Deputies</title>
+                <style>
+                    body { font-family: sans-serif; line-height: 1.6; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                    .header { text-align: center; margin-bottom: 30px; }
+                    .content { background: #f9f9f9; padding: 30px; border-radius: 8px; }
+                    .details { background: #fff; padding: 15px; border-radius: 4px; border: 1px solid #ddd; margin: 20px 0; }
+                    .footer { text-align: center; font-size: 12px; color: #666; margin-top: 20px; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1 style="color: #39918C;">Booking Confirmed!</h1>
+                    </div>
+                    <div class="content">
+                        <p>Hello ${data.userName || 'there'},</p>
+                        <p>Your booking for <strong>${data.eventTitle}</strong> has been confirmed.</p>
+                        <div class="details">
+                            <p><strong>Date:</strong> ${dateStr}</p>
+                            <p><strong>Time:</strong> ${timeStr}</p>
+                        </div>
+                        <p>A calendar invitation is attached to this email.</p>
+                        <p>If you need to cancel or reschedule, please visit your dashboard.</p>
+                    </div>
+                    <div class="footer">
+                        <p>&copy; ${new Date().getFullYear()} The Tech Deputies. All rights reserved.</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+
+        const attachments = data.icsContent ? [
+            {
+                filename: 'invite.ics',
+                content: data.icsContent,
+                contentType: 'text/calendar',
+            }
+        ] : [];
+
+        return this.sendEmail({
+            to: data.userEmail,
+            subject: `Confirmed: ${data.eventTitle} - The Tech Deputies`,
+            html,
+            text: `Your booking for ${data.eventTitle} on ${dateStr} at ${timeStr} is confirmed.`,
+            attachments
+        });
+    }
+
+    async sendBookingCancellationEmail(data: BookingEmailData): Promise<boolean> {
+        const dateStr = data.startTime.toLocaleDateString();
+        const timeStr = `${data.startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - ${data.endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+
+        const html = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <title>Booking Cancelled - The Tech Deputies</title>
+                <style>
+                    body { font-family: sans-serif; line-height: 1.6; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                    .content { background: #fff5f5; padding: 30px; border-radius: 8px; border: 1px solid #feb2b2; }
+                    .footer { text-align: center; font-size: 12px; color: #666; margin-top: 20px; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="content">
+                        <h1 style="color: #c53030;">Booking Cancelled</h1>
+                        <p>Hello ${data.userName || 'there'},</p>
+                        <p>Your booking for <strong>${data.eventTitle}</strong> on ${dateStr} at ${timeStr} has been cancelled.</p>
+                        <p>If you did not request this, please contact us.</p>
+                    </div>
+                    <div class="footer">
+                        <p>&copy; ${new Date().getFullYear()} The Tech Deputies. All rights reserved.</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+
+        return this.sendEmail({
+            to: data.userEmail,
+            subject: `Cancelled: ${data.eventTitle} - The Tech Deputies`,
+            html,
+            text: `Your booking for ${data.eventTitle} on ${dateStr} at ${timeStr} has been cancelled.`,
+        });
+    }
+
+    async sendTemporaryPasswordEmail(data: TemporaryPasswordEmailData): Promise<boolean> {
+        const html = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="utf-8">
+                <title>Temporary Password - The Tech Deputies</title>
+                <style>
+                    body { font-family: sans-serif; line-height: 1.6; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                    .content { background: #f7fafc; padding: 30px; border-radius: 8px; }
+                    .password-box { background: #edf2f7; padding: 15px; border-radius: 4px; text-align: center; font-family: monospace; font-size: 20px; margin: 20px 0; border: 1px dashed #cbd5e0; }
+                    .footer { text-align: center; font-size: 12px; color: #666; margin-top: 20px; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="content">
+                        <h1 style="color: #39918C;">Temporary Password</h1>
+                        <p>Hello ${data.userName || 'there'},</p>
+                        <p>An administrator has reset your password. Please use the temporary password below to log in and change your password immediately.</p>
+                        <div class="password-box">${data.temporaryPassword}</div>
+                        <p>For security reasons, do not share this password with anyone.</p>
+                    </div>
+                    <div class="footer">
+                        <p>&copy; ${new Date().getFullYear()} The Tech Deputies. All rights reserved.</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+
+        return this.sendEmail({
+            to: data.userEmail,
+            subject: 'Your Temporary Password - The Tech Deputies',
+            html,
+            text: `Your temporary password is: ${data.temporaryPassword}. Please log in and change it.`,
         });
     }
 

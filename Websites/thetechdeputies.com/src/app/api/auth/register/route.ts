@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { createUser, getUserByEmail, createEmailVerificationToken, getSetting } from '@/lib/db';
+import { createUser, getUserByEmail, createEmailVerificationToken, getSetting, restoreUser } from '@/lib/db';
+import { prisma } from '@/lib/db';
 
 export async function POST(request: Request) {
     try {
@@ -32,7 +33,7 @@ export async function POST(request: Request) {
             );
         }
 
-        // Check if user already exists
+        // Check if user already exists (active account)
         const existingUser = await getUserByEmail(email);
         if (existingUser) {
             return NextResponse.json(
@@ -41,11 +42,29 @@ export async function POST(request: Request) {
             );
         }
 
-        // Hash password
-        const passwordHash = await bcrypt.hash(password, 12);
+        // Check if there's a soft-deleted user with this email
+        const deletedUser = await prisma.user.findUnique({
+            where: { email },
+        });
 
-        // Create user (first user becomes admin automatically)
-        const user = await createUser(email, passwordHash, name);
+        let user;
+        if (deletedUser && deletedUser.deletedAt) {
+            // Restore the deleted account and update password
+            const passwordHash = await bcrypt.hash(password, 12);
+            user = await restoreUser(deletedUser.id);
+            // Update the password for the restored user
+            await prisma.user.update({
+                where: { id: deletedUser.id },
+                data: {
+                    passwordHash,
+                    name: name || deletedUser.name,
+                },
+            });
+        } else {
+            // Create new user
+            const passwordHash = await bcrypt.hash(password, 12);
+            user = await createUser(email, passwordHash, name);
+        }
 
         // Generate verification token
         const verificationToken = crypto.randomBytes(32).toString('hex');

@@ -1,18 +1,22 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface User {
     id: number;
     email: string;
     name: string | null;
     role: 'user' | 'admin';
-    created_at: string;
+    emailVerified: boolean;
+    createdAt: string;
 }
 
 export default function AdminUsersPage() {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
+    const [verifyingUserId, setVerifyingUserId] = useState<number | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         async function loadUsers() {
@@ -30,6 +34,35 @@ export default function AdminUsersPage() {
         }
         loadUsers();
     }, []);
+
+    const handleVerifyEmail = async (userId: number, userEmail: string) => {
+        if (!confirm(`Manually verify email for ${userEmail}?`)) return;
+
+        setVerifyingUserId(userId);
+        try {
+            const response = await fetch(`/api/admin/users/${userId}/verify-email`, {
+                method: 'POST',
+            });
+
+            if (response.ok) {
+                alert('Email verified successfully!');
+                // Reload users to reflect changes
+                const refreshResponse = await fetch('/api/admin/users');
+                if (refreshResponse.ok) {
+                    const data = await refreshResponse.json();
+                    setUsers(data.users || []);
+                }
+            } else {
+                const data = await response.json();
+                alert(`Failed to verify email: ${data.error || 'Unknown error'}`);
+            }
+        } catch (error) {
+            console.error('Failed to verify email:', error);
+            alert('Failed to verify email');
+        } finally {
+            setVerifyingUserId(null);
+        }
+    };
 
     const formatDate = (dateString: string) => {
         return new Date(dateString).toLocaleDateString('en-US', {
@@ -78,6 +111,9 @@ export default function AdminUsersPage() {
                                         Role
                                     </th>
                                     <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                                        Email Status
+                                    </th>
+                                    <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">
                                         Joined
                                     </th>
                                     <th className="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">
@@ -114,11 +150,35 @@ export default function AdminUsersPage() {
                                                 {user.role}
                                             </span>
                                         </td>
+                                        <td className="px-6 py-4">
+                                            {user.emailVerified ? (
+                                                <span className="inline-flex items-center gap-1 text-green-600 text-sm">
+                                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                                                    </svg>
+                                                    Verified
+                                                </span>
+                                            ) : (
+                                                <button
+                                                    onClick={() => handleVerifyEmail(user.id, user.email)}
+                                                    disabled={verifyingUserId === user.id}
+                                                    className="inline-flex items-center gap-1 text-amber-600 hover:text-amber-700 text-sm disabled:opacity-50"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                                    </svg>
+                                                    {verifyingUserId === user.id ? 'Verifying...' : 'Not Verified'}
+                                                </button>
+                                            )}
+                                        </td>
                                         <td className="px-6 py-4 text-sm text-gray-500">
-                                            {formatDate(user.created_at)}
+                                            {formatDate(user.createdAt)}
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <button className="text-[var(--color-primary)] hover:text-[var(--color-primary)]/80 text-sm font-medium">
+                                            <button 
+                                                onClick={() => router.push(`/dashboard/admin/users/${user.id}`)}
+                                                className="text-[var(--color-primary)] hover:text-[var(--color-primary)]/80 text-sm font-medium"
+                                            >
                                                 View
                                             </button>
                                         </td>

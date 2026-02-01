@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 interface Stats {
     totalUsers: number;
@@ -8,17 +9,46 @@ interface Stats {
     recentUsers: number;
 }
 
+interface RevenueData {
+    monthlyRecurringRevenue: number;
+    currentMonthRevenue: number;
+    activeSubscriptions: number;
+}
+
 export default function AdminOverviewPage() {
     const [stats, setStats] = useState<Stats | null>(null);
+    const [revenue, setRevenue] = useState<RevenueData | null>(null);
+    const [bookingsCount, setBookingsCount] = useState(0);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function loadStats() {
             try {
-                const response = await fetch('/api/admin/stats');
-                if (response.ok) {
-                    const data = await response.json();
+                const [statsRes, revenueRes, bookingsRes] = await Promise.all([
+                    fetch('/api/admin/stats'),
+                    fetch('/api/admin/revenue'),
+                    fetch('/api/bookings'),
+                ]);
+
+                if (statsRes.ok) {
+                    const data = await statsRes.json();
                     setStats(data);
+                }
+
+                if (revenueRes.ok) {
+                    const data = await revenueRes.json();
+                    setRevenue(data);
+                }
+
+                if (bookingsRes.ok) {
+                    const data = await bookingsRes.json();
+                    const thisMonth = new Date().getMonth();
+                    const thisYear = new Date().getFullYear();
+                    const monthlyBookings = data.bookings.filter((b: any) => {
+                        const bookingDate = new Date(b.event.startTime);
+                        return bookingDate.getMonth() === thisMonth && bookingDate.getFullYear() === thisYear;
+                    });
+                    setBookingsCount(monthlyBookings.length);
                 }
             } catch (error) {
                 console.error('Failed to load stats:', error);
@@ -48,27 +78,31 @@ export default function AdminOverviewPage() {
                     change="+0% from last month"
                     icon={UsersIcon}
                     color="bg-blue-500"
+                    href="/dashboard/admin/users"
                 />
                 <StatCard
                     title="Monthly Revenue"
-                    value="$0.00"
-                    change="Configure Acuity to sync"
+                    value={loading ? '...' : `$${revenue?.monthlyRecurringRevenue.toFixed(2) || '0.00'}`}
+                    change={`${revenue?.activeSubscriptions || 0} active subscriptions`}
                     icon={DollarIcon}
                     color="bg-green-500"
+                    href="/dashboard/admin/revenue"
                 />
                 <StatCard
                     title="Sessions Booked"
-                    value="0"
+                    value={loading ? '...' : bookingsCount.toString()}
                     change="This month"
                     icon={CalendarIcon}
                     color="bg-purple-500"
+                    href="/dashboard/sessions"
                 />
                 <StatCard
                     title="Active Subscriptions"
-                    value="0"
-                    change="Configure Acuity to sync"
+                    value={loading ? '...' : (revenue?.activeSubscriptions || 0).toString()}
+                    change="From Stripe"
                     icon={CreditCardIcon}
                     color="bg-orange-500"
+                    href="/dashboard/admin/revenue"
                 />
             </div>
 
@@ -139,15 +173,17 @@ function StatCard({
     change,
     icon: Icon,
     color,
+    href,
 }: {
     title: string;
     value: string;
     change: string;
     icon: React.ComponentType<{ className?: string }>;
     color: string;
+    href?: string;
 }) {
-    return (
-        <div className="bg-white rounded-xl shadow-lg p-6">
+    const cardContent = (
+        <>
             <div className="flex items-start justify-between">
                 <div>
                     <p className="text-gray-500 text-sm font-medium">{title}</p>
@@ -158,6 +194,20 @@ function StatCard({
                     <Icon className="w-6 h-6 text-white" />
                 </div>
             </div>
+        </>
+    );
+
+    if (href) {
+        return (
+            <Link href={href} className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer">
+                {cardContent}
+            </Link>
+        );
+    }
+
+    return (
+        <div className="bg-white rounded-xl shadow-lg p-6">
+            {cardContent}
         </div>
     );
 }
