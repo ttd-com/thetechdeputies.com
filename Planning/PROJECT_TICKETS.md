@@ -47,7 +47,7 @@ Implementation of the core user and admin dashboards.
 - [x] **Story 4.2**: Built Client Hub (`/dashboard`) with responsive sidebar navigation.
 - [x] **Story 4.3**: Integrated Mailgun for reliable password reset flows.
 - [x] **Story 4.4**: Created Admin "Deputy Command Center" (`/dashboard/admin`) for system oversight.
-- [x] **Story 4.5**: Implemented Acuity Scheduling webhook listener for syncing purchases.
+- [x] **Story 4.5**: Implemented Stripe subscription and payment processing, replacing Acuity Scheduling. In-house calendaring and booking system now fully functional.
 - [x] **UI/UX**: Fixed sidebar positioning and header session awareness.
 
 ### Epic #5: Gift Certificate System

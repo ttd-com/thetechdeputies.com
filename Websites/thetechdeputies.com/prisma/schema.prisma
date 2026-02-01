@@ -17,6 +17,7 @@ model User {
   role            Role      @default(USER)
   emailVerified   Boolean   @default(false) @map("email_verified")
   acuityClientId  String?   @map("acuity_client_id")
+  stripeCustomerId String?  @map("stripe_customer_id")
   deletedAt       DateTime? @map("deleted_at")
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
@@ -32,6 +33,7 @@ model User {
   bookings                  Booking[]
   tickets                   Ticket[]
   ticketComments            TicketComment[]
+  subscriptions             UserSubscription[]
 
   @@map("users")
 }
@@ -384,3 +386,71 @@ enum TicketPriority {
   HIGH   @map("high")
   URGENT @map("urgent")
 }
+
+model Plan {
+  id                Int       @id @default(autoincrement())
+  name              String    @unique
+  displayName       String    @map("display_name")
+  description       String?
+  priceInCents      Int       @map("price_in_cents")
+  tier              PlanTier
+  sessionLimit      Int       @map("session_limit")
+  courseInclusion   CourseInclusion @map("course_inclusion")
+  familySize        Int       @default(1) @map("family_size")
+  supportTier       SupportTier @map("support_tier")
+  featured          Boolean   @default(false)
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  userSubscriptions UserSubscription[]
+
+  @@map("plans")
+}
+
+model UserSubscription {
+  id                    Int       @id @default(autoincrement())
+  userId                Int       @map("user_id")
+  planId                Int       @map("plan_id")
+  stripeSubscriptionId  String?   @unique @map("stripe_subscription_id")
+  status                SubscriptionStatus @default(ACTIVE)
+  currentPeriodStart    DateTime  @map("current_period_start")
+  currentPeriodEnd      DateTime  @map("current_period_end")
+  cancelledAt           DateTime? @map("cancelled_at")
+  sessionBookedThisMonth Int      @default(0) @map("session_booked_this_month")
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan                  Plan      @relation(fields: [planId], references: [id], onDelete: Restrict)
+
+  @@unique([userId, status])
+  @@index([status])
+  @@index([currentPeriodEnd])
+  @@map("user_subscriptions")
+}
+
+enum PlanTier {
+  BASIC    @map("basic")
+  STANDARD @map("standard")
+  PREMIUM  @map("premium")
+}
+
+enum CourseInclusion {
+  NONE      @map("none")
+  PARTIAL   @map("partial")
+  FULL      @map("full")
+}
+
+enum SupportTier {
+  EMAIL    @map("email")
+  PRIORITY @map("priority")
+  PREMIUM  @map("premium_24_7")
+}
+
+enum SubscriptionStatus {
+  ACTIVE    @map("active")
+  CANCELLED @map("cancelled")
+  EXPIRED   @map("expired")
+  PAST_DUE  @map("past_due")
+}
+

@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-This document outlines the requirements for implementing a comprehensive user management system with profile management, password reset via email, user deletion, and an in-house calendaring system to replace Acuity. The system will support admin-created calendar events with 1-hour slots and configurable capacity (hardcoded default: 2 spots), client bookings, and automated email notifications with calendar invites.
+This document outlines the requirements for implementing a comprehensive user management system with profile management, password reset via email, user deletion, and an in-house calendaring system. The system uses Stripe for all monetary transactions and subscriptions. The system will support admin-created calendar events with 1-hour slots and configurable capacity (hardcoded default: 2 spots), client bookings, and automated email notifications with calendar invites.
 
 ---
 
@@ -63,7 +63,7 @@ This document outlines the requirements for implementing a comprehensive user ma
   - Set `User.deletedAt` to current timestamp
   - Clear sensitive fields: `email` → null, `passwordHash` → null
   - Optionally clear: `firstName`, `lastName`, `phone` (configurable)
-  - Keep: `id`, `createdAt`, `updatedAt`, `deletedAt`, `role`, `acuityClientId` (for audit)
+  - Keep: `id`, `createdAt`, `updatedAt`, `deletedAt`, `role`, `acuityClientId` (for audit), `stripeCustomerId` (for Stripe integration)
 - **Audit Trail**: Log to `AdminActionAudit` table with action type `USER_DELETED`
 - **Cascading Effects**:
   - User's bookings remain with `deletedAt` user data (cannot be updated)

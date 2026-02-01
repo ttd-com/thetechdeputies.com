@@ -5,6 +5,9 @@ import { useEffect, useState } from 'react';
 interface Settings {
     mailgun_api_key: string;
     mailgun_domain: string;
+    stripe_secret_key: string;
+    stripe_publishable_key: string;
+    stripe_webhook_secret: string;
     acuity_user_id: string;
     acuity_api_key: string;
 }
@@ -13,6 +16,9 @@ export default function AdminSettingsPage() {
     const [settings, setSettings] = useState<Settings>({
         mailgun_api_key: '',
         mailgun_domain: '',
+        stripe_secret_key: '',
+        stripe_publishable_key: '',
+        stripe_webhook_secret: '',
         acuity_user_id: '',
         acuity_api_key: '',
     });
@@ -32,6 +38,9 @@ export default function AdminSettingsPage() {
                     setSettings({
                         mailgun_api_key: data.mailgun_api_key || '',
                         mailgun_domain: data.mailgun_domain || '',
+                        stripe_secret_key: data.stripe_secret_key || '',
+                        stripe_publishable_key: data.stripe_publishable_key || '',
+                        stripe_webhook_secret: data.stripe_webhook_secret || '',
                         acuity_user_id: data.acuity_user_id || '',
                         acuity_api_key: data.acuity_api_key || '',
                     });
@@ -204,6 +213,124 @@ export default function AdminSettingsPage() {
                                 {emptyWarning['mailgun_api_key'] && (
                                     <p className="text-sm text-yellow-600 mt-2">Warning: API key is empty.</p>
                                 )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Stripe Settings */}
+                <div className="bg-white rounded-xl shadow-lg p-6">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="p-2 bg-indigo-100 rounded-lg">
+                            <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10a1 1 0 011-1h16a1 1 0 011 1v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10V8a2 2 0 012-2h14a2 2 0 012 2v2" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h2 className="text-lg font-semibold text-[var(--color-secondary)]">
+                                Stripe Integration
+                            </h2>
+                            <p className="text-sm text-gray-500">
+                                Configure Stripe API keys for payments and subscriptions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label htmlFor="stripe_publishable_key" className="block text-sm font-medium text-gray-700 mb-2">
+                                Stripe Publishable Key
+                            </label>
+                            <input
+                                id="stripe_publishable_key"
+                                type="text"
+                                value={settings.stripe_publishable_key}
+                                onChange={(e) => setSettings(prev => ({ ...prev, stripe_publishable_key: e.target.value }))}
+                                placeholder="pk_live_..."
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="stripe_secret_key" className="block text-sm font-medium text-gray-700 mb-2">
+                                Stripe Secret Key
+                            </label>
+                            <div className="relative">
+                                <input
+                                    id="stripe_secret_key"
+                                    type={showSecrets['stripe_secret_key'] ? 'text' : 'password'}
+                                    value={settings.stripe_secret_key}
+                                    onChange={(e) => setSettings(prev => ({ ...prev, stripe_secret_key: e.target.value }))}
+                                    placeholder="sk_live_..."
+                                    readOnly={!editing['stripe_secret_key']}
+                                    className="w-full px-4 py-3 pr-28 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+                                />
+                                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                    {settings.stripe_secret_key && (
+                                        <span title="Configured" className="text-green-500" aria-hidden>
+                                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </span>
+                                    )}
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleSecret('stripe_secret_key')}
+                                        className="text-gray-400 hover:text-gray-600"
+                                    >
+                                        {showSecrets['stripe_secret_key'] ? <EyeOffIcon /> : <EyeIcon />}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setEditing(prev => ({ ...prev, stripe_secret_key: !prev['stripe_secret_key'] }))}
+                                        className="text-gray-400 hover:text-gray-600"
+                                    >
+                                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label htmlFor="stripe_webhook_secret" className="block text-sm font-medium text-gray-700 mb-2">
+                                Stripe Webhook Secret
+                            </label>
+                            <div className="relative">
+                                <input
+                                    id="stripe_webhook_secret"
+                                    type={showSecrets['stripe_webhook_secret'] ? 'text' : 'password'}
+                                    value={settings.stripe_webhook_secret}
+                                    onChange={(e) => setSettings(prev => ({ ...prev, stripe_webhook_secret: e.target.value }))}
+                                    placeholder="whsec_..."
+                                    readOnly={!editing['stripe_webhook_secret']}
+                                    className="w-full px-4 py-3 pr-28 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent transition-all"
+                                />
+                                <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                                    {settings.stripe_webhook_secret && (
+                                        <span title="Configured" className="text-green-500" aria-hidden>
+                                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </span>
+                                    )}
+                                    <button
+                                        type="button"
+                                        onClick={() => toggleSecret('stripe_webhook_secret')}
+                                        className="text-gray-400 hover:text-gray-600"
+                                    >
+                                        {showSecrets['stripe_webhook_secret'] ? <EyeOffIcon /> : <EyeIcon />}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setEditing(prev => ({ ...prev, stripe_webhook_secret: !prev['stripe_webhook_secret'] }))}
+                                        className="text-gray-400 hover:text-gray-600"
+                                    >
+                                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 11l6-6 3 3-6 6H9v-3z" />
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,67 +1,15 @@
+'use client';
+
 /**
  * @file page.tsx
  * @description Subscriptions page for purchasing recurring tech support plans.
- * Features subscription tiers and embedded Acuity subscription purchasing.
+ * Features subscription tiers and Stripe checkout integration.
  */
 
-import type { Metadata } from "next";
 import Link from "next/link";
-import { AcuityEmbed } from "@/components/organisms";
 import { Button } from "@/components/atoms";
 import { PlanCard } from "@/components/molecules";
-
-export const metadata: Metadata = {
-  title: "Subscription Plans",
-  description:
-    "Get unlimited tech support with our subscription plans. Choose the plan that fits your needs and enjoy peace of mind.",
-};
-
-/**
- * Subscription plan highlights (displayed above the Acuity embed)
- */
-const planHighlights = [
-  {
-    name: "Basic",
-    price: "$49",
-    period: "/month",
-    description: "Perfect for occasional tech questions",
-    features: [
-      "2 support sessions per month",
-      "Email support",
-      "10% off additional sessions",
-      "Resource library access",
-    ],
-    popular: false,
-  },
-  {
-    name: "Standard",
-    price: "$99",
-    period: "/month",
-    description: "Our most popular plan for regular support",
-    features: [
-      "5 support sessions per month",
-      "Priority email & phone support",
-      "20% off additional sessions",
-      "Resource library access",
-      "15% off courses",
-    ],
-    popular: true,
-  },
-  {
-    name: "Premium",
-    price: "$199",
-    period: "/month",
-    description: "Comprehensive support for power users",
-    features: [
-      "Unlimited support sessions",
-      "Priority scheduling",
-      "24/7 email support",
-      "Free access to all courses",
-      "Family member coverage (2)",
-    ],
-    popular: false,
-  },
-];
+import { getAllPlans, getPlanFeatures, formatPrice, type PlanDefinition } from "@/lib/plans";
 
 /**
  * Benefits of subscribing
@@ -90,6 +38,8 @@ const benefits = [
 ];
 
 export default function SubscriptionsPage() {
+  const plans = getAllPlans();
+
   return (
     <>
       {/* Page Header */}
@@ -123,15 +73,15 @@ export default function SubscriptionsPage() {
             Available Plans
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {planHighlights.map((plan) => (
+            {plans.map((plan) => (
               <PlanCard
                 key={plan.name}
-                name={plan.name}
-                price={plan.price}
-                period={plan.period}
+                name={plan.displayName}
+                price={formatPrice(plan.priceInCents)}
+                period="/month"
                 description={plan.description}
-                features={plan.features}
-                popular={plan.popular}
+                features={getPlanFeatures(plan.tier)}
+                popular={plan.featured}
                 scrollTargetId="purchase-section"
               />
             ))}
@@ -187,7 +137,7 @@ export default function SubscriptionsPage() {
               Select your plan below to get started. You can manage your
               subscription at any time from your account dashboard.
             </p>
-            <AcuityEmbed type="subscriptions" minHeight="600px" />
+            <StripeCheckoutForm plans={plans} />
           </div>
         </div>
       </section>
@@ -265,5 +215,48 @@ export default function SubscriptionsPage() {
         </div>
       </section>
     </>
+  );
+}
+
+/**
+ * Stripe Checkout Form Component
+ */
+function StripeCheckoutForm({ plans }: { plans: PlanDefinition[] }) {
+  const handleCheckout = async (planId: number) => {
+    try {
+      const response = await fetch('/api/stripe/checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId }),
+      });
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Failed to start checkout');
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {plans.map((plan, idx) => (
+          <button
+            key={plan.name}
+            onClick={() => handleCheckout(idx + 1)}
+            className="p-4 border-2 border-gray-200 rounded-lg hover:border-primary transition-colors text-left"
+          >
+            <div className="font-semibold mb-2">{plan.displayName}</div>
+            <div className="text-primary font-bold mb-3">{formatPrice(plan.priceInCents)}/month</div>
+            <Button className="w-full" size="sm">Choose Plan</Button>
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }

@@ -123,7 +123,7 @@ export default function AdminOverviewPage() {
                                 </svg>
                             }
                             title="Configure API Keys"
-                            description="Set up Mailgun and Acuity integration"
+                            description="Set up Stripe, Mailgun and other integrations"
                         />
                         <QuickAction
                             href="/dashboard/admin/users"

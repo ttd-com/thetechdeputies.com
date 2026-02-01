@@ -460,9 +460,102 @@ class EmailService {
         });
     }
 
+    async sendSubscriptionConfirmationEmail(userEmail: string, planName: string): Promise<boolean> {
+        const html = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body { font-family: Arial, sans-serif; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; }
+                    .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px 8px 0 0; }
+                    .content { padding: 20px; background: #f9f9f9; }
+                    .footer { padding: 15px 20px; background: #f0f0f0; border-radius: 0 0 8px 8px; font-size: 12px; color: #666; }
+                    .button { display: inline-block; padding: 12px 24px; background: #667eea; color: white; text-decoration: none; border-radius: 4px; margin-top: 15px; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1>Welcome to ${planName}!</h1>
+                    </div>
+                    <div class="content">
+                        <p>Thank you for subscribing to the ${planName} plan. Your subscription is now active.</p>
+                        <p>You now have access to:</p>
+                        <ul>
+                            <li>Your planned benefits</li>
+                            <li>Course materials</li>
+                            <li>Booking system for consultations</li>
+                        </ul>
+                        <a href="${this.getBaseUrl()}/dashboard/subscriptions" class="button">View Your Subscription</a>
+                    </div>
+                    <div class="footer">
+                        <p>If you have any questions, contact us at support@thetechdeputies.com</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+
+        return this.sendEmail({
+            to: userEmail,
+            subject: `Welcome to ${planName}! - The Tech Deputies`,
+            html,
+            text: `Welcome to ${planName}! Your subscription is now active. Visit ${this.getBaseUrl()}/dashboard/subscriptions to get started.`,
+        });
+    }
+
+    async sendSubscriptionCancelledEmail(userEmail: string): Promise<boolean> {
+        const html = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                    body { font-family: Arial, sans-serif; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; }
+                    .header { background: #f85454; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
+                    .content { padding: 20px; background: #f9f9f9; }
+                    .footer { padding: 15px 20px; background: #f0f0f0; border-radius: 0 0 8px 8px; font-size: 12px; color: #666; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1>Subscription Cancelled</h1>
+                    </div>
+                    <div class="content">
+                        <p>Your subscription with The Tech Deputies has been cancelled.</p>
+                        <p>You will retain access to your current plan until the end of your billing period.</p>
+                        <p>We'd love to have you back! If you'd like to reactivate your subscription, visit our subscriptions page.</p>
+                    </div>
+                    <div class="footer">
+                        <p>If you have questions or feedback, contact us at support@thetechdeputies.com</p>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+
+        return this.sendEmail({
+            to: userEmail,
+            subject: 'Subscription Cancelled - The Tech Deputies',
+            html,
+            text: 'Your subscription has been cancelled. You will retain access until the end of your billing period.',
+        });
+    }
+
     isConfigured(): boolean {
         return !!(this.apiKey && this.domain);
     }
 }
 
 export const emailService = new EmailService();
+
+// Export convenience functions
+export async function sendSubscriptionConfirmationEmail(email: string, planName: string) {
+    return emailService.sendSubscriptionConfirmationEmail(email, planName);
+}
+
+export async function sendSubscriptionCancelledEmail(email: string) {
+    return emailService.sendSubscriptionCancelledEmail(email);
+}

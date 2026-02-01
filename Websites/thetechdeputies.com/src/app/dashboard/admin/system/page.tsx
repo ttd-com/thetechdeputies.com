@@ -7,6 +7,9 @@ interface SystemStatus {
         configured: boolean;
         domain?: string;
     };
+    stripe: {
+        configured: boolean;
+    };
     acuity: {
         configured: boolean;
     };
@@ -86,12 +89,30 @@ export default function AdminSystemPage() {
                         }
                     />
 
+                    {/* Stripe Status */}
+                    <StatusCard
+                        title="Stripe"
+                        status={status?.stripe?.configured ? 'healthy' : 'not_configured'}
+                        description={status?.stripe?.configured
+                            ? 'Live mode'
+                            : 'Not configured'
+                        }
+                        actionLabel={status?.stripe?.configured ? undefined : 'Configure'}
+                        actionHref="/dashboard/admin/settings"
+                        icon={
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10a1 1 0 011-1h16a1 1 0 011 1v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10V8a2 2 0 012-2h14a2 2 0 012 2v2" />
+                            </svg>
+                        }
+                    />
+
                     {/* Acuity Status */}
                     <StatusCard
                         title="Acuity Scheduling"
                         status={status?.acuity?.configured ? 'healthy' : 'not_configured'}
                         description={status?.acuity?.configured
-                            ? 'Connected and syncing'
+                            ? 'Legacy (not used)'
                             : 'Not configured'
                         }
                         actionLabel={status?.acuity?.configured ? undefined : 'Configure'}
