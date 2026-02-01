@@ -5,21 +5,28 @@
 
 import Stripe from 'stripe';
 
-if (!process.env.STRIPE_SECRET) {
-    throw new Error('STRIPE_SECRET is not defined in environment variables');
-}
+let stripeClient: Stripe | null = null;
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET, {
-    apiVersion: '2026-01-28.clover',
-    typescript: true,
-});
+// Initialize Stripe only when needed, not at module load time
+export function getStripe(): Stripe {
+    if (!stripeClient) {
+        if (!process.env.STRIPE_SECRET) {
+            throw new Error('STRIPE_SECRET is not defined in environment variables');
+        }
+        stripeClient = new Stripe(process.env.STRIPE_SECRET, {
+            apiVersion: '2026-01-28.clover',
+            typescript: true,
+        });
+    }
+    return stripeClient;
+}
 
 /**
  * Get all active subscriptions from Stripe
  */
 export async function getActiveSubscriptions() {
     try {
-        const subscriptions = await stripe.subscriptions.list({
+        const subscriptions = await getStripe().subscriptions.list({
             status: 'active',
             limit: 100,
         });
@@ -38,7 +45,7 @@ export async function getMonthlyRevenue() {
         const subscriptions = await getActiveSubscriptions();
         
         // Calculate MRR (Monthly Recurring Revenue)
-        const mrr = subscriptions.reduce((total, sub) => {
+        const mrr = subscriptions.reduce((total: number, sub: Stripe.Subscription) => {
             if (sub.items.data.length > 0) {
                 const item = sub.items.data[0];
                 if (item.price.recurring?.interval === 'month') {
@@ -67,8 +74,8 @@ export async function getSubscriptionDetails() {
         const subscriptions = await getActiveSubscriptions();
         
         const details = await Promise.all(
-            subscriptions.map(async (sub) => {
-                const customer = await stripe.customers.retrieve(sub.customer as string);
+            subscriptions.map(async (sub: Stripe.Subscription) => {
+                const customer = await getStripe().customers.retrieve(sub.customer as string);
                 const price = sub.items.data[0]?.price;
                 
                 return {
@@ -103,7 +110,7 @@ export async function getCurrentMonthRevenue() {
         const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
         const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-        const charges = await stripe.charges.list({
+        const charges = await getStripe().charges.list({
             created: {
                 gte: Math.floor(startOfMonth.getTime() / 1000),
                 lte: Math.floor(endOfMonth.getTime() / 1000),
@@ -112,8 +119,8 @@ export async function getCurrentMonthRevenue() {
         });
 
         const totalRevenue = charges.data
-            .filter((charge) => charge.status === 'succeeded')
-            .reduce((total, charge) => total + charge.amount, 0);
+            .filter((charge: Stripe.Charge) => charge.status === 'succeeded')
+            .reduce((total: number, charge: Stripe.Charge) => total + charge.amount, 0);
 
         return totalRevenue / 100; // Convert cents to dollars
     } catch (error) {
@@ -127,7 +134,7 @@ export async function getCurrentMonthRevenue() {
  */
 export async function createPaymentIntent(amount: number, currency = 'usd') {
     try {
-        const paymentIntent = await stripe.paymentIntents.create({
+        const paymentIntent = await getStripe().paymentIntents.create({
             amount: Math.round(amount * 100), // Convert dollars to cents
             currency,
         });

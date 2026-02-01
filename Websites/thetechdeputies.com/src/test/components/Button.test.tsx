@@ -124,7 +124,8 @@ describe('Button Component', () => {
       render(<Button {...defaultProps} />)
       
       const button = screen.getByRole('button')
-      expect(button).toHaveAttribute('tabIndex', '0')
+      // Native buttons are focusable by default, no need for tabIndex
+      expect(button).not.toHaveAttribute('disabled')
     })
 
     it('should not be focusable when disabled', () => {
@@ -139,18 +140,19 @@ describe('Button Component', () => {
 
   describe('Loading State', () => {
     it('should show loading state', () => {
-      const props = { ...defaultProps, loading: true }
+      const props = { ...defaultProps, isLoading: true }
       
       render(<Button {...props} />)
       
       const button = screen.getByRole('button')
       expect(button).toBeDisabled()
-      expect(button).toHaveTextContent('Loading...')
+      // Loading state shows a spinner and 'Loading...' in sr-only
+      expect(screen.getByText('Loading...', { selector: '.sr-only' })).toBeInTheDocument()
     })
 
     it('should not call onClick when loading', async () => {
       const user = userEvent.setup()
-      const props = { ...defaultProps, loading: true }
+      const props = { ...defaultProps, isLoading: true }
       
       render(<Button {...props} />)
       
@@ -186,7 +188,7 @@ describe('Button Component', () => {
       render(<Button {...props} />)
       
       const button = screen.getByRole('button')
-      expect(button).toHaveClass('border', 'border-gray-300')
+      expect(button).toHaveClass('border-2', 'border-primary', 'text-primary')
     })
 
     it('should render ghost button', () => {
@@ -195,7 +197,7 @@ describe('Button Component', () => {
       render(<Button {...props} />)
       
       const button = screen.getByRole('button')
-      expect(button).toHaveClass('text-gray-700')
+      expect(button).toHaveClass('text-primary')
     })
   })
 

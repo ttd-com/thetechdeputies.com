@@ -35,10 +35,46 @@ function log(level: LogLevel, message: string, context?: Record<string, any>) {
     if (process.env.NODE_ENV === 'production') {
         console.log(JSON.stringify(payload));
     } else {
-        // Pretty print for development
-        const contextStr = context ? `\n${JSON.stringify(context, null, 2)}` : '';
+        // Pretty print for development with circular reference handling
+        let contextStr = '';
+        if (context) {
+            try {
+                const seen = new WeakSet();
+                const replacer = (key: string, value: any) => {
+                    if (typeof value === 'object' && value !== null) {
+                        if (seen.has(value)) {
+                            return '[Circular]';
+                        }
+                        seen.add(value);
+                    }
+                    return value;
+                };
+                contextStr = `\n${JSON.stringify(context, replacer, 2)}`;
+            } catch {
+                contextStr = '\n[Circular reference in context]';
+            }
+        }
+        
         const color = getColor(level);
-        console.log(`${color}[${timestamp}] ${level}: ${message}${contextStr}\x1b[0m`);
+        const formattedMessage = `${color}[${timestamp}] ${level}: ${message}${contextStr}\x1b[0m`;
+        
+        // Use appropriate console method based on level
+        switch (level) {
+            case LogLevel.INFO:
+                console.info(formattedMessage, context);
+                break;
+            case LogLevel.WARN:
+                console.warn(formattedMessage, context);
+                break;
+            case LogLevel.ERROR:
+                console.error(formattedMessage, context);
+                break;
+            case LogLevel.DEBUG:
+                console.debug(formattedMessage, context);
+                break;
+            default:
+                console.log(formattedMessage, context);
+        }
     }
 }
 

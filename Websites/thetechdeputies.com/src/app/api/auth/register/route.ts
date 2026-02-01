@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { createUser, getUserByEmail, createEmailVerificationToken, getSetting, restoreUser } from '@/lib/db';
-import { prisma } from '@/lib/db';
+import { createUser, getUserByEmail, createEmailVerificationToken, getSetting, restoreUser, db } from '@/lib/db';
 
 export async function POST(request: Request) {
     try {
@@ -43,7 +42,7 @@ export async function POST(request: Request) {
         }
 
         // Check if there's a soft-deleted user with this email
-        const deletedUser = await prisma.user.findUnique({
+        const deletedUser = await db.user.findUnique({
             where: { email },
         });
 
@@ -53,7 +52,7 @@ export async function POST(request: Request) {
             const passwordHash = await bcrypt.hash(password, 12);
             user = await restoreUser(deletedUser.id);
             // Update the password for the restored user
-            await prisma.user.update({
+            await db.user.update({
                 where: { id: deletedUser.id },
                 data: {
                     passwordHash,
