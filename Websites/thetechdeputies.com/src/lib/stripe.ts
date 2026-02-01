@@ -10,10 +10,11 @@ let stripeClient: Stripe | null = null;
 // Initialize Stripe only when needed, not at module load time
 export function getStripe(): Stripe {
     if (!stripeClient) {
-        if (!process.env.STRIPE_SECRET) {
-            throw new Error('STRIPE_SECRET is not defined in environment variables');
+        const stripeSecret = process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET;
+        if (!stripeSecret) {
+            throw new Error('STRIPE_SECRET_KEY is not defined in environment variables');
         }
-        stripeClient = new Stripe(process.env.STRIPE_SECRET, {
+        stripeClient = new Stripe(stripeSecret, {
             apiVersion: '2026-01-28.clover',
             typescript: true,
         });

@@ -88,8 +88,8 @@ export async function POST(req: NextRequest) {
         },
       ],
       success_url:
-        successUrl || `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/subscriptions?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl || `${process.env.NEXT_PUBLIC_APP_URL}/subscriptions`,
+        successUrl || `${process.env.NEXT_PUBLIC_APP_URL || 'https://thetechdeputies.com'}/dashboard/subscriptions?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${process.env.NEXT_PUBLIC_APP_URL || 'https://thetechdeputies.com'}/subscriptions`,
       metadata: {
         userId: user.id.toString(),
         planId: planId.toString(),
