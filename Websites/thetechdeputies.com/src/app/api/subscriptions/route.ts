@@ -29,9 +29,11 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(userSubscriptions, { status: 200 });
   } catch (error) {
-    console.error('Error fetching subscriptions:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error('Error fetching subscriptions:', errorMessage);
+    console.error('Stack:', error instanceof Error ? error.stack : 'N/A');
     return NextResponse.json(
-      { error: 'Failed to fetch subscriptions' },
+      { error: 'Failed to fetch subscriptions', details: errorMessage },
       { status: 500 }
     );
   }

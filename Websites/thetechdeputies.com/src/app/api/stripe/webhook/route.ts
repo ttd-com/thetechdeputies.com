@@ -35,6 +35,10 @@ export async function POST(req: NextRequest) {
     logger.info(`Stripe webhook event: ${event.type}`);
 
     switch (event.type) {
+      case 'checkout.session.completed':
+        await handleCheckoutSessionCompleted(event.data.object as any);
+        break;
+
       case 'customer.subscription.created':
         await handleSubscriptionCreated(event.data.object as any);
         break;
@@ -69,25 +73,80 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleSubscriptionCreated(subscription: any) {
+async function handleCheckoutSessionCompleted(session: any) {
   try {
-    const userId = parseInt(subscription.metadata?.userId);
-    const planId = parseInt(subscription.metadata?.planId);
+    logger.info(`Checkout session completed: ${session.id}`);
+
+    const userId = parseInt(session.metadata?.userId);
+    const planId = parseInt(session.metadata?.planId);
 
     if (!userId || !planId) {
-      logger.warn('Subscription created without userId or planId metadata');
+      logger.error('Checkout session missing userId or planId metadata', {
+        sessionId: session.id,
+        userId,
+        planId,
+      });
+      return;
+    }
+
+    // If subscription exists, wait for customer.subscription.created event
+    // Otherwise create the subscription record here
+    if (session.subscription) {
+      logger.info(
+        `Checkout session ${session.id} created subscription ${session.subscription}`
+      );
+      // The subscription event will fire separately and will have the subscription object
+      // We'll create the DB record in handleSubscriptionCreated
+    }
+  } catch (error) {
+    logger.error('Error handling checkout session completed:', error);
+  }
+}
+
+async function handleSubscriptionCreated(subscription: any) {
+  try {
+    let userId = parseInt(subscription.metadata?.userId);
+    let planId = parseInt(subscription.metadata?.planId);
+
+    // If metadata not on subscription, try to get from Stripe
+    if (!userId || !planId) {
+      const stripe = getStripe();
+      try {
+        // Retrieve checkout session linked to this subscription
+        const sessions = await stripe.checkout.sessions.list({
+          subscription: subscription.id,
+          limit: 1,
+        });
+
+        if (sessions.data.length > 0) {
+          const checkoutSession = sessions.data[0];
+          if (checkoutSession.metadata?.userId) {
+            userId = parseInt(checkoutSession.metadata.userId);
+          }
+          if (checkoutSession.metadata?.planId) {
+            planId = parseInt(checkoutSession.metadata.planId);
+          }
+          logger.info(
+            `Retrieved metadata from checkout session: userId=${userId}, planId=${planId}`
+          );
+        }
+      } catch (err) {
+        logger.warn('Could not retrieve checkout session for subscription metadata');
+      }
+    }
+
+    if (!userId || !planId) {
+      logger.error('Subscription created without userId or planId metadata', {
+        subscriptionId: subscription.id,
+        userId,
+        planId,
+      });
       return;
     }
 
     const user = await db.user.findUnique({ where: { id: userId } });
     if (!user) {
       logger.warn(`User ${userId} not found for subscription`);
-      return;
-    }
-
-    const plan = await db.plan.findUnique({ where: { id: planId } });
-    if (!plan) {
-      logger.warn(`Plan ${planId} not found for subscription`);
       return;
     }
 
@@ -104,7 +163,10 @@ async function handleSubscriptionCreated(subscription: any) {
     });
 
     // Send confirmation email
-    await sendSubscriptionConfirmationEmail(user.email, plan.displayName);
+    const plan = await db.plan.findUnique({ where: { id: planId } });
+    if (plan) {
+      await sendSubscriptionConfirmationEmail(user.email, plan.displayName);
+    }
     logger.info(`Subscription created for user ${userId}, plan ${planId}`);
   } catch (error) {
     logger.error('Error handling subscription created:', error);

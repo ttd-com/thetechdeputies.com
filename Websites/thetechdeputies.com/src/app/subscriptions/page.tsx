@@ -40,6 +40,26 @@ const benefits = [
 export default function SubscriptionsPage() {
   const plans = getAllPlans();
 
+  const handleCheckout = async (planId: number) => {
+    try {
+      const response = await fetch('/api/stripe/checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId }),
+      });
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert('Failed to start checkout');
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('An error occurred. Please try again.');
+    }
+  };
+
   return (
     <>
       {/* Page Header */}
@@ -73,7 +93,7 @@ export default function SubscriptionsPage() {
             Available Plans
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {plans.map((plan) => (
+            {plans.map((plan, idx) => (
               <PlanCard
                 key={plan.name}
                 name={plan.displayName}
@@ -82,7 +102,7 @@ export default function SubscriptionsPage() {
                 description={plan.description}
                 features={getPlanFeatures(plan.tier)}
                 popular={plan.featured}
-                scrollTargetId="purchase-section"
+                onChoose={() => handleCheckout(idx + 1)}
               />
             ))}
           </div>
@@ -119,28 +139,7 @@ export default function SubscriptionsPage() {
         </div>
       </section>
 
-      {/* Purchase Section */}
-      <section
-        id="purchase-section"
-        className="py-12 bg-background"
-        aria-labelledby="purchase-heading"
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2
-              id="purchase-heading"
-              className="text-2xl font-bold text-secondary text-center mb-2"
-            >
-              Purchase a Subscription
-            </h2>
-            <p className="text-center text-muted-foreground mb-8">
-              Select your plan below to get started. You can manage your
-              subscription at any time from your account dashboard.
-            </p>
-            <StripeCheckoutForm plans={plans} />
-          </div>
-        </div>
-      </section>
+
 
       {/* FAQ */}
       <section className="py-12 bg-muted/50" aria-labelledby="faq-heading">
@@ -215,48 +214,5 @@ export default function SubscriptionsPage() {
         </div>
       </section>
     </>
-  );
-}
-
-/**
- * Stripe Checkout Form Component
- */
-function StripeCheckoutForm({ plans }: { plans: PlanDefinition[] }) {
-  const handleCheckout = async (planId: number) => {
-    try {
-      const response = await fetch('/api/stripe/checkout-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planId }),
-      });
-
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        alert('Failed to start checkout');
-      }
-    } catch (error) {
-      console.error('Checkout error:', error);
-      alert('An error occurred. Please try again.');
-    }
-  };
-
-  return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {plans.map((plan, idx) => (
-          <button
-            key={plan.name}
-            onClick={() => handleCheckout(idx + 1)}
-            className="p-4 border-2 border-gray-200 rounded-lg hover:border-primary transition-colors text-left"
-          >
-            <div className="font-semibold mb-2">{plan.displayName}</div>
-            <div className="text-primary font-bold mb-3">{formatPrice(plan.priceInCents)}/month</div>
-            <Button className="w-full" size="sm">Choose Plan</Button>
-          </button>
-        ))}
-      </div>
-    </div>
   );
 }

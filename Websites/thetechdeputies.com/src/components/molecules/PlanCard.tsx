@@ -21,7 +21,9 @@ export interface PlanCardProps {
   features: string[];
   /** Whether this is the most popular plan */
   popular?: boolean;
-  /** ID of the element to scroll to when clicking the button */
+  /** Callback when "Choose" button is clicked */
+  onChoose?: () => void;
+  /** ID of the element to scroll to when clicking the button (deprecated in favor of onChoose) */
   scrollTargetId?: string;
 }
 
@@ -46,11 +48,17 @@ export function PlanCard({
   description,
   features,
   popular = false,
+  onChoose,
   scrollTargetId = "purchase-section",
 }: PlanCardProps) {
   const handleClick = () => {
-    const element = document.getElementById(scrollTargetId);
-    element?.scrollIntoView({ behavior: "smooth" });
+    if (onChoose) {
+      onChoose();
+    } else {
+      // Fallback to scroll behavior if no callback provided
+      const element = document.getElementById(scrollTargetId);
+      element?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
