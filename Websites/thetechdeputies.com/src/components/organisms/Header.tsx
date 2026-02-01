@@ -7,7 +7,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Button } from "../atoms";
 
@@ -49,9 +49,15 @@ export function Header({
   onCtaClick,
 }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const { data: session, status } = useSession();
 
-  const isLoggedIn = status === 'authenticated' && !!session?.user;
+  // Prevent hydration mismatch by only showing session-dependent content after mount
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const isLoggedIn = isMounted && status === 'authenticated' && !!session?.user;
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
