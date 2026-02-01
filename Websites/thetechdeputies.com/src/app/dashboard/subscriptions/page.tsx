@@ -1,157 +1,168 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { Card } from '@/components/atoms';
+import Link from 'next/link';
+
+interface Plan {
+  id: number;
+  displayName: string;
+  description: string;
+  priceInCents: number;
+  tier: string;
+}
+
+interface Subscription {
+  id: number;
+  userId: number;
+  planId: number;
+  stripeSubscriptionId: string | null;
+  status: string;
+  currentPeriodStart: string;
+  currentPeriodEnd: string;
+  plan: Plan;
+}
+
 export default function SubscriptionsPage() {
-    // Mock data - in production would fetch from Acuity
-    const hasSubscription = false;
+    const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchSubscriptions = async () => {
+            try {
+                const response = await fetch('/api/subscriptions');
+                if (!response.ok) throw new Error('Failed to fetch subscriptions');
+                const data = await response.json();
+                setSubscriptions(data);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'An error occurred');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchSubscriptions();
+    }, []);
+
+    if (isLoading) {
+        return (
+            <div className="space-y-4">
+                <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-secondary">
+                        My Subscriptions
+                    </h1>
+                </div>
+                <div className="text-center py-12">
+                    <p className="text-muted-foreground">Loading...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div>
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-[var(--color-secondary)]">
+                <h1 className="text-3xl font-bold text-secondary">
                     My Subscriptions
                 </h1>
-                <p className="text-gray-600 mt-2">
+                <p className="text-muted-foreground mt-2">
                     Manage your recurring tech support plans.
                 </p>
             </div>
 
-            {hasSubscription ? (
+            {error && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                    <p className="text-red-800">Error: {error}</p>
+                </div>
+            )}
+
+            {subscriptions.length > 0 ? (
                 <div className="space-y-6">
-                    {/* Active subscription card would go here */}
+                    {subscriptions.map((subscription) => (
+                        <Card key={subscription.id} className="p-6">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                                {/* Plan Info */}
+                                <div>
+                                    <h3 className="text-xl font-bold text-secondary mb-2">
+                                        {subscription.plan.displayName}
+                                    </h3>
+                                    <p className="text-muted-foreground mb-4">
+                                        {subscription.plan.description}
+                                    </p>
+                                    <div className="text-2xl font-bold text-primary">
+                                        ${(subscription.plan.priceInCents / 100).toFixed(2)}
+                                        <span className="text-sm text-muted-foreground font-normal">/month</span>
+                                    </div>
+                                </div>
+
+                                {/* Billing Info */}
+                                <div>
+                                    <div className="space-y-3">
+                                        <div>
+                                            <p className="text-xs font-semibold text-muted-foreground uppercase">Status</p>
+                                            <p className="capitalize font-semibold mt-1">
+                                                <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                                                    {subscription.status}
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-semibold text-muted-foreground uppercase">Current Period</p>
+                                            <p className="text-sm mt-1">
+                                                {new Date(subscription.currentPeriodStart).toLocaleDateString()} -{' '}
+                                                {new Date(subscription.currentPeriodEnd).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                        {subscription.stripeSubscriptionId && (
+                                            <div>
+                                                <p className="text-xs font-semibold text-muted-foreground uppercase">Stripe ID</p>
+                                                <p className="text-xs font-mono text-muted-foreground mt-1 break-all">
+                                                    {subscription.stripeSubscriptionId}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Actions */}
+                                <div className="space-y-3">
+                                    <button className="w-full px-4 py-2 bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors font-semibold">
+                                        Manage Plan
+                                    </button>
+                                    <button className="w-full px-4 py-2 border border-border text-foreground rounded-lg hover:bg-muted transition-colors">
+                                        Cancel Subscription
+                                    </button>
+                                    <Link href="/subscriptions" className="block">
+                                        <button className="w-full px-4 py-2 text-primary text-center rounded-lg hover:bg-primary/5 transition-colors">
+                                            View Other Plans
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
+                        </Card>
+                    ))}
                 </div>
             ) : (
-                <div className="bg-white rounded-xl shadow-lg p-12 text-center">
-                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <Card className="p-12 text-center">
+                    <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                         </svg>
                     </div>
-                    <h3 className="text-xl font-semibold text-[var(--color-secondary)] mb-2">
+                    <h3 className="text-xl font-semibold text-secondary mb-2">
                         No Active Subscriptions
                     </h3>
-                    <p className="text-gray-500 mb-6 max-w-md mx-auto">
+                    <p className="text-muted-foreground mb-6 max-w-md mx-auto">
                         Subscribe to one of our tech support plans for ongoing assistance and exclusive benefits.
                     </p>
-                    <a
-                        href="/subscriptions"
-                        className="inline-flex items-center gap-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/90 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                    >
-                        View Subscription Plans
-                    </a>
-                </div>
+                    <Link href="/subscriptions">
+                        <button className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                            View Subscription Plans
+                        </button>
+                    </Link>
+                </Card>
             )}
-
-            {/* Subscription plans preview */}
-            <div className="mt-12">
-                <h2 className="text-xl font-semibold text-[var(--color-secondary)] mb-6">
-                    Available Plans
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <PlanCard
-                        name="Basic"
-                        price="$49"
-                        period="/month"
-                        features={[
-                            '2 support sessions per month',
-                            'Email support',
-                            'Basic tech guidance',
-                        ]}
-                        highlighted={false}
-                    />
-                    <PlanCard
-                        name="Pro"
-                        price="$99"
-                        period="/month"
-                        features={[
-                            '5 support sessions per month',
-                            'Priority email & phone support',
-                            'Advanced tech tutoring',
-                            'Custom learning path',
-                        ]}
-                        highlighted={true}
-                    />
-                    <PlanCard
-                        name="Premium"
-                        price="$199"
-                        period="/month"
-                        features={[
-                            'Unlimited support sessions',
-                            '24/7 priority support',
-                            'Personal tech consultant',
-                            'Custom training materials',
-                            'Family account (up to 4)',
-                        ]}
-                        highlighted={false}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function PlanCard({
-    name,
-    price,
-    period,
-    features,
-    highlighted,
-}: {
-    name: string;
-    price: string;
-    period: string;
-    features: string[];
-    highlighted: boolean;
-}) {
-    return (
-        <div
-            className={`
-        rounded-xl p-6 transition-all duration-300
-        ${highlighted
-                    ? 'bg-[var(--color-primary)] text-white shadow-xl scale-105'
-                    : 'bg-white shadow-lg hover:shadow-xl'
-                }
-      `}
-        >
-            {highlighted && (
-                <span className="text-xs font-semibold uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full">
-                    Most Popular
-                </span>
-            )}
-            <h3 className={`text-xl font-bold mt-4 ${highlighted ? 'text-white' : 'text-[var(--color-secondary)]'}`}>
-                {name}
-            </h3>
-            <div className="mt-4">
-                <span className="text-3xl font-bold">{price}</span>
-                <span className={`text-sm ${highlighted ? 'text-white/80' : 'text-gray-500'}`}>{period}</span>
-            </div>
-            <ul className="mt-6 space-y-3">
-                {features.map((feature, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                        <svg
-                            className={`w-5 h-5 mt-0.5 flex-shrink-0 ${highlighted ? 'text-white' : 'text-[var(--color-primary)]'}`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className={`text-sm ${highlighted ? 'text-white/90' : 'text-gray-600'}`}>
-                            {feature}
-                        </span>
-                    </li>
-                ))}
-            </ul>
-            <button
-                className={`
-          w-full mt-6 py-3 px-4 rounded-lg font-semibold transition-colors
-          ${highlighted
-                        ? 'bg-white text-[var(--color-primary)] hover:bg-gray-100'
-                        : 'bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary)]/90'
-                    }
-        `}
-            >
-                Get Started
-            </button>
         </div>
     );
 }
