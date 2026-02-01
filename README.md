@@ -1,6 +1,8 @@
 # The Tech Deputies - Company Monorepo
 
-This is the root monorepo for The Tech Deputies company organization.
+🚀 **Status**: Production Ready | ✅ All Core Features Implemented | 🐛 Latest: Production Fixes (Feb 1, 2026)
+
+This is the root monorepo for The Tech Deputies company organization. The main website (`thetechdeputies.com`) is a fully-featured Next.js 16 application with user authentication, subscription billing, course management, and admin dashboards.
 
 ## 📁 Folder Structure
 
@@ -36,6 +38,42 @@ thetechdeputies-monorepo/
     ├── .gitignore                    # Global ignore rules
     └── README.md                     # This file
 ```
+
+## 🚀 Getting Started
+
+### Quick Start (5 minutes)
+
+```bash
+# Install dependencies
+bun install
+
+# Start development server
+bun run dev:website
+
+# Open browser to http://localhost:3000
+```
+
+### Database
+
+```bash
+# View database in Prisma Studio
+bun prisma studio --url "$DATABASE_URL_REMOTE"
+
+# See complete schema documentation
+cat Planning/DATABASE_SCHEMA.md
+```
+
+## 📚 Documentation
+
+| Document | Purpose |
+|----------|---------|
+| [DATABASE_SCHEMA.md](Planning/DATABASE_SCHEMA.md) | Complete database reference with all models |
+| [CHANGELOG.md](CHANGELOG.md) | Version history and recent changes |
+| [PRODUCTION_FIX.md](PRODUCTION_FIX.md) | Latest production fixes (Feb 1, 2026) |
+| [Planning/AGENTS.md](Planning/AGENTS.md) | Development guidelines and AI agent instructions |
+| [Planning/HANDBOOK.md](Planning/HANDBOOK.md) | Deployment and maintenance procedures |
+| [Planning/PROJECT_TICKETS.md](Planning/PROJECT_TICKETS.md) | Current tasks and issue tracking |
+| [QUICKSTART.md](QUICKSTART.md) | Quick command reference |
 
 ## 🚀 Getting Started
 
