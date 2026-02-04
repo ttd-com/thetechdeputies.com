@@ -154,7 +154,7 @@ export async function promoteUserToAdmin(email: string) {
     try {
         return await prisma.user.update({
             where: { email },
-            data: { role: 'admin' },
+            data: { role: 'ADMIN' },
         });
     } catch (error) {
         logger.error('Error promoting user to admin', error);
@@ -809,7 +809,7 @@ export async function createBooking(userId: number, eventId: string) {
             const subscription = await tx.userSubscription.findFirst({
                 where: {
                     userId,
-                    status: 'active' as any,
+                    status: 'ACTIVE' as any,
                 },
                 include: { plan: true },
             });
@@ -928,7 +928,7 @@ export async function cancelBooking(id: string) {
                 throw new Error('Booking not found');
             }
 
-            if (booking.status === 'cancelled') {
+            if (booking.status === 'CANCELLED') {
                 throw new Error('Booking already cancelled');
             }
 

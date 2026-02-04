@@ -30,7 +30,7 @@ export async function POST(request: Request) {
         if (giftCard.expiresAt && new Date(giftCard.expiresAt) < new Date()) {
             return NextResponse.json({
                 found: true,
-                status: 'expired',
+                status: 'EXPIRED',
                 message: 'This gift card has expired',
             });
         }
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
         if ((giftCard.status as any) === 'CANCELLED') {
             return NextResponse.json({
                 found: true,
-                status: 'cancelled',
+                status: 'CANCELLED',
                 message: 'This gift card has been cancelled',
             });
         }

@@ -15,14 +15,14 @@ export async function POST(req: NextRequest) {
     const user = await db.user.upsert({
       where: { email },
       update: {
-        role: 'admin',
+        role: 'ADMIN',
         emailVerified: true,
       },
       create: {
         email,
         name: name || 'Admin User',
         passwordHash: hashedPassword,
-        role: 'admin',
+        role: 'ADMIN',
         emailVerified: true,
       },
     });

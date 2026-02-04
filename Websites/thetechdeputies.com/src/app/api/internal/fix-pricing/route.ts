@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     // Fix test user to be admin
     const testUser = await db.user.updateMany({
       where: { email: 'test@sn0n.com' },
-      data: { role: 'admin' },
+      data: { role: 'ADMIN' },
     });
 
     if (testUser.count > 0) {
