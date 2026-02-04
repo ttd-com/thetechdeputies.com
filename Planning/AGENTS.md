@@ -179,6 +179,49 @@ Always wrap in try-catch and log errors via `logger.error()`.
 - Snake_case in database, camelCase in code
 - Always use transactions for multi-record operations
 
+### ⚠️ CRITICAL: Prisma Enum Compatibility (Vercel Build Issue)
+
+**Problem**: Vercel builds fail with enum type errors like `Type '"ADMIN"' is not assignable to type 'Role'` even though local builds succeed. This is caused by a version mismatch between Prisma 7.2.0 (Vercel) and Prisma 7.3.0+ (local).
+
+**Root Cause**: Prisma changed enum handling between versions:
+- Prisma 7.2.0 expects **lowercase** enum values in assignments: `role: 'admin'`
+- Prisma 7.3.0+ expects **uppercase** enum values: `role: 'ADMIN'` or `Role.ADMIN`
+
+**Solution Pattern**: Use lowercase values with `as any` type assertion for cross-version compatibility:
+
+```typescript
+// ✅ CORRECT - Works on both Vercel (7.2.0) and local (7.3.0+)
+await db.user.create({
+  data: {
+    role: 'admin' as any,           // Not 'ADMIN'
+    status: 'active' as any,        // Not 'ACTIVE'
+  }
+});
+
+// ✅ CORRECT - Comparisons use lowercase strings directly
+if (user.role === 'admin') { }
+if (subscription.status === 'active') { }
+if (booking.status === 'cancelled') { }
+
+// ❌ WRONG - Will fail on Vercel
+role: 'ADMIN',                      // Type error on Prisma 7.2.0
+status: 'ACTIVE',                   // Type error on Prisma 7.2.0
+changeType: 'ADMIN_RESET',          // Type error on Prisma 7.2.0
+```
+
+**Affected Enums**:
+- `Role`: `'admin' as any`, `'user' as any`
+- `SubscriptionStatus`: `'active' as any`, `'cancelled' as any`, `'expired' as any`, `'past_due' as any`
+- `ChangeType`: `'admin_reset' as any`, `'admin_force_change' as any`
+- `BookingStatus`: `'cancelled' as any`
+
+**Verification Command**: Scan for uppercase enum values before deploying:
+```bash
+grep -rn "role: 'ADMIN'\|role: 'USER'\|status: 'ACTIVE'\|status: 'CANCELLED'\|status: 'EXPIRED'" src/
+```
+
+**Note**: Stripe API calls always use lowercase (e.g., `subscription.status = 'active'`) - these are NOT Prisma enums and don't need type assertions.
+
 ## Authentication & Authorization
 
 ### Session Management
