@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     const existingActive = await db.userSubscription.findFirst({
       where: {
         userId,
-        status: 'ACTIVE',
+        status: 'active' as any,
       },
     });
 
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
       await db.userSubscription.update({
         where: { id: existingActive.id },
         data: {
-          status: 'CANCELLED',
+          status: 'cancelled' as any,
           cancelledAt: new Date(),
         },
       });
@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
       data: {
         userId,
         planId,
-        status: 'ACTIVE',
+        status: 'active' as any,
         currentPeriodStart: now,
         currentPeriodEnd: nextMonth,
         sessionBookedThisMonth: 0,

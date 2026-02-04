@@ -624,7 +624,7 @@ export async function getUserCourses(userId: number) {
             where: {
                 userId,
                 // Prisma client expects the client enum name (uppercase)
-                status: 'ACTIVE' as any,
+                status: 'active' as any,
             },
             orderBy: { purchasedAt: 'desc' },
         });
@@ -640,7 +640,7 @@ export async function hasUserPurchasedCourse(userId: number, courseSlug: string)
             where: {
                 userId,
                 courseSlug,
-                status: 'ACTIVE' as any,
+                status: 'active' as any,
             },
         });
         return !!purchase;
@@ -809,7 +809,7 @@ export async function createBooking(userId: number, eventId: string) {
             const subscription = await tx.userSubscription.findFirst({
                 where: {
                     userId,
-                    status: 'ACTIVE' as any,
+                    status: 'active' as any,
                 },
                 include: { plan: true },
             });
@@ -936,7 +936,7 @@ export async function cancelBooking(id: string) {
             const updated = await tx.booking.update({
                 where: { id },
                 data: {
-                    status: 'CANCELLED' as any,
+                    status: 'cancelled' as any,
                     cancelledAt: new Date(),
                 },
             });
@@ -951,7 +951,7 @@ export async function cancelBooking(id: string) {
             await tx.userSubscription.updateMany({
                 where: {
                     userId: booking.userId,
-                    status: 'ACTIVE' as any,
+                    status: 'active' as any,
                 },
                 data: { sessionBookedThisMonth: { decrement: 1 } },
             });
@@ -967,7 +967,7 @@ export async function cancelBooking(id: string) {
 export async function getCoursePurchaseStats() {
     try {
         const purchases = await prisma.coursePurchase.findMany({
-            where: { status: 'ACTIVE' as any },
+            where: { status: 'active' as any },
         });
 
         const totalPurchases = purchases.length;
