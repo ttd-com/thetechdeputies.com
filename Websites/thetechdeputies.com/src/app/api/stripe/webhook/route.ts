@@ -156,7 +156,7 @@ async function handleSubscriptionCreated(subscription: any) {
         userId,
         planId,
         stripeSubscriptionId: subscription.id,
-        status: 'ACTIVE',
+        status: 'active' as any,
         currentPeriodStart: new Date(subscription.current_period_start * 1000),
         currentPeriodEnd: new Date(subscription.current_period_end * 1000),
       },
@@ -191,13 +191,10 @@ async function handleSubscriptionUpdated(subscription: any) {
       status = 'past_due';
     }
 
-    // Convert to Prisma enum
-    const prismaStatus = status.toUpperCase() as 'ACTIVE' | 'CANCELLED' | 'PAST_DUE' | 'EXPIRED';
-
     await db.userSubscription.update({
       where: { id: existingSubscription.id },
       data: {
-        status: prismaStatus,
+        status: status as any,
         currentPeriodStart: new Date(subscription.current_period_start * 1000),
         currentPeriodEnd: new Date(subscription.current_period_end * 1000),
       },
@@ -223,7 +220,7 @@ async function handleSubscriptionDeleted(subscription: any) {
     await db.userSubscription.update({
       where: { id: existingSubscription.id },
       data: {
-        status: 'CANCELLED',
+        status: 'cancelled' as any,
         cancelledAt: new Date(),
       },
     });

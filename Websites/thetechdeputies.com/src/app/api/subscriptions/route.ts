@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     const userSubscriptions = await db.userSubscription.findMany({
       where: {
         userId: parseInt(session.user.id),
-        status: 'ACTIVE',
+        status: 'active' as any,
       },
       include: {
         plan: true,

@@ -154,7 +154,7 @@ export async function promoteUserToAdmin(email: string) {
     try {
         return await prisma.user.update({
             where: { email },
-            data: { role: 'ADMIN' },
+            data: { role: 'admin' as any },
         });
     } catch (error) {
         logger.error('Error promoting user to admin', error);
@@ -928,7 +928,7 @@ export async function cancelBooking(id: string) {
                 throw new Error('Booking not found');
             }
 
-            if (booking.status === 'CANCELLED') {
+            if ((booking.status as any) === 'cancelled') {
                 throw new Error('Booking already cancelled');
             }
 

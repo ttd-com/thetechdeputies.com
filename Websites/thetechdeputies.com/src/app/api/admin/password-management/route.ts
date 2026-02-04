@@ -61,7 +61,7 @@ export async function POST(req: Request) {
                 data: {
                     userId,
                     changedBy: adminId,
-                    changeType: 'ADMIN_RESET',
+                    changeType: 'admin_reset' as any,
                     ipAddress,
                     userAgent,
                     success: true,
@@ -155,7 +155,7 @@ export async function POST(req: Request) {
                 data: {
                     userId,
                     changedBy: adminId,
-                    changeType: 'ADMIN_FORCE_CHANGE',
+                    changeType: 'admin_force_change' as any,
                     ipAddress,
                     userAgent,
                     success: true,

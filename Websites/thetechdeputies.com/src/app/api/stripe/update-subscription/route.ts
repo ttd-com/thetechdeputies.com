@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       where: {
         userId_status: {
           userId,
-          status: 'ACTIVE',
+          status: 'active' as any,
         },
       },
       include: { plan: true },

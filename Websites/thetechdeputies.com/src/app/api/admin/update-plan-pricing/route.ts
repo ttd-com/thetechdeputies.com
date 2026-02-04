@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       where: { id: parseInt(session.user.id) },
     });
 
-    if (user?.role !== 'ADMIN') {
+    if ((user?.role as any) !== 'admin') {
       logger.warn(`Non-admin user ${user?.id} attempted pricing update`, { userId: user?.id });
       return NextResponse.json({ error: 'Forbidden: Admin access required' }, { status: 403 });
     }
@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
       logger.info(`Updated plan pricing: ${update.name}`, {
         oldPrice: oldPrice,
         newPrice: update.newPrice,
-        adminId: user.id,
+        adminId: user?.id,
       });
 
       results.push({
