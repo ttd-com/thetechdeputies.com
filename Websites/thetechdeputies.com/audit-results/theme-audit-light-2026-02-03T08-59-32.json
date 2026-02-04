@@ -1,0 +1,782 @@
+[
+  {
+    "page": "/",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.784Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/services",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/courses",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/subscriptions",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/gift-certificates",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/about",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/contact",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/booking",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/privacy",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/terms",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/accessibility",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/dashboard",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/dashboard/subscriptions",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/dashboard/sessions",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/dashboard/admin/calendar",
+    "theme": "light",
+    "timestamp": "2026-02-03T08:59:32.785Z",
+    "tests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Muted Foreground (#595959) on white",
+        "ratio": 7,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 45
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  }
+]

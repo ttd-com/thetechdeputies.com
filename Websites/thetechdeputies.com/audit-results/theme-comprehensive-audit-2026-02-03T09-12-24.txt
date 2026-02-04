@@ -1,0 +1,425 @@
+════════════════════════════════════════════════════════════════════════════════
+COMPREHENSIVE LIGHT & DARK MODE CONTRAST AUDIT
+Generated: 2026-02-03T09:12:24.269Z
+Total Pages Tested: 15
+════════════════════════════════════════════════════════════════════════════════
+
+SUMMARY BY PAGE
+────────────────────────────────────────────────────────────────────────────────
+Page                                | Light Mode | Dark Mode | Overall
+────────────────────────────────────────────────────────────────────────────────
+Home                                | 100% | 100% | ✅ PASS
+Services                            | 100% | 100% | ✅ PASS
+Courses                             | 100% | 100% | ✅ PASS
+Subscriptions                       | 100% | 100% | ✅ PASS
+Gift Certificates                   | 100% | 100% | ✅ PASS
+About                               | 100% | 100% | ✅ PASS
+Contact                             | 100% | 100% | ✅ PASS
+Booking                             | 100% | 100% | ✅ PASS
+Privacy                             | 100% | 100% | ✅ PASS
+Terms                               | 100% | 100% | ✅ PASS
+Accessibility                       | 100% | 100% | ✅ PASS
+Dashboard                           | 100% | 100% | ✅ PASS
+Subscriptions Dashboard             | 100% | 100% | ✅ PASS
+Sessions                            | 100% | 100% | ✅ PASS
+Admin Calendar                      | 100% | 100% | ✅ PASS
+────────────────────────────────────────────────────────────────────────────────
+
+DETAILED RESULTS
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Home
+URL: /
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Services
+URL: /services
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Courses
+URL: /courses
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Subscriptions
+URL: /subscriptions
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Gift Certificates
+URL: /gift-certificates
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: About
+URL: /about
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Contact
+URL: /contact
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Booking
+URL: /booking
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Privacy
+URL: /privacy
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Terms
+URL: /terms
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Accessibility
+URL: /accessibility
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Dashboard
+URL: /dashboard
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Subscriptions Dashboard
+URL: /dashboard/subscriptions
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Sessions
+URL: /dashboard/sessions
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+PAGE: Admin Calendar
+URL: /dashboard/admin/calendar
+Overall: ✅ PASS
+
+LIGHT MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ Primary (#1f5856) on white                    | 8.11:1 (min: 7:1)
+✅ Secondary (#0f1419) on white                  | 18.51:1 (min: 7:1)
+✅ Accent Tan (#6e5331) on white                 | 7.13:1 (min: 7:1)
+✅ Accent Terracotta (#7a3f25) on white          | 8.19:1 (min: 7:1)
+✅ Muted (#595959) on white                      | 7.00:1 (min: 7:1)
+✅ Border (#949494) on white (UI)                | 3.03:1 (min: 3:1)
+Light Mode: 6/6 passed (100%)
+
+DARK MODE TESTS:
+────────────────────────────────────────────────────────────────────────────────
+✅ White (#ffffff) on dark (#0a0e14)             | 19.34:1 (min: 7:1)
+✅ Light Gray (#b4bfd9) on dark                  | 10.49:1 (min: 7:1)
+✅ Border (#566a94) on dark (UI)                 | 3.58:1 (min: 3:1)
+✅ White on Primary (#1f5856)                    | 8.11:1 (min: 7:1)
+✅ White on Secondary (#0f1419)                  | 18.51:1 (min: 7:1)
+✅ White on Terracotta (#7a3f25)                 | 8.19:1 (min: 7:1)
+Dark Mode: 6/6 passed (100%)
+
+════════════════════════════════════════════════════════════════════════════════
+
+FINAL SUMMARY
+════════════════════════════════════════════════════════════════════════════════
+Pages Passed: 15/15
+Overall Status: ✅ 100% COMPLIANT (WCAG AAA + Dark Mode)
+════════════════════════════════════════════════════════════════════════════════

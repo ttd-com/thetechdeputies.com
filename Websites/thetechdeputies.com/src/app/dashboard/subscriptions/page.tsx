@@ -20,7 +20,8 @@ interface Subscription {
   status: string;
   currentPeriodStart: string;
   currentPeriodEnd: string;
-  plan: Plan;
+  sessionBookedThisMonth: number;
+  plan: Plan & { sessionLimit: number };
 }
 
 export default function SubscriptionsPage() {
@@ -96,7 +97,7 @@ export default function SubscriptionsPage() {
                                     </div>
                                 </div>
 
-                                {/* Billing Info */}
+                                {/* Billing & Session Info */}
                                 <div>
                                     <div className="space-y-3">
                                         <div>
@@ -113,6 +114,22 @@ export default function SubscriptionsPage() {
                                                 {new Date(subscription.currentPeriodStart).toLocaleDateString()} -{' '}
                                                 {new Date(subscription.currentPeriodEnd).toLocaleDateString()}
                                             </p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs font-semibold text-muted-foreground uppercase">Sessions This Month</p>
+                                            <p className="text-sm mt-1 font-semibold">
+                                                {subscription.sessionBookedThisMonth} / {subscription.plan.sessionLimit === 0 ? '∞ Unlimited' : subscription.plan.sessionLimit}
+                                            </p>
+                                            {subscription.plan.sessionLimit > 0 && (
+                                                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                                    <div
+                                                        className="bg-blue-600 h-2 rounded-full"
+                                                        style={{
+                                                            width: `${Math.min((subscription.sessionBookedThisMonth / subscription.plan.sessionLimit) * 100, 100)}%`,
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                            )}
                                         </div>
                                         {subscription.stripeSubscriptionId && (
                                             <div>

@@ -30,12 +30,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     const isAdmin = session?.user?.role === 'ADMIN';
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
             {/* Mobile menu button */}
             <div className="lg:hidden fixed top-20 left-4 z-40">
                 <button
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    className="p-2 rounded-lg bg-white shadow-lg text-gray-600 hover:text-gray-900"
+                    className="p-2 rounded-lg bg-white dark:bg-gray-800 shadow-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                     aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
                 >
                     {mobileMenuOpen ? <XIcon /> : <MenuIcon />}
@@ -45,12 +45,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             {/* Sidebar */}
             <aside
                 className={`
-          fixed top-16 bottom-0 left-0 z-30 w-64 bg-[var(--color-secondary)] transform transition-transform duration-300 ease-in-out
+          fixed top-16 bottom-0 left-0 z-30 w-64 bg-[var(--color-secondary)] dark:bg-[#1a1f2e] transform transition-transform duration-300 ease-in-out
           lg:translate-x-0
           ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
             >
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col h-full overflow-y-auto">
                     {/* Logo */}
                     <div className="p-6 border-b border-white/10">
                         <Link href="/" className="text-white text-xl font-bold">
@@ -148,7 +148,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             )}
 
             {/* Main content */}
-            <main className="lg:pl-64">
+            <main className="lg:pl-64 flex-1">
                 <div className="p-6 lg:p-8">
                     {children}
                 </div>

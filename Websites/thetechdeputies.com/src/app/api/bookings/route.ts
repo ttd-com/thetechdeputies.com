@@ -83,6 +83,14 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'You already have a booking for this event' }, { status: 409 });
         }
 
+        if (error.message === 'No active subscription') {
+            return NextResponse.json({ error: 'You must have an active subscription to book sessions' }, { status: 403 });
+        }
+
+        if (error.message.includes('reached your session limit')) {
+            return NextResponse.json({ error: error.message }, { status: 409 });
+        }
+
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 }

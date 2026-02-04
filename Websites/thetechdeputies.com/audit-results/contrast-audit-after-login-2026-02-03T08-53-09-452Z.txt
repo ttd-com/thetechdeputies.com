@@ -1,0 +1,51 @@
+CONTRAST AUDIT REPORT - AFTER-LOGIN
+Generated: 2/3/2026, 12:53:09 AM
+======================================================================
+
+OVERALL RESULTS
+----------------------------------------------------------------------
+Total Color Tests: 12
+Passed: 12/✅
+Failed: 0/❌
+Pass Rate: 100%
+
+COLOR PALETTE
+----------------------------------------------------------------------
+primary                   #1f5856
+primary-hover             #194745
+primary-light             #256562
+secondary                 #0f1419
+secondary-hover           #1a202c
+secondary-light           #2d3748
+accent-tan                #6e5331
+accent-tan-hover          #584326
+accent-tan-light          #7a5e3a
+accent-terracotta         #7a3f25
+accent-terracotta-hover   #6f3a24
+accent-terracotta-light   #8B4A2F
+background                #ffffff
+background-dark           #0a0e14
+foreground                #0f1419
+muted                     #f5f5f5
+muted-foreground          #595959
+border                    #949494
+border-dark               #566a94
+
+AUTHENTICATED PAGES TESTED
+----------------------------------------------------------------------
+[AUTH REQUIRED]  Dashboard                      /dashboard
+[AUTH REQUIRED]  Subscriptions Dashboard        /dashboard/subscriptions
+[AUTH REQUIRED]  Sessions                       /dashboard/sessions
+[AUTH REQUIRED]  Admin Calendar                 /dashboard/admin/calendar
+
+WCAG AAA COMPLIANCE STATUS
+----------------------------------------------------------------------
+✅ Color Palette                       100% (12/12)
+✅ Dashboard                           100% (12/12)
+✅ Subscriptions Dashboard             100% (12/12)
+✅ Sessions                            100% (12/12)
+✅ Admin Calendar                      100% (12/12)
+
+NOTE: After-login pages use the same color palette as public pages.
+All authenticated pages (Dashboard, Sessions, Admin Calendar) are tested
+against the same WCAG AAA compliance standards.

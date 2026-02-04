@@ -67,11 +67,11 @@ export default function SessionsPage() {
     }
 
     const upcomingBookings = bookings.filter(b => {
-        return b.status === 'confirmed' && new Date(b.event.endTime) > new Date();
+        return b.status === 'CONFIRMED' && new Date(b.event.endTime) > new Date();
     });
 
     const pastBookings = bookings.filter(b => {
-        return b.status === 'cancelled' || new Date(b.event.endTime) <= new Date();
+        return b.status === 'CANCELLED' || new Date(b.event.endTime) <= new Date();
     });
 
     return (

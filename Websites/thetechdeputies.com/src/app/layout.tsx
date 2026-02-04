@@ -10,6 +10,7 @@ import "./globals.css";
 import { SkipLink } from "@/components/atoms";
 import { Header, Footer } from "@/components/organisms";
 import { SessionProvider } from "@/components/organisms/SessionProvider";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,26 +48,28 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <SessionProvider>
-          {/* Accessibility: Skip to main content link */}
-          <SkipLink targetId="main-content" />
+        <ThemeProvider>
+          <SessionProvider>
+            {/* Accessibility: Skip to main content link */}
+            <SkipLink targetId="main-content" />
 
-          {/* Header with navigation */}
-          <Header />
+            {/* Header with navigation */}
+            <Header />
 
-          {/* Main content area */}
-          <main
-            id="main-content"
-            className="flex-1"
-            role="main"
-            aria-label="Main content"
-          >
-            {children}
-          </main>
+            {/* Main content area */}
+            <main
+              id="main-content"
+              className="flex-1"
+              role="main"
+              aria-label="Main content"
+            >
+              {children}
+            </main>
 
-          {/* Footer */}
-          <Footer />
-        </SessionProvider>
+            {/* Footer */}
+            <Footer />
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

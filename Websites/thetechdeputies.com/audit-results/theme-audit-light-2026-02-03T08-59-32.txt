@@ -1,0 +1,435 @@
+
+══════════════════════════════════════════════════════════════════════
+Page: / | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /services | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /courses | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /subscriptions | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /gift-certificates | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /about | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /contact | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /booking | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /privacy | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /terms | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /accessibility | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /dashboard | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /dashboard/subscriptions | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /dashboard/sessions | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+
+
+══════════════════════════════════════════════════════════════════════
+Page: /dashboard/admin/calendar | Theme: LIGHT | Pass Rate: 100%
+══════════════════════════════════════════════════════════════════════
+
+✅ Primary (#1f5856) on white
+   Ratio: 8.11:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Secondary (#0f1419) on white
+   Ratio: 18.51:1 (Pass - Required: 7:1)
+   APCA: 118
+
+✅ Accent Tan (#6e5331) on white
+   Ratio: 7.13:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Accent Terracotta (#7a3f25) on white
+   Ratio: 8.19:1 (Pass - Required: 7:1)
+   APCA: 85
+
+✅ Muted Foreground (#595959) on white
+   Ratio: 7:1 (Pass - Required: 7:1)
+   APCA: 79
+
+✅ Border (#949494) on white (UI)
+   Ratio: 3.03:1 (Pass - Required: 3:1)
+   APCA: 45
+

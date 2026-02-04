@@ -1,0 +1,1427 @@
+[
+  {
+    "page": "Home",
+    "url": "/",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Services",
+    "url": "/services",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Courses",
+    "url": "/courses",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Subscriptions",
+    "url": "/subscriptions",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Gift Certificates",
+    "url": "/gift-certificates",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "About",
+    "url": "/about",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Contact",
+    "url": "/contact",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Booking",
+    "url": "/booking",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Privacy",
+    "url": "/privacy",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Terms",
+    "url": "/terms",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Accessibility",
+    "url": "/accessibility",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Dashboard",
+    "url": "/dashboard",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Subscriptions Dashboard",
+    "url": "/dashboard/subscriptions",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Sessions",
+    "url": "/dashboard/sessions",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  },
+  {
+    "page": "Admin Calendar",
+    "url": "/dashboard/admin/calendar",
+    "lightModeTests": [
+      {
+        "name": "Primary (#1f5856) on white",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Secondary (#0f1419) on white",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "Accent Tan (#6e5331) on white",
+        "ratio": 7.13,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Accent Terracotta (#7a3f25) on white",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "Muted (#595959) on white",
+        "ratio": 7,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 79
+      },
+      {
+        "name": "Border (#949494) on white (UI)",
+        "ratio": 3.03,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 45
+      }
+    ],
+    "darkModeTests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes": true,
+        "minRequired": 3,
+        "apca": 52
+      },
+      {
+        "name": "White on Primary (#1f5856)",
+        "ratio": 8.11,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      },
+      {
+        "name": "White on Secondary (#0f1419)",
+        "ratio": 18.51,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 118
+      },
+      {
+        "name": "White on Terracotta (#7a3f25)",
+        "ratio": 8.19,
+        "passes": true,
+        "minRequired": 7,
+        "apca": 85
+      }
+    ],
+    "lightPassRate": 100,
+    "darkPassRate": 100,
+    "overallPass": true
+  }
+]

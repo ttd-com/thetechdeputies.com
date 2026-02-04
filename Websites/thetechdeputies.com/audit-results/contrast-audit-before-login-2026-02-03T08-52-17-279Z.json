@@ -1,0 +1,111 @@
+{
+  "timestamp": "2026-02-03T08:52:17.279Z",
+  "version": "1.0.0",
+  "totalPages": 15,
+  "totalTests": 12,
+  "passedTests": 12,
+  "failedTests": 0,
+  "pages": {
+    "Color Palette": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Home": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Services": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Courses": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Subscriptions": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Gift Certificates": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "About": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Contact": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Booking": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Privacy": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Terms": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Accessibility": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Dashboard": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Subscriptions Dashboard": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Sessions": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    },
+    "Admin Calendar": {
+      "passed": 12,
+      "failed": 0,
+      "issues": []
+    }
+  },
+  "colorPalette": {
+    "primary": "#1f5856",
+    "primary-hover": "#194745",
+    "primary-light": "#256562",
+    "secondary": "#0f1419",
+    "secondary-hover": "#1a202c",
+    "secondary-light": "#2d3748",
+    "accent-tan": "#6e5331",
+    "accent-tan-hover": "#584326",
+    "accent-tan-light": "#7a5e3a",
+    "accent-terracotta": "#7a3f25",
+    "accent-terracotta-hover": "#6f3a24",
+    "accent-terracotta-light": "#8B4A2F",
+    "background": "#ffffff",
+    "background-dark": "#0a0e14",
+    "foreground": "#0f1419",
+    "muted": "#f5f5f5",
+    "muted-foreground": "#595959",
+    "border": "#949494",
+    "border-dark": "#566a94"
+  }
+}

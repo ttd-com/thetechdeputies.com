@@ -15,3 +15,4 @@ export type { CardProps } from "./Card";
 
 export { SkipLink } from "./SkipLink";
 export type { SkipLinkProps } from "./SkipLink";
+export { ThemeToggle } from "./ThemeToggle";

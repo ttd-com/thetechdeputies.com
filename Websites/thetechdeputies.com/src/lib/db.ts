@@ -150,7 +150,17 @@ export async function softDeleteUser(userId: number) {
         throw error;
     }
 }
-
+export async function promoteUserToAdmin(email: string) {
+    try {
+        return await prisma.user.update({
+            where: { email },
+            data: { role: 'admin' },
+        });
+    } catch (error) {
+        logger.error('Error promoting user to admin', error);
+        throw error;
+    }
+}
 export async function restoreUser(userId: number) {
     try {
         return await prisma.user.update({
@@ -693,7 +703,7 @@ export async function getCalendarEvent(id: string) {
             where: { id },
             include: {
                 bookings: {
-                    where: { status: 'confirmed' as any },
+                    where: { status: 'CONFIRMED' as any },
                     include: { user: true },
                 },
             },
@@ -720,7 +730,10 @@ export async function getCalendarEvents(startDate?: Date, endDate?: Date) {
             orderBy: { startTime: 'asc' },
             include: {
                 bookings: {
-                    where: { status: 'confirmed' as any },
+                    where: { status: 'CONFIRMED' as any },
+                    include: {
+                        user: true,
+                    },
                 },
             },
         });
@@ -784,7 +797,7 @@ export async function createBooking(userId: number, eventId: string) {
                 where: {
                     userId,
                     eventId,
-                    status: 'confirmed' as any,
+                    status: 'CONFIRMED' as any,
                 },
             });
 
@@ -792,19 +805,46 @@ export async function createBooking(userId: number, eventId: string) {
                 throw new Error('User already has a booking for this event');
             }
 
+            // Get user's active subscription to check session limit
+            const subscription = await tx.userSubscription.findFirst({
+                where: {
+                    userId,
+                    status: 'active' as any,
+                },
+                include: { plan: true },
+            });
+
+            if (!subscription) {
+                throw new Error('No active subscription');
+            }
+
+            // Check if user has reached their session limit
+            if (subscription.plan.sessionLimit > 0) {
+                if (subscription.sessionBookedThisMonth >= subscription.plan.sessionLimit) {
+                    throw new Error('You have reached your session limit for this month');
+                }
+            }
+
             // Create booking
             const booking = await tx.booking.create({
                 data: {
                     userId,
                     eventId,
-                    status: 'confirmed' as any,
+                    status: 'CONFIRMED' as any,
+                    showOnSharedCalendar: true,
                 },
             });
 
-            // Increment booked count
+            // Increment booked count on calendar event
             await tx.calendarEvent.update({
                 where: { id: eventId },
                 data: { bookedCount: { increment: 1 } },
+            });
+
+            // Increment session count on user subscription
+            await tx.userSubscription.update({
+                where: { id: subscription.id },
+                data: { sessionBookedThisMonth: { increment: 1 } },
             });
 
             return booking;
@@ -843,6 +883,40 @@ export async function getUserBookings(userId: number) {
     }
 }
 
+export async function getSharedCalendarBookings(startDate?: Date, endDate?: Date) {
+    try {
+        return await prisma.booking.findMany({
+            where: {
+                status: 'CONFIRMED' as any,
+                showOnSharedCalendar: true,
+                cancelledAt: null,
+                ...(startDate || endDate ? {
+                    event: {
+                        startTime: {
+                            ...(startDate ? { gte: startDate } : {}),
+                            ...(endDate ? { lte: endDate } : {}),
+                        },
+                    },
+                } : {}),
+            },
+            include: {
+                user: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                    },
+                },
+                event: true,
+            },
+            orderBy: { bookedAt: 'desc' },
+        });
+    } catch (error) {
+        logger.error('Error fetching shared calendar bookings', error, { startDate, endDate });
+        return [];
+    }
+}
+
 export async function cancelBooking(id: string) {
     try {
         return await prisma.$transaction(async (tx) => {
@@ -862,15 +936,24 @@ export async function cancelBooking(id: string) {
             const updated = await tx.booking.update({
                 where: { id },
                 data: {
-                    status: 'cancelled' as any,
+                    status: 'CANCELLED' as any,
                     cancelledAt: new Date(),
                 },
             });
 
-            // Decrement booked count
+            // Decrement booked count on calendar event
             await tx.calendarEvent.update({
                 where: { id: booking.eventId },
                 data: { bookedCount: { decrement: 1 } },
+            });
+
+            // Decrement session count on user subscription
+            await tx.userSubscription.updateMany({
+                where: {
+                    userId: booking.userId,
+                    status: 'ACTIVE' as any,
+                },
+                data: { sessionBookedThisMonth: { decrement: 1 } },
             });
 
             return updated;

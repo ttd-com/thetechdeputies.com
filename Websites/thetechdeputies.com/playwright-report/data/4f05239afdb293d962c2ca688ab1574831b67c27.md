@@ -1,0 +1,182 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - navigation "Main navigation" [ref=e4]:
+      - link "The Tech Deputies - Home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: 🤠
+        - generic [ref=e7]: The Tech Deputies
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "View our tech support services" [ref=e10] [cursor=pointer]:
+            - /url: /services
+            - text: Services
+        - listitem [ref=e11]:
+          - link "Browse tech education courses" [ref=e12] [cursor=pointer]:
+            - /url: /courses
+            - text: Courses
+        - listitem [ref=e13]:
+          - link "Purchase gift certificates" [ref=e14] [cursor=pointer]:
+            - /url: /gift-certificates
+            - text: Gift Cards
+        - listitem [ref=e15]:
+          - link "Learn about The Tech Deputies" [ref=e16] [cursor=pointer]:
+            - /url: /about
+            - text: About
+      - generic [ref=e17]:
+        - link "Sign in to your account" [ref=e18] [cursor=pointer]:
+          - /url: /login
+          - button "Sign in to your account" [ref=e19]: Sign In
+        - link "Book a tech support session" [ref=e20] [cursor=pointer]:
+          - /url: /booking
+          - button "Book a tech support session" [ref=e21]: Book Support
+  - main "Main content" [ref=e22]:
+    - region "Your Tech Deputies Are Here to Help" [ref=e23]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e27]: 🤠
+          - generic [ref=e28]: Tech Help You Can Trust
+        - heading "Your Tech Deputies Are Here to Help" [level=1] [ref=e29]
+        - paragraph [ref=e30]: Expert tech support and education services. We help you navigate technology with confidence, whether you need one-on-one help or want to learn new skills.
+        - generic [ref=e31]:
+          - link "Book Support - Book a tech support session" [ref=e32] [cursor=pointer]:
+            - /url: /booking
+            - button "Book Support - Book a tech support session" [ref=e33]: Book Support
+          - link "View Courses - Browse our tech education courses" [ref=e34] [cursor=pointer]:
+            - /url: /courses
+            - button "View Courses - Browse our tech education courses" [ref=e35]: View Courses
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - generic [ref=e40]: Patient & Friendly
+          - generic [ref=e41]:
+            - img [ref=e42]
+            - generic [ref=e44]: No Jargon
+          - generic [ref=e45]:
+            - img [ref=e46]
+            - generic [ref=e48]: Flexible Scheduling
+    - region "How Can We Help?" [ref=e49]:
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - heading "How Can We Help?" [level=2] [ref=e52]
+          - paragraph [ref=e53]: Whether you need immediate tech support or want to build your skills over time, we have options to fit your needs.
+        - generic [ref=e54]:
+          - link "Tech Support One-on-one help with computers, phones, tablets, and smart devices. We solve problems and teach you along the way." [ref=e55] [cursor=pointer]:
+            - /url: /services#support
+            - generic [ref=e57]:
+              - generic [ref=e58]: 🔧
+              - heading "Tech Support" [level=3] [ref=e59]
+              - paragraph [ref=e60]: One-on-one help with computers, phones, tablets, and smart devices. We solve problems and teach you along the way.
+          - link "Tech Education Learn at your own pace with our courses and workshops. From basics to advanced topics, we make technology accessible." [ref=e61] [cursor=pointer]:
+            - /url: /courses
+            - generic [ref=e63]:
+              - generic [ref=e64]: 📚
+              - heading "Tech Education" [level=3] [ref=e65]
+              - paragraph [ref=e66]: Learn at your own pace with our courses and workshops. From basics to advanced topics, we make technology accessible.
+          - link "Subscriptions Unlimited tech support with our monthly plans. Get priority scheduling and peace of mind knowing help is just a call away." [ref=e67] [cursor=pointer]:
+            - /url: /subscriptions
+            - generic [ref=e69]:
+              - generic [ref=e70]: ⭐
+              - heading "Subscriptions" [level=3] [ref=e71]
+              - paragraph [ref=e72]: Unlimited tech support with our monthly plans. Get priority scheduling and peace of mind knowing help is just a call away.
+          - link "Gift Certificates Give the gift of tech confidence. Perfect for parents, grandparents, or anyone who could use a helping hand." [ref=e73] [cursor=pointer]:
+            - /url: /gift-certificates
+            - generic [ref=e75]:
+              - generic [ref=e76]: 🎁
+              - heading "Gift Certificates" [level=3] [ref=e77]
+              - paragraph [ref=e78]: Give the gift of tech confidence. Perfect for parents, grandparents, or anyone who could use a helping hand.
+    - region "Ready to Get Started?" [ref=e79]:
+      - generic [ref=e81]:
+        - heading "Ready to Get Started?" [level=2] [ref=e82]
+        - paragraph [ref=e83]: Book your first session today or browse our courses to start your tech education journey. No question is too basic - we're here to help.
+        - generic [ref=e84]:
+          - link "Book a tech support session" [ref=e85] [cursor=pointer]:
+            - /url: /booking
+            - button "Book a tech support session" [ref=e86]: Book a Session
+          - link "Browse tech education courses" [ref=e87] [cursor=pointer]:
+            - /url: /courses
+            - button "Browse tech education courses" [ref=e88]: Browse Courses
+    - region "Why Choose The Tech Deputies?" [ref=e89]:
+      - generic [ref=e90]:
+        - heading "Why Choose The Tech Deputies?" [level=2] [ref=e92]
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - img [ref=e96]
+            - heading "Patient & Understanding" [level=3] [ref=e98]
+            - paragraph [ref=e99]: We take the time to explain things clearly, without rushing or making you feel embarrassed to ask questions.
+          - generic [ref=e100]:
+            - img [ref=e102]
+            - heading "Flexible Scheduling" [level=3] [ref=e104]
+            - paragraph [ref=e105]: Book sessions that fit your schedule. We offer in-person and remote support options to meet your needs.
+          - generic [ref=e106]:
+            - img [ref=e108]
+            - heading "Trustworthy & Reliable" [level=3] [ref=e110]
+            - paragraph [ref=e111]: Your data and privacy are safe with us. We focus on teaching you to be self-sufficient, not dependent.
+  - contentinfo "Site footer" [ref=e112]:
+    - generic [ref=e113]:
+      - generic [ref=e114]:
+        - generic [ref=e115]:
+          - link "The Tech Deputies - Home" [ref=e116] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e117]: 🤠
+            - generic [ref=e118]: The Tech Deputies
+          - paragraph [ref=e119]: Your trusted partners for tech education and support. We help you navigate technology with confidence.
+          - generic [ref=e120]:
+            - link "Email us at hello@thetechdeputies.com" [ref=e121] [cursor=pointer]:
+              - /url: mailto:hello@thetechdeputies.com
+              - img [ref=e122]
+              - text: hello@thetechdeputies.com
+            - link "Call or Text at (916) 999-9576" [ref=e124] [cursor=pointer]:
+              - /url: tel:9169999576
+              - img [ref=e125]
+              - text: "Call or Text: (916) 999-9576"
+        - navigation "Services links" [ref=e127]:
+          - heading "Services" [level=3] [ref=e128]
+          - list [ref=e129]:
+            - listitem [ref=e130]:
+              - link "Tech Support" [ref=e131] [cursor=pointer]:
+                - /url: /services#support
+            - listitem [ref=e132]:
+              - link "Education" [ref=e133] [cursor=pointer]:
+                - /url: /courses
+            - listitem [ref=e134]:
+              - link "Subscriptions" [ref=e135] [cursor=pointer]:
+                - /url: /subscriptions
+            - listitem [ref=e136]:
+              - link "Gift Cards" [ref=e137] [cursor=pointer]:
+                - /url: /gift-certificates
+        - navigation "Company links" [ref=e138]:
+          - heading "Company" [level=3] [ref=e139]
+          - list [ref=e140]:
+            - listitem [ref=e141]:
+              - link "About Us" [ref=e142] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e143]:
+              - link "Contact" [ref=e144] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e145]:
+              - link "Book Now" [ref=e146] [cursor=pointer]:
+                - /url: /booking
+        - navigation "Legal links" [ref=e147]:
+          - heading "Legal" [level=3] [ref=e148]
+          - list [ref=e149]:
+            - listitem [ref=e150]:
+              - link "Privacy Policy" [ref=e151] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e152]:
+              - link "Terms of Service" [ref=e153] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e154]:
+              - link "Accessibility" [ref=e155] [cursor=pointer]:
+                - /url: /accessibility
+      - generic [ref=e157]:
+        - paragraph [ref=e158]: © 2026 The Tech Deputies. All rights reserved.
+        - paragraph [ref=e159]: Built with accessibility in mind.
+  - button "Open Next.js Dev Tools" [ref=e165] [cursor=pointer]:
+    - img [ref=e166]
+  - alert [ref=e169]
+```

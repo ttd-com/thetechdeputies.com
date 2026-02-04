@@ -38,7 +38,7 @@ export const DEFAULT_PLANS: PlanDefinition[] = [
     name: 'standard',
     displayName: 'Standard',
     description: 'Great for ongoing learning and regular support needs',
-    priceInCents: 9900, // $99.00
+    priceInCents: 8900, // $89.00
     tier: 'STANDARD',
     sessionLimit: 5,
     courseInclusion: 'PARTIAL',
@@ -50,7 +50,7 @@ export const DEFAULT_PLANS: PlanDefinition[] = [
     name: 'premium',
     displayName: 'Premium',
     description: 'Full access with unlimited sessions and family coverage',
-    priceInCents: 19900, // $199.00
+    priceInCents: 14900, // $149.00
     tier: 'PREMIUM',
     sessionLimit: 0, // 0 = unlimited
     courseInclusion: 'FULL',

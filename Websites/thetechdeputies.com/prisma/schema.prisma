@@ -324,6 +324,7 @@ model Booking {
   bookedAt     DateTime      @default(now()) @map("booked_at")
   cancelledAt  DateTime?     @map("cancelled_at")
   status       BookingStatus @default(CONFIRMED)
+  showOnSharedCalendar Boolean @default(true) @map("show_on_shared_calendar")
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
 

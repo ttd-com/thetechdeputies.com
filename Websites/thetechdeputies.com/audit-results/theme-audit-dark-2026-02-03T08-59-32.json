@@ -1,0 +1,782 @@
+[
+  {
+    "page": "/",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/services",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/courses",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/subscriptions",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/gift-certificates",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/about",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/contact",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/booking",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/privacy",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/terms",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/accessibility",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/dashboard",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/dashboard/subscriptions",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/dashboard/sessions",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  },
+  {
+    "page": "/dashboard/admin/calendar",
+    "theme": "dark",
+    "timestamp": "2026-02-03T08:59:32.786Z",
+    "tests": [
+      {
+        "name": "White (#ffffff) on dark (#0a0e14)",
+        "ratio": 19.34,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 120
+      },
+      {
+        "name": "Light Gray (#b4bfd9) on dark",
+        "ratio": 10.49,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 95
+      },
+      {
+        "name": "Border (#566a94) on dark (UI)",
+        "ratio": 3.58,
+        "passes7to1": false,
+        "passes3to1": true,
+        "apca": 52
+      },
+      {
+        "name": "Primary text on dark",
+        "ratio": 8.11,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      },
+      {
+        "name": "Secondary text on dark",
+        "ratio": 18.51,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 118
+      },
+      {
+        "name": "Terracotta text on dark",
+        "ratio": 8.19,
+        "passes7to1": true,
+        "passes3to1": true,
+        "apca": 85
+      }
+    ],
+    "passed": 6,
+    "total": 6,
+    "passRate": 100
+  }
+]

@@ -1,0 +1,204 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - navigation "Main navigation" [ref=e4]:
+      - link "The Tech Deputies - Home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: 🤠
+        - generic [ref=e7]: The Tech Deputies
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "View our tech support services" [ref=e10] [cursor=pointer]:
+            - /url: /services
+            - text: Services
+        - listitem [ref=e11]:
+          - link "Browse tech education courses" [ref=e12] [cursor=pointer]:
+            - /url: /courses
+            - text: Courses
+        - listitem [ref=e13]:
+          - link "Purchase gift certificates" [ref=e14] [cursor=pointer]:
+            - /url: /gift-certificates
+            - text: Gift Cards
+        - listitem [ref=e15]:
+          - link "Learn about The Tech Deputies" [ref=e16] [cursor=pointer]:
+            - /url: /about
+            - text: About
+      - generic [ref=e17]:
+        - link "Sign in to your account" [ref=e18] [cursor=pointer]:
+          - /url: /login
+          - button "Sign in to your account" [ref=e19]: Sign In
+        - link "Book a tech support session" [ref=e20] [cursor=pointer]:
+          - /url: /booking
+          - button "Book a tech support session" [ref=e21]: Book Support
+  - main "Main content" [ref=e22]:
+    - region "Subscription Plans" [ref=e23]:
+      - generic [ref=e25]:
+        - heading "Subscription Plans" [level=1] [ref=e26]
+        - paragraph [ref=e27]: Get the tech support you need, when you need it. Our subscription plans give you peace of mind and priority access to help.
+    - region "Available Plans" [ref=e28]:
+      - generic [ref=e29]:
+        - heading "Available Plans" [level=2] [ref=e30]
+        - generic [ref=e31]:
+          - generic [ref=e34]:
+            - heading "Basic" [level=3] [ref=e35]
+            - generic [ref=e36]: $49.00/month
+            - paragraph [ref=e37]: Perfect for getting started with essential tech support
+            - list [ref=e38]:
+              - listitem [ref=e39]:
+                - img [ref=e40]
+                - generic [ref=e42]: 2 sessions per month
+              - listitem [ref=e43]:
+                - img [ref=e44]
+                - generic [ref=e46]: Email support
+              - listitem [ref=e47]:
+                - img [ref=e48]
+                - generic [ref=e50]: 10% off courses
+            - button "Subscribe to Basic plan" [ref=e51]: Choose Basic
+          - generic [ref=e53]:
+            - generic [ref=e54]: Most Popular
+            - generic [ref=e55]:
+              - heading "Standard" [level=3] [ref=e56]
+              - generic [ref=e57]: $99.00/month
+              - paragraph [ref=e58]: Great for ongoing learning and regular support needs
+              - list [ref=e59]:
+                - listitem [ref=e60]:
+                  - img [ref=e61]
+                  - generic [ref=e63]: 5 sessions per month
+                - listitem [ref=e64]:
+                  - img [ref=e65]
+                  - generic [ref=e67]: Priority support
+                - listitem [ref=e68]:
+                  - img [ref=e69]
+                  - generic [ref=e71]: 20% off courses
+                - listitem [ref=e72]:
+                  - img [ref=e73]
+                  - generic [ref=e75]: 15% off gift certificates
+              - button "Subscribe to Standard plan" [ref=e76]: Choose Standard
+          - generic [ref=e79]:
+            - heading "Premium" [level=3] [ref=e80]
+            - generic [ref=e81]: $199.00/month
+            - paragraph [ref=e82]: Full access with unlimited sessions and family coverage
+            - list [ref=e83]:
+              - listitem [ref=e84]:
+                - img [ref=e85]
+                - generic [ref=e87]: Unlimited sessions
+              - listitem [ref=e88]:
+                - img [ref=e89]
+                - generic [ref=e91]: 24/7 premium support
+              - listitem [ref=e92]:
+                - img [ref=e93]
+                - generic [ref=e95]: All courses included
+              - listitem [ref=e96]:
+                - img [ref=e97]
+                - generic [ref=e99]: Family coverage (2 people)
+            - button "Subscribe to Premium plan" [ref=e100]: Choose Premium
+    - region "Why Subscribe?" [ref=e101]:
+      - generic [ref=e102]:
+        - heading "Why Subscribe?" [level=2] [ref=e103]
+        - generic [ref=e104]:
+          - generic [ref=e105]:
+            - generic [ref=e106]: 💰
+            - heading "Save Money" [level=3] [ref=e107]
+            - paragraph [ref=e108]: Subscriptions cost less than booking sessions individually.
+          - generic [ref=e109]:
+            - generic [ref=e110]: ⚡
+            - heading "Priority Access" [level=3] [ref=e111]
+            - paragraph [ref=e112]: Subscribers get priority scheduling and faster response times.
+          - generic [ref=e113]:
+            - generic [ref=e114]: 🔄
+            - heading "Flexible Plans" [level=3] [ref=e115]
+            - paragraph [ref=e116]: Upgrade, downgrade, or cancel anytime. No long-term contracts.
+          - generic [ref=e117]:
+            - generic [ref=e118]: 👨‍👩‍👧‍👦
+            - heading "Family Coverage" [level=3] [ref=e119]
+            - paragraph [ref=e120]: Premium plans include coverage for family members.
+    - region "Frequently Asked Questions" [ref=e121]:
+      - generic [ref=e122]:
+        - heading "Frequently Asked Questions" [level=2] [ref=e123]
+        - generic [ref=e124]:
+          - generic [ref=e125]:
+            - heading "Can I cancel my subscription?" [level=3] [ref=e126]
+            - paragraph [ref=e127]: Yes! You can cancel anytime. Your subscription will remain active until the end of your current billing period.
+          - generic [ref=e128]:
+            - heading "What happens to unused sessions?" [level=3] [ref=e129]
+            - paragraph [ref=e130]: Unused sessions don't roll over to the next month. We encourage you to use all your sessions - even if it's just a quick question!
+          - generic [ref=e131]:
+            - heading "Can I upgrade or downgrade my plan?" [level=3] [ref=e132]
+            - paragraph [ref=e133]: Absolutely! You can change your plan at any time. Changes take effect at the start of your next billing cycle.
+          - generic [ref=e134]:
+            - heading "Is there a contract or commitment?" [level=3] [ref=e135]
+            - paragraph [ref=e136]: No contracts! All subscriptions are month-to-month. You're free to cancel whenever you like.
+    - generic [ref=e138]:
+      - heading "Not Sure Which Plan Is Right?" [level=2] [ref=e139]
+      - paragraph [ref=e140]: Book a free consultation and we'll help you choose the best plan for your needs.
+      - link "Book a free consultation" [ref=e141] [cursor=pointer]:
+        - /url: /booking
+        - button "Book a free consultation" [ref=e142]: Book Free Consultation
+  - contentinfo "Site footer" [ref=e143]:
+    - generic [ref=e144]:
+      - generic [ref=e145]:
+        - generic [ref=e146]:
+          - link "The Tech Deputies - Home" [ref=e147] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e148]: 🤠
+            - generic [ref=e149]: The Tech Deputies
+          - paragraph [ref=e150]: Your trusted partners for tech education and support. We help you navigate technology with confidence.
+          - generic [ref=e151]:
+            - link "Email us at hello@thetechdeputies.com" [ref=e152] [cursor=pointer]:
+              - /url: mailto:hello@thetechdeputies.com
+              - img [ref=e153]
+              - text: hello@thetechdeputies.com
+            - link "Call or Text at (916) 999-9576" [ref=e155] [cursor=pointer]:
+              - /url: tel:9169999576
+              - img [ref=e156]
+              - text: "Call or Text: (916) 999-9576"
+        - navigation "Services links" [ref=e158]:
+          - heading "Services" [level=3] [ref=e159]
+          - list [ref=e160]:
+            - listitem [ref=e161]:
+              - link "Tech Support" [ref=e162] [cursor=pointer]:
+                - /url: /services#support
+            - listitem [ref=e163]:
+              - link "Education" [ref=e164] [cursor=pointer]:
+                - /url: /courses
+            - listitem [ref=e165]:
+              - link "Subscriptions" [ref=e166] [cursor=pointer]:
+                - /url: /subscriptions
+            - listitem [ref=e167]:
+              - link "Gift Cards" [ref=e168] [cursor=pointer]:
+                - /url: /gift-certificates
+        - navigation "Company links" [ref=e169]:
+          - heading "Company" [level=3] [ref=e170]
+          - list [ref=e171]:
+            - listitem [ref=e172]:
+              - link "About Us" [ref=e173] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e174]:
+              - link "Contact" [ref=e175] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e176]:
+              - link "Book Now" [ref=e177] [cursor=pointer]:
+                - /url: /booking
+        - navigation "Legal links" [ref=e178]:
+          - heading "Legal" [level=3] [ref=e179]
+          - list [ref=e180]:
+            - listitem [ref=e181]:
+              - link "Privacy Policy" [ref=e182] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e183]:
+              - link "Terms of Service" [ref=e184] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e185]:
+              - link "Accessibility" [ref=e186] [cursor=pointer]:
+                - /url: /accessibility
+      - generic [ref=e188]:
+        - paragraph [ref=e189]: © 2026 The Tech Deputies. All rights reserved.
+        - paragraph [ref=e190]: Built with accessibility in mind.
+  - button "Open Next.js Dev Tools" [ref=e196] [cursor=pointer]:
+    - img [ref=e197]
+  - alert [ref=e200]
+```

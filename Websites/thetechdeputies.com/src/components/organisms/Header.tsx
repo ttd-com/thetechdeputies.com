@@ -9,7 +9,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { Button } from "../atoms";
+import { Button, ThemeToggle } from "../atoms";
 
 export interface NavItem {
   label: string;
@@ -97,6 +97,7 @@ export function Header({
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           {isLoggedIn ? (
             <Link href="/dashboard">
               <Button variant="primary" aria-label="Go to your dashboard">
@@ -124,7 +125,9 @@ export function Header({
         </div>
 
         {/* Mobile Menu Button */}
-        <button
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
           type="button"
           className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
           onClick={toggleMobileMenu}
@@ -156,6 +159,7 @@ export function Header({
             )}
           </svg>
         </button>
+        </div>
       </nav>
 
       {/* Mobile Menu */}

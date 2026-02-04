@@ -260,6 +260,91 @@ docker compose down -v && docker compose up -d
 - **Progressive Disclosure**: Information revealed only when relevant
 - **Mobile-First**: Responsive design prioritizing mobile users
 
+---
+
+## ♿ Accessibility Standards & Testing
+
+### WCAG 2.1 Compliance Target: **AAA Level**
+
+The Tech Deputies website is built to meet **WCAG 2.1 Level AAA** standards for maximum accessibility:
+
+- **Color Contrast**: 
+  - **Normal text**: 7:1 minimum contrast ratio
+  - **Large text** (24px+ or bold 19px+): 4.5:1 minimum contrast ratio
+  - **Enhanced**: Target 7:1 for all text for maximum clarity
+  
+- **Semantic HTML**: All content uses proper HTML structure (`<nav>`, `<main>`, `<h1>-<h6>`, `<label>`, etc.)
+
+- **ARIA Labels**: All interactive elements have descriptive labels for screen reader users
+
+- **Keyboard Navigation**: All functionality accessible via keyboard only (no mouse required)
+
+- **Screen Reader Support**: Compatible with NVDA, JAWS, VoiceOver, and Chrome Vox
+
+### Accessibility Testing Tools
+
+#### Color Contrast Testing
+Use these tools to verify color contrast meets AAA standards:
+- **[Contrast Checker](https://webaim.org/resources/contrastchecker/)** - WebAIM tool (recommended)
+- **[Color Contrast App](https://colorcontrast.app/)** - Visual tool with eyedropper
+- **Chrome DevTools**: Right-click element → Inspect → Elements panel shows contrast ratios on hover
+
+**How to test**:
+1. Open the webpage
+2. Use eyedropper to get text color and background color (hex values)
+3. Enter colors into contrast checker
+4. Verify ratio meets 7:1 (AAA normal) or 4.5:1 (AAA large)
+5. Document any violations for fixing
+
+#### Automated Testing
+- **Chrome Lighthouse** (in DevTools, Accessibility tab)
+  - Target score: 90+
+  - Identifies missing alt text, poor contrast, missing labels, small tap targets
+  
+- **axe DevTools** (Chrome Extension)
+  - Deep accessibility analysis
+  - Identifies WCAG violations with fix suggestions
+  
+- **WAVE** (WebAIM, Chrome Extension)
+  - Visual feedback on accessibility issues
+  - Highlights structural problems
+
+#### Manual Testing
+- **Keyboard-only navigation**: Tab through all interactive elements
+- **Screen reader testing**: Use NVDA (Windows), VoiceOver (Mac), or Chrome Vox
+- **Browser zoom**: Test at 200% zoom to ensure layout doesn't break
+- **Color blindness**: Simulate with Chrome DevTools → Rendering → Emulate vision deficiencies
+
+### Accessibility Audit Checklist
+
+See [AUDIT_PLAN.md](AUDIT_PLAN.md) **Steps 16-20** for complete accessibility audit procedures:
+- **Step 16**: ARIA labels and semantic HTML verification
+- **Step 17**: Color contrast ratio testing (AAA level)
+- **Step 18**: Keyboard navigation testing
+- **Step 19**: Lighthouse accessibility score audit
+- **Step 20**: Screen reader testing (optional but recommended)
+
+### Common Accessibility Issues & Fixes
+
+| Issue | Problem | Solution | Test Tool |
+|-------|---------|----------|-----------|
+| Dark grey text on dark background | Poor contrast (#666 on #1a1a1a = 1.3:1) | Use darker text or lighter background | Contrast Checker |
+| Small font size | Hard to read at 200% zoom | Use 16px+ for body text, scale properly | Browser zoom to 200% |
+| Icon-only buttons | Screen readers say "button" not "close" | Add `aria-label="Close"` | Screen reader test |
+| Missing form labels | Screen readers don't associate input with label | Add `<label>` or `aria-label` | Lighthouse, axe |
+| Color-only differentiation | Color-blind users miss information | Add text label or pattern | WAVE, color blind simulator |
+| No focus visible | Can't see keyboard focus | Add focus ring CSS (outline or box-shadow) | Keyboard navigation test |
+| No alt text on images | Screen readers can't read images | Add descriptive `alt="..."` text | Lighthouse, axe |
+
+### Resources
+
+- **[WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)** - Official W3C standards
+- **[WebAIM](https://webaim.org/)** - Accessibility best practices and tools
+- **[Deque University](https://dequeuniversity.com/)** - Free accessibility training
+- **[A11y Project](https://www.a11yproject.com/)** - Community-driven accessibility resources
+
+---
+
 ## Project Structure
 
 ```

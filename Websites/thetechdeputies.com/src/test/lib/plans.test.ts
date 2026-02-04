@@ -24,8 +24,8 @@ describe('Plans Library', () => {
     it('should return plans with correct pricing', () => {
       const plans = getAllPlans();
       expect(plans[0].priceInCents).toBe(4900); // $49.00
-      expect(plans[1].priceInCents).toBe(9900); // $99.00
-      expect(plans[2].priceInCents).toBe(19900); // $199.00
+      expect(plans[1].priceInCents).toBe(8900); // $89.00
+      expect(plans[2].priceInCents).toBe(14900); // $149.00
     });
 
     it('should return plans with tier information', () => {
@@ -59,8 +59,8 @@ describe('Plans Library', () => {
   describe('formatPrice', () => {
     it('should format price in cents to dollar string', () => {
       expect(formatPrice(4900)).toBe('$49.00');
-      expect(formatPrice(9900)).toBe('$99.00');
-      expect(formatPrice(19900)).toBe('$199.00');
+      expect(formatPrice(8900)).toBe('$89.00');
+      expect(formatPrice(14900)).toBe('$149.00');
     });
 
     it('should handle single digit cents', () => {

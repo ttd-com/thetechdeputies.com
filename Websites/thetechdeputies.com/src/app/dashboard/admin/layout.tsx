@@ -12,6 +12,7 @@ interface AdminLayoutProps {
 const adminNavItems = [
     { name: 'Overview', href: '/dashboard/admin' },
     { name: 'Users', href: '/dashboard/admin/users' },
+    { name: 'Calendar', href: '/dashboard/admin/calendar' },
     { name: 'System', href: '/dashboard/admin/system' },
     { name: 'Settings', href: '/dashboard/admin/settings' },
 ];

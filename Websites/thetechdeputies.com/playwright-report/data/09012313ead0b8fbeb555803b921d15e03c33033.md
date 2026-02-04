@@ -1,0 +1,134 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - navigation "Main navigation" [ref=e4]:
+      - link "The Tech Deputies - Home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e6]: 🤠
+        - generic [ref=e7]: The Tech Deputies
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "View our tech support services" [ref=e10] [cursor=pointer]:
+            - /url: /services
+            - text: Services
+        - listitem [ref=e11]:
+          - link "Browse tech education courses" [ref=e12] [cursor=pointer]:
+            - /url: /courses
+            - text: Courses
+        - listitem [ref=e13]:
+          - link "Purchase gift certificates" [ref=e14] [cursor=pointer]:
+            - /url: /gift-certificates
+            - text: Gift Cards
+        - listitem [ref=e15]:
+          - link "Learn about The Tech Deputies" [ref=e16] [cursor=pointer]:
+            - /url: /about
+            - text: About
+      - generic [ref=e17]:
+        - link "Sign in to your account" [ref=e18] [cursor=pointer]:
+          - /url: /login
+          - button "Sign in to your account" [ref=e19]: Sign In
+        - link "Book a tech support session" [ref=e20] [cursor=pointer]:
+          - /url: /booking
+          - button "Book a tech support session" [ref=e21]: Book Support
+  - main "Main content" [ref=e22]:
+    - main [ref=e23]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - heading "Create Account" [level=1] [ref=e27]
+          - paragraph [ref=e28]: Join The Tech Deputies community
+        - alert [ref=e29]: Password must be at least 8 characters
+        - generic [ref=e30]:
+          - generic [ref=e31]:
+            - generic [ref=e32]: Full Name
+            - textbox "Full Name" [ref=e33]:
+              - /placeholder: John Doe
+              - text: Test User
+          - generic [ref=e34]:
+            - generic [ref=e35]: Email Address
+            - textbox "Email Address" [ref=e36]:
+              - /placeholder: you@example.com
+              - text: test@example.com
+          - generic [ref=e37]:
+            - generic [ref=e38]: Password
+            - textbox "Password" [ref=e39]:
+              - /placeholder: ••••••••
+              - text: short
+            - paragraph [ref=e40]: Must be at least 8 characters
+          - generic [ref=e41]:
+            - generic [ref=e42]: Confirm Password
+            - textbox "Confirm Password" [ref=e43]:
+              - /placeholder: ••••••••
+              - text: short
+          - button "Create Account" [active] [ref=e44]
+        - paragraph [ref=e46]:
+          - text: Already have an account?
+          - link "Sign in" [ref=e47] [cursor=pointer]:
+            - /url: /login
+  - contentinfo "Site footer" [ref=e48]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - link "The Tech Deputies - Home" [ref=e52] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e53]: 🤠
+            - generic [ref=e54]: The Tech Deputies
+          - paragraph [ref=e55]: Your trusted partners for tech education and support. We help you navigate technology with confidence.
+          - generic [ref=e56]:
+            - link "Email us at hello@thetechdeputies.com" [ref=e57] [cursor=pointer]:
+              - /url: mailto:hello@thetechdeputies.com
+              - img [ref=e58]
+              - text: hello@thetechdeputies.com
+            - link "Call or Text at (916) 999-9576" [ref=e60] [cursor=pointer]:
+              - /url: tel:9169999576
+              - img [ref=e61]
+              - text: "Call or Text: (916) 999-9576"
+        - navigation "Services links" [ref=e63]:
+          - heading "Services" [level=3] [ref=e64]
+          - list [ref=e65]:
+            - listitem [ref=e66]:
+              - link "Tech Support" [ref=e67] [cursor=pointer]:
+                - /url: /services#support
+            - listitem [ref=e68]:
+              - link "Education" [ref=e69] [cursor=pointer]:
+                - /url: /courses
+            - listitem [ref=e70]:
+              - link "Subscriptions" [ref=e71] [cursor=pointer]:
+                - /url: /subscriptions
+            - listitem [ref=e72]:
+              - link "Gift Cards" [ref=e73] [cursor=pointer]:
+                - /url: /gift-certificates
+        - navigation "Company links" [ref=e74]:
+          - heading "Company" [level=3] [ref=e75]
+          - list [ref=e76]:
+            - listitem [ref=e77]:
+              - link "About Us" [ref=e78] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e79]:
+              - link "Contact" [ref=e80] [cursor=pointer]:
+                - /url: /contact
+            - listitem [ref=e81]:
+              - link "Book Now" [ref=e82] [cursor=pointer]:
+                - /url: /booking
+        - navigation "Legal links" [ref=e83]:
+          - heading "Legal" [level=3] [ref=e84]
+          - list [ref=e85]:
+            - listitem [ref=e86]:
+              - link "Privacy Policy" [ref=e87] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e88]:
+              - link "Terms of Service" [ref=e89] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e90]:
+              - link "Accessibility" [ref=e91] [cursor=pointer]:
+                - /url: /accessibility
+      - generic [ref=e93]:
+        - paragraph [ref=e94]: © 2026 The Tech Deputies. All rights reserved.
+        - paragraph [ref=e95]: Built with accessibility in mind.
+  - button "Open Next.js Dev Tools" [ref=e101] [cursor=pointer]:
+    - img [ref=e102]
+  - alert [ref=e105]
+```
